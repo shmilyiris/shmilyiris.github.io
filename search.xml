@@ -3,7 +3,8 @@
   <entry>
     <title>Javascript学习笔记</title>
     <url>/2020/06/30/Javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>昨天刚刚搭建了自己的博客，这也算是自己写的第一个blog吧（正好也是第一次markdown，顺便感受一下哈哈）。最近刚刚学习到前端的相关知识，在<a href="https://github.com/freeCodeCamp/freeCodeCamp" target="_blank" rel="noopener">FreeCodeCamp</a>上练习<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/" target="_blank" rel="noopener">Basic Javascript</a>和<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/es6/" target="_blank" rel="noopener">Es 6</a>的基础知识，知识体系有点混乱，这篇笔记也是帮助自己理清一下思路。那么就让我开始吧~（麦子式破音）</p>
+    <content><![CDATA[<p>　　昨天刚刚搭建了自己的博客，这也算是自己写的第一个blog吧（正好也是第一次markdown，顺便感受一下哈哈）。</p>
+<p>　　最近刚刚学习到前端的相关知识，在<a href="https://github.com/freeCodeCamp/freeCodeCamp" target="_blank" rel="noopener">FreeCodeCamp</a>上练习<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/" target="_blank" rel="noopener">Basic Javascript</a>和<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/es6/" target="_blank" rel="noopener">Es 6</a>的基础知识，知识体系有点混乱，这篇笔记也是帮助自己理清一下思路。那么就让我开始吧~（麦子式破音）</p>
 <a id="more"></a>
 
 <h2 id="Basic-javascript"><a href="#Basic-javascript" class="headerlink" title="Basic javascript"></a>Basic javascript</h2><p><em>注：不按系统知识记，只记录自己不熟的知识点</em></p>
@@ -14,8 +15,8 @@
 <li>pop()用来抛出数组的末尾数据，同时还可以将该数据赋给一个变量</li>
 <li>shift()抛出第一个数据，其他和pop()一样</li>
 <li>unshift()将该数据移到数组的开头</li>
-<li><em>用这些方法能够很容易的实现经典的数据结构–堆栈*</em></li>
 </ul>
+<p><strong>用这些方法能够很容易的实现经典的数据结构–堆栈</strong></p>
 <h3 id="3、对象（python的字典）"><a href="#3、对象（python的字典）" class="headerlink" title="3、对象（python的字典）"></a>3、对象（python的字典）</h3><h4 id="3-1-访问方式"><a href="#3-1-访问方式" class="headerlink" title="3.1 访问方式"></a>3.1 访问方式</h4><h5 id="中括号访问"><a href="#中括号访问" class="headerlink" title="中括号访问"></a>中括号访问</h5><p>中括号访问可以进行多层寻找，而且中间的属性名称可以是来自于某个变量的值，例如：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> johnsonOneOfTheSportHobby;</span><br><span class="line"><span class="keyword">var</span> myInfo=&#123;</span><br><span class="line">    name: <span class="string">"Johnson"</span>,</span><br><span class="line">    sex: <span class="string">"male"</span>,</span><br><span class="line">    hobby_sport: &#123;<span class="string">"basketball"</span>, <span class="string">"swimming"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">johnsonOneOfTheSportHobby = myInfo[hobby_sport][<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
 <h5 id="点操作符访问"><a href="#点操作符访问" class="headerlink" title="点操作符访问"></a>点操作符访问</h5><p>点操作符的使用场景比较局限。只有属性名称已知的话，才可以使用点操作符，<strong>变量名+点操作符访问变量的操作不合法</strong>，例如：</p>
