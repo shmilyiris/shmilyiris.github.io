@@ -28,7 +28,7 @@
 <meta property="og:description" content="绕不开的malloc和freeC没有虚浮的new关键字，只能用使用起来不是很直观的malloc关键字进行内存分配。 malloc函数声明1void *malloc(int size); 声明：malloc向系统申请分配指定size个字节的内存空间。返回类型是 void* 类型。void* 表示未确定类型的指针。C,C++规定，void* 类型可以强制转换为任何其它类型的指针。 malloc函数标">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-04T03:37:40.000Z">
-<meta property="article:modified_time" content="2020-07-04T05:11:16.767Z">
+<meta property="article:modified_time" content="2020-07-04T14:50:29.833Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
@@ -213,7 +213,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-04 11:37:40 / 修改时间：13:11:16" itemprop="dateCreated datePublished" datetime="2020-07-04T11:37:40+08:00">2020-07-04</time>
+              <time title="创建时间：2020-07-04 11:37:40 / 修改时间：22:50:29" itemprop="dateCreated datePublished" datetime="2020-07-04T11:37:40+08:00">2020-07-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -271,7 +271,7 @@
 <td align="center">$O(n)$</td>
 </tr>
 </tbody></table>
-<h3 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitList</span><span class="params">(SLNode * * head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((*head=(SLNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SLNode)))==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    (*head)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitList</span><span class="params">(SLNode **head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((*head=(SLNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SLNode)))==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    (*head)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="统计元素个数-核心思想"><a href="#统计元素个数-核心思想" class="headerlink" title="统计元素个数(核心思想)"></a>统计元素个数(核心思想)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(p-&gt;next!=null)&#123;</span><br><span class="line">    <span class="built_in">size</span>++;</span><br><span class="line">    p = p-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

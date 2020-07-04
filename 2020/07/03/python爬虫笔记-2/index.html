@@ -28,7 +28,7 @@
 <meta property="og:description" content="主要介绍python的第三方库BS4库的应用场景。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-03T03:38:31.000Z">
-<meta property="article:modified_time" content="2020-07-03T14:06:08.181Z">
+<meta property="article:modified_time" content="2020-07-04T10:02:59.368Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-03 11:38:31 / 修改时间：22:06:08" itemprop="dateCreated datePublished" datetime="2020-07-03T11:38:31+08:00">2020-07-03</time>
+              <time title="创建时间：2020-07-03 11:38:31" itemprop="dateCreated datePublished" datetime="2020-07-03T11:38:31+08:00">2020-07-03</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-04 18:02:59" itemprop="dateModified" datetime="2020-07-04T18:02:59+08:00">2020-07-04</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -345,9 +351,42 @@
 <p>迭代类型的上行遍历：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> demoSoup.a.next_siblings:  <span class="comment"># or previous_siblings</span></span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
 
-<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soup.prettify()</span><br></pre></td></tr></table></figure>
-
-<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。<br>|属性|说明|<br>|:–:|:–:|<br>|<code>name</code>|对标签名称的检索字符串|<br>|<code>attrs</code>|对标签属性值的检索字符串，可标注属性检索|<br>|<code>recursive</code>|是否对子孙全部检索，默认True|<br>|<code>string</code>|&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串|</p>
+<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><p><code>soup.prettify()</code></p>
+<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>name</code></td>
+<td align="center">对标签名称的检索字符串</td>
+</tr>
+<tr>
+<td align="center"><code>attrs</code></td>
+<td align="center">对标签属性值的检索字符串，可标注属性检索</td>
+</tr>
+<tr>
+<td align="center"><code>recursive</code></td>
+<td align="center">是否对子孙全部检索，默认True</td>
+</tr>
+<tr>
+<td align="center"><code>string</code></td>
+<td align="center">&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串</td>
+</tr>
+</tbody></table>
+<h3 id="实例：全球大学学术排名"><a href="#实例：全球大学学术排名" class="headerlink" title="实例：全球大学学术排名"></a>实例：全球大学学术排名</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> bs4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"爬取失败"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fillUnivList</span><span class="params">(ulist, html)</span>:</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="keyword">for</span> tr <span class="keyword">in</span> soup.find(<span class="string">'tbody'</span>).children:</span><br><span class="line">        <span class="keyword">if</span> isinstance(tr, bs4.element.Tag):  <span class="comment"># Tag是bs4定义的标签类型</span></span><br><span class="line">            tds = tr(<span class="string">'td'</span>)</span><br><span class="line">            ulist.append([tds[<span class="number">0</span>].string, tds[<span class="number">1</span>].string, tds[<span class="number">4</span>].string])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printUnivList</span><span class="params">(ulist, num)</span>:</span></span><br><span class="line">    tplt1 = <span class="string">"&#123;0:^10&#125;\t&#123;1:^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    tplt2 = <span class="string">"&#123;0:^10&#125;\t&#123;1:&#123;3&#125;^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    print(<span class="string">"全球大学学术排名情况\n"</span>)</span><br><span class="line">    ls = [<span class="string">"排名"</span>,<span class="string">"学校名称"</span>,<span class="string">"得分"</span>]</span><br><span class="line">    print(tplt1.format(ls[<span class="number">0</span>], ls[<span class="number">1</span>], ls[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">        u = ulist[i]</span><br><span class="line">        print(tplt2.format(u[<span class="number">0</span>], u[<span class="number">1</span>], u[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    uinfo = []</span><br><span class="line">    url = <span class="string">"http://www.zuihaodaxue.cn/ARWU2019.html"</span></span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    fillUnivList(uinfo, html)</span><br><span class="line">    printUnivList(uinfo, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p>涉及知识点：</p>
+<ul>
+<li>下行遍历<ol>
+<li>遍历tsbody中的tr，并依次输出每个tr下的td</li>
+<li>遍历时不只有td这样的标签，还会有像<code>navigablestring</code>..所以要先check是否是bs4定义的标签类型</li>
+</ol>
+</li>
+<li>中文对齐–char(12288)来控制中文对齐</li>
+</ul>
 
     </div>
 
@@ -431,7 +470,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BS4库"><span class="nav-number">1.</span> <span class="nav-text">BS4库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标签树的遍历"><span class="nav-number">1.1.</span> <span class="nav-text">标签树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下行遍历"><span class="nav-number">1.1.1.</span> <span class="nav-text">下行遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上行遍历"><span class="nav-number">1.1.2.</span> <span class="nav-text">上行遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平行遍历"><span class="nav-number">1.1.3.</span> <span class="nav-text">平行遍历</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#美化标签"><span class="nav-number">1.2.</span> <span class="nav-text">美化标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息提取方法"><span class="nav-number">1.3.</span> <span class="nav-text">信息提取方法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BS4库"><span class="nav-number">1.</span> <span class="nav-text">BS4库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标签树的遍历"><span class="nav-number">1.1.</span> <span class="nav-text">标签树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下行遍历"><span class="nav-number">1.1.1.</span> <span class="nav-text">下行遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上行遍历"><span class="nav-number">1.1.2.</span> <span class="nav-text">上行遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平行遍历"><span class="nav-number">1.1.3.</span> <span class="nav-text">平行遍历</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#美化标签"><span class="nav-number">1.2.</span> <span class="nav-text">美化标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息提取方法"><span class="nav-number">1.3.</span> <span class="nav-text">信息提取方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：全球大学学术排名"><span class="nav-number">2.</span> <span class="nav-text">实例：全球大学学术排名</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
