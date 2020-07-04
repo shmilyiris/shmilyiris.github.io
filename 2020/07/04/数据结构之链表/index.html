@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="主要介绍python的第三方库BS4库的应用场景。">
+  <meta name="description" content="绕不开的malloc和freeC没有虚浮的new关键字，只能用使用起来不是很直观的malloc关键字进行内存分配。 malloc函数声明1void *malloc(int size); 声明：malloc向系统申请分配指定size个字节的内存空间。返回类型是 void* 类型。void* 表示未确定类型的指针。C,C++规定，void* 类型可以强制转换为任何其它类型的指针。 malloc函数标">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python爬虫笔记_2">
-<meta property="og:url" content="http://yoursite.com/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/index.html">
+<meta property="og:title" content="数据结构之链表">
+<meta property="og:url" content="http://yoursite.com/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/index.html">
 <meta property="og:site_name" content="今天你Coding了吗?">
-<meta property="og:description" content="主要介绍python的第三方库BS4库的应用场景。">
+<meta property="og:description" content="绕不开的malloc和freeC没有虚浮的new关键字，只能用使用起来不是很直观的malloc关键字进行内存分配。 malloc函数声明1void *malloc(int size); 声明：malloc向系统申请分配指定size个字节的内存空间。返回类型是 void* 类型。void* 表示未确定类型的指针。C,C++规定，void* 类型可以强制转换为任何其它类型的指针。 malloc函数标">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-07-03T03:38:31.000Z">
-<meta property="article:modified_time" content="2020-07-03T14:06:08.181Z">
+<meta property="article:published_time" content="2020-07-04T03:37:40.000Z">
+<meta property="article:modified_time" content="2020-07-04T05:11:16.767Z">
 <meta property="article:author" content="Michael Johnson">
-<meta property="article:tag" content="Python">
+<meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/">
+<link rel="canonical" href="http://yoursite.com/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>python爬虫笔记_2 | 今天你Coding了吗?</title>
+  <title>数据结构之链表 | 今天你Coding了吗?</title>
   
 
 
@@ -189,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/%E7%A8%8B%E5%BA%8F%E7%8C%BF.jpg">
@@ -202,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          python爬虫笔记_2
+          数据结构之链表
         </h1>
 
         <div class="post-meta">
@@ -213,7 +213,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-07-03 11:38:31 / 修改时间：22:06:08" itemprop="dateCreated datePublished" datetime="2020-07-03T11:38:31+08:00">2020-07-03</time>
+              <time title="创建时间：2020-07-04 11:37:40 / 修改时间：13:11:16" itemprop="dateCreated datePublished" datetime="2020-07-04T11:37:40+08:00">2020-07-04</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,12 +221,12 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">python笔记</span></a>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">数据结构笔记</span></a>
                 </span>
             </span>
 
           
-            <span id="/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/" class="post-meta-item leancloud_visitors" data-flag-title="python爬虫笔记_2" title="阅读次数">
+            <span id="/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/" class="post-meta-item leancloud_visitors" data-flag-title="数据结构之链表" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -243,111 +243,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>主要介绍python的第三方库BS4库的应用场景。</p>
-<a id="more"></a>
-<h3 id="BS4库"><a href="#BS4库" class="headerlink" title="BS4库"></a>BS4库</h3><p>BS4库主要用于<strong>HTML页面的解析</strong>。是解析、遍历、维护“标签树”的功能库。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">demo = requests.get(url).text</span><br><span class="line">soup = BeautifulSoup(demo, <span class="string">"html.parser"</span>)</span><br></pre></td></tr></table></figure>
-<p><code>soup</code>便承载了解析后的<code>标签树</code>。</p>
-<table>
+        <a id="more"></a>
+<h2 id="绕不开的malloc和free"><a href="#绕不开的malloc和free" class="headerlink" title="绕不开的malloc和free"></a>绕不开的malloc和free</h2><p>C没有虚浮的<code>new</code>关键字，只能用使用起来不是很直观的<code>malloc</code>关键字进行内存分配。</p>
+<h3 id="malloc"><a href="#malloc" class="headerlink" title="malloc"></a>malloc</h3><h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(<span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>声明：<code>malloc</code>向系统申请分配指定<code>size</code>个字节的内存空间。返回类型是 <code>void*</code> 类型。<code>void*</code> 表示未确定类型的指针。C,C++规定，<code>void*</code> 类型可以强制转换为<strong>任何其它类型的指针</strong>。</p>
+<h4 id="malloc函数标准用法"><a href="#malloc函数标准用法" class="headerlink" title="malloc函数标准用法"></a>malloc函数标准用法</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 以申请一个链表SLNode数据为例，此处head已经声明过，为SLNode的二级指针</span></span><br><span class="line"><span class="keyword">if</span> ((*head=(SLNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SLNode)))==<span class="literal">NULL</span>)</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 申请一段连续的内存空间</span></span><br><span class="line"><span class="keyword">int</span>* p = (<span class="keyword">int</span> *) <span class="built_in">malloc</span> ( <span class="keyword">sizeof</span>(<span class="keyword">int</span>) * <span class="number">100</span> );</span><br></pre></td></tr></table></figure>
+
+<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><h4 id="函数声明-1"><a href="#函数声明-1" class="headerlink" title="函数声明"></a>函数声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">free</span><span class="params">(<span class="keyword">void</span> *block)</span></span>;</span><br><span class="line"><span class="comment">// 即 void free(指针变量)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="链表数据结构"><a href="#链表数据结构" class="headerlink" title="链表数据结构"></a>链表数据结构</h2><h3 id="链表vs顺序表"><a href="#链表vs顺序表" class="headerlink" title="链表vs顺序表"></a>链表vs顺序表</h3><table>
 <thead>
 <tr>
-<th align="center">基本元素</th>
-<th align="center">说明</th>
+<th align="center"></th>
+<th align="center">顺序表</th>
+<th align="center">链表</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">Tag</td>
-<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;和&lt;/&gt;标明开头和结尾</td>
+<td align="center">增删改</td>
+<td align="center">$O(n)$</td>
+<td align="center">$O(1)$</td>
 </tr>
 <tr>
-<td align="center">Name</td>
-<td align="center">标签的名字，格式：<code>&lt;tag&gt;.name</code></td>
-</tr>
-<tr>
-<td align="center">Attributes</td>
-<td align="center">标签的属性，字典形式组织，格式：<code>&lt;tag&gt;.attrs</code></td>
-</tr>
-<tr>
-<td align="center">NavigableString</td>
-<td align="center">标签内非属性字符串，格式：<code>&lt;tag&gt;.string</code></td>
-</tr>
-<tr>
-<td align="center">Comment</td>
-<td align="center">标签内字符串的注释部分，一种特殊的Comment类型</td>
+<td align="center">访问</td>
+<td align="center">$O(1)$</td>
+<td align="center">$O(n)$</td>
 </tr>
 </tbody></table>
-<h4 id="标签树的遍历"><a href="#标签树的遍历" class="headerlink" title="标签树的遍历"></a>标签树的遍历</h4><h5 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.contents</code></td>
-<td align="center">子节点的列表，将<code>&lt;tag&gt;</code>所有儿子节点存入列表</td>
-</tr>
-<tr>
-<td align="center"><code>.children</code></td>
-<td align="center">子节点的迭代类型，与<code>contents</code>类似，用于循环遍历儿子节点</td>
-</tr>
-<tr>
-<td align="center"><code>.descendants</code></td>
-<td align="center">子孙节点的迭代类型，包含所有子孙节点</td>
-</tr>
-</tbody></table>
-<p>迭代类型的下行遍历：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> demoSoup.body.children: <span class="comment"># descendants是子孙结点</span></span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure>
+<h3 id="单链表操作"><a href="#单链表操作" class="headerlink" title="单链表操作"></a>单链表操作</h3><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InitList</span><span class="params">(SLNode * * head)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((*head=(SLNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SLNode)))==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">1</span>);</span><br><span class="line">    (*head)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.parent</code></td>
-<td align="center">节点的父亲标签</td>
-</tr>
-<tr>
-<td align="center"><code>.parents</code></td>
-<td align="center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
-</tr>
-</tbody></table>
-<p>迭代类型的上行遍历：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> demoSoup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br></pre></td></tr></table></figure>
+<h4 id="统计元素个数-核心思想"><a href="#统计元素个数-核心思想" class="headerlink" title="统计元素个数(核心思想)"></a>统计元素个数(核心思想)</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(p-&gt;next!=null)&#123;</span><br><span class="line">    <span class="built_in">size</span>++;</span><br><span class="line">    p = p-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.next_sibling</code></td>
-<td align="center">返回按照HTML文本顺序的下一个平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.previous_sibling</code></td>
-<td align="center">返回按照HTML文本顺序的上一个平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.next_siblings</code></td>
-<td align="center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.previous_siblings</code></td>
-<td align="center">迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
-</tr>
-</tbody></table>
-<p>迭代类型的上行遍历：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> demoSoup.a.next_siblings:  <span class="comment"># or previous_siblings</span></span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
+<h4 id="查找算法-略"><a href="#查找算法-略" class="headerlink" title="查找算法(略)"></a>查找算法(略)</h4><h4 id="添加算法"><a href="#添加算法" class="headerlink" title="添加算法"></a>添加算法</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">q-&gt;next = p-&gt;next;</span><br><span class="line">p-&gt;next = q;</span><br></pre></td></tr></table></figure>
+<h4 id="删除算法"><a href="#删除算法" class="headerlink" title="删除算法"></a>删除算法</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p-&gt;next = q-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(q)</span><br></pre></td></tr></table></figure>
 
-<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">soup.prettify()</span><br></pre></td></tr></table></figure>
 
-<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。<br>|属性|说明|<br>|:–:|:–:|<br>|<code>name</code>|对标签名称的检索字符串|<br>|<code>attrs</code>|对标签属性值的检索字符串，可标注属性检索|<br>|<code>recursive</code>|是否对子孙全部检索，默认True|<br>|<code>string</code>|&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串|</p>
 
     </div>
 
@@ -357,7 +288,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/C/" rel="tag"># C</a>
           </div>
 
         
@@ -366,12 +297,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/07/02/LeetCode%E6%97%A5%E8%AE%B0/" rel="prev" title="LeetCode日记">
-      <i class="fa fa-chevron-left"></i> LeetCode日记
+    <a href="/2020/07/04/2020%E6%9A%91%E5%81%87%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E5%AD%A6%E4%B9%A0/" rel="prev" title="2020暑假第一阶段学习">
+      <i class="fa fa-chevron-left"></i> 2020暑假第一阶段学习
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/07/04/2020%E6%9A%91%E5%81%87%E7%AC%AC%E4%B8%80%E9%98%B6%E6%AE%B5%E5%AD%A6%E4%B9%A0/" rel="next" title="2020暑假第一阶段学习">
-      2020暑假第一阶段学习 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A0%86%E6%A0%88/" rel="next" title="数据结构之堆栈">
+      数据结构之堆栈 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -431,7 +362,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#BS4库"><span class="nav-number">1.</span> <span class="nav-text">BS4库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#标签树的遍历"><span class="nav-number">1.1.</span> <span class="nav-text">标签树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下行遍历"><span class="nav-number">1.1.1.</span> <span class="nav-text">下行遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上行遍历"><span class="nav-number">1.1.2.</span> <span class="nav-text">上行遍历</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#平行遍历"><span class="nav-number">1.1.3.</span> <span class="nav-text">平行遍历</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#美化标签"><span class="nav-number">1.2.</span> <span class="nav-text">美化标签</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息提取方法"><span class="nav-number">1.3.</span> <span class="nav-text">信息提取方法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#绕不开的malloc和free"><span class="nav-number">1.</span> <span class="nav-text">绕不开的malloc和free</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc"><span class="nav-number">1.1.</span> <span class="nav-text">malloc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明"><span class="nav-number">1.1.1.</span> <span class="nav-text">函数声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc函数标准用法"><span class="nav-number">1.1.2.</span> <span class="nav-text">malloc函数标准用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">1.2.</span> <span class="nav-text">free</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">函数声明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表数据结构"><span class="nav-number">2.</span> <span class="nav-text">链表数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表vs顺序表"><span class="nav-number">2.1.</span> <span class="nav-text">链表vs顺序表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单链表操作"><span class="nav-number">2.2.</span> <span class="nav-text">单链表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计元素个数-核心思想"><span class="nav-number">2.2.2.</span> <span class="nav-text">统计元素个数(核心思想)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找算法-略"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找算法(略)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">添加算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除算法"><span class="nav-number">2.2.5.</span> <span class="nav-text">删除算法</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
