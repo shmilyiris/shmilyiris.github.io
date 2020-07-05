@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="绕不开的malloc和freeC没有虚浮的new关键字，只能用使用起来不是很直观的malloc关键字进行内存分配。 malloc函数声明1void *malloc(int size); 声明：malloc向系统申请分配指定size个字节的内存空间。返回类型是 void* 类型。void* 表示未确定类型的指针。C,C++规定，void* 类型可以强制转换为任何其它类型的指针。 malloc函数标">
+  <meta name="description" content="链表的内容非常非常的基础，快速回顾~">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数据结构之链表">
 <meta property="og:url" content="http://yoursite.com/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/index.html">
 <meta property="og:site_name" content="今天你Coding了吗?">
-<meta property="og:description" content="绕不开的malloc和freeC没有虚浮的new关键字，只能用使用起来不是很直观的malloc关键字进行内存分配。 malloc函数声明1void *malloc(int size); 声明：malloc向系统申请分配指定size个字节的内存空间。返回类型是 void* 类型。void* 表示未确定类型的指针。C,C++规定，void* 类型可以强制转换为任何其它类型的指针。 malloc函数标">
+<meta property="og:description" content="链表的内容非常非常的基础，快速回顾~">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-04T03:37:40.000Z">
-<meta property="article:modified_time" content="2020-07-04T14:50:29.833Z">
+<meta property="article:modified_time" content="2020-07-04T16:24:51.812Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
@@ -211,10 +211,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-07-04 11:37:40 / 修改时间：22:50:29" itemprop="dateCreated datePublished" datetime="2020-07-04T11:37:40+08:00">2020-07-04</time>
+              <time title="创建时间：2020-07-04 11:37:40" itemprop="dateCreated datePublished" datetime="2020-07-04T11:37:40+08:00">2020-07-04</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-05 00:24:51" itemprop="dateModified" datetime="2020-07-05T00:24:51+08:00">2020-07-05</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -243,7 +249,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <a id="more"></a>
+        <p>链表的内容非常非常的基础，快速回顾~</p>
+<a id="more"></a>
 <h2 id="绕不开的malloc和free"><a href="#绕不开的malloc和free" class="headerlink" title="绕不开的malloc和free"></a>绕不开的malloc和free</h2><p>C没有虚浮的<code>new</code>关键字，只能用使用起来不是很直观的<code>malloc</code>关键字进行内存分配。</p>
 <h3 id="malloc"><a href="#malloc" class="headerlink" title="malloc"></a>malloc</h3><h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(<span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>声明：<code>malloc</code>向系统申请分配指定<code>size</code>个字节的内存空间。返回类型是 <code>void*</code> 类型。<code>void*</code> 表示未确定类型的指针。C,C++规定，<code>void*</code> 类型可以强制转换为<strong>任何其它类型的指针</strong>。</p>
@@ -378,7 +385,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

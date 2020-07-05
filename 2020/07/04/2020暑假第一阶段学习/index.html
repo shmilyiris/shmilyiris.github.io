@@ -28,7 +28,7 @@
 <meta property="og:description" content="这是个大二升大三的关键暑假，下学期各类与计算机专业无关的课真的烦，必须要再这个暑假抽出时间来学习计算机。我暑期的学习目标就是完成并巩固基础课的学习并以兴趣带动学习完成一个小项目(暂定前端开发)。这个文档来规划和督促我的这个第一阶段的学习。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-03T16:11:12.000Z">
-<meta property="article:modified_time" content="2020-07-04T16:20:15.887Z">
+<meta property="article:modified_time" content="2020-07-05T15:34:14.341Z">
 <meta property="article:author" content="Michael Johnson">
 <meta name="twitter:card" content="summary">
 
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-05 00:20:15" itemprop="dateModified" datetime="2020-07-05T00:20:15+08:00">2020-07-05</time>
+                <time title="修改时间：2020-07-05 23:34:14" itemprop="dateModified" datetime="2020-07-05T23:34:14+08:00">2020-07-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -371,7 +371,7 @@
 </ul>
 <h5 id="日记"><a href="#日记" class="headerlink" title="日记"></a>日记</h5><p>今天购买了<strong>机器学习实战</strong>这本书，当作这个暑假的入门教材来读！可以在2、3阶段重点学习一下经典的代码实现。</p>
 <h6 id="时间线"><a href="#时间线" class="headerlink" title="时间线"></a>时间线</h6><p>8:00~9:00，刷了两道Leetcode。分别是<a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">求x的平方根</a>和<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener">删除排序链表中的重复元素</a>，都比较简单。前者运用基本不等式，后者是逻辑简单的遍历链表。</p>
-<p>9:00~10:30，学习了操作系统的有关内存这部分的内容。主要搞清楚了逻辑地址和物理地址的生成方法，以及os在这之中到底起到了什么样的作用。除此以外，内存分层结构也体现了计算机存储数据的一个层次关系（从CPU到物理内存到磁盘，容量正三角，速度倒三角）。最后就是有关内存分配的内存碎片的处理的简单知识。</p>
+<p>9:00~10:30，学习了操作系统的有关内存这部分的内容。主要搞清楚了逻辑地址和物理地址的生成方法，以及os在这之中到底起到了什么样的作用。除此以外，内存分层结构也体现了计算机存储数据的一个层次关系（从CPU到物理内存到磁盘，容量正三角，速度倒三角）。最后就是有关连续内存分配的内存碎片的处理的简单知识。</p>
 <p>附上7.3的重点：</p>
 <ul>
 <li>BIOS,bootloader,os在启动过程中的行为和作用</li>
@@ -397,6 +397,23 @@
 <p>22:00~23:00，完成了Leetcode上的<a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">删除链表的倒数第n个节点</a>，算是一个对今天链表复习的巩固。而且又一次遇到了双指针，下次我一定能想出来双指针。</p>
 <h6 id="今日感悟"><a href="#今日感悟" class="headerlink" title="今日感悟"></a>今日感悟</h6><p>以后Leetcode上刷题，要刷今天学的知识，就当是巩固啦~</p>
 <hr>
+<h4 id="7-5"><a href="#7-5" class="headerlink" title="7.5"></a>7.5</h4><p>今天比昨天懒了许多，这才第二天啊，反省！</p>
+<h5 id="小笔记-1"><a href="#小笔记-1" class="headerlink" title="小笔记"></a>小笔记</h5><p>地址空间是操作系统如何跟踪分配给每个程序的内存的方式。</p>
+<p>内存空间是堆中的实际物理内存。</p>
+<p>地址空间映射到内存空间，当程序终止时，内存空间被释放回堆。</p>
+<p>地址空间是虚拟的，也称为虚拟内存。</p>
+<p>虚拟内存给人的印象是计算机内存很大，但是它一直在重复使用内存空间。</p>
+<h5 id="时间线-1"><a href="#时间线-1" class="headerlink" title="时间线"></a>时间线</h5><p>9:30~11:30，学习了操作系统非连续内存分配这部分内容。将之前学过的分段和分页机制尤其是<strong>分页机制的如何将逻辑地址空间映射到物理地址空间</strong>这方面搞得很明白了。关键的几个流程图都记在了Goodnotes上，课下要经常翻阅这部分的内容。</p>
+<ul>
+<li>分段机制</li>
+<li>分页机制</li>
+<li>页寻址机制</li>
+<li><a href="https://blog.csdn.net/qq_37924084/article/details/78360003" target="_blank" rel="noopener">分段与分页</a></li>
+</ul>
+<p>13:00~15:00, 继续动态规划，掌握了动态规划3问题中的两个：最值问题、计数问题，并完成了两个实例。</p>
+<p>16:00~17:00，爬虫的正则表达式库的学习，掌握了正则表达式的语法。还未进入re库的学习。</p>
+<p>19:30~20:30，继续学习了一小部分Vue的内容。还未感受到Vue的简单之处，可能是之前并未做过类似的前端大作业，对原来直接操作DOM和现在这种挂载的方式并未感受到其强大。</p>
+<p>21:00<del>22:00，Leetcode做了一道动态规划的题，正好遇到了一个明天要学的题，按照思路做出来了，明天看完那位大神的教程之后再写这个Leetcode的总结\</del></p>
 
     </div>
 
@@ -477,7 +494,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事项交代"><span class="nav-number">1.</span> <span class="nav-text">事项交代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暑期学习表（不断更新）"><span class="nav-number">1.1.</span> <span class="nav-text">暑期学习表（不断更新）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#该阶段主要目标"><span class="nav-number">1.2.</span> <span class="nav-text">该阶段主要目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志部分"><span class="nav-number">2.</span> <span class="nav-text">日志部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4"><span class="nav-number">2.1.</span> <span class="nav-text">7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记"><span class="nav-number">2.1.1.</span> <span class="nav-text">小笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HTML-DOM节点"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">HTML DOM节点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日记"><span class="nav-number">2.1.2.</span> <span class="nav-text">日记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#时间线"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">时间线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#今日感悟"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">今日感悟</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事项交代"><span class="nav-number">1.</span> <span class="nav-text">事项交代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暑期学习表（不断更新）"><span class="nav-number">1.1.</span> <span class="nav-text">暑期学习表（不断更新）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#该阶段主要目标"><span class="nav-number">1.2.</span> <span class="nav-text">该阶段主要目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志部分"><span class="nav-number">2.</span> <span class="nav-text">日志部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4"><span class="nav-number">2.1.</span> <span class="nav-text">7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记"><span class="nav-number">2.1.1.</span> <span class="nav-text">小笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HTML-DOM节点"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">HTML DOM节点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日记"><span class="nav-number">2.1.2.</span> <span class="nav-text">日记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#时间线"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">时间线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#今日感悟"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">今日感悟</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5"><span class="nav-number">2.2.</span> <span class="nav-text">7.5</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">小笔记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间线-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">时间线</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -493,7 +510,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

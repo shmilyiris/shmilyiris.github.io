@@ -126,7 +126,7 @@
 </ul>
 <h5 id="日记"><a href="#日记" class="headerlink" title="日记"></a>日记</h5><p>今天购买了<strong>机器学习实战</strong>这本书，当作这个暑假的入门教材来读！可以在2、3阶段重点学习一下经典的代码实现。</p>
 <h6 id="时间线"><a href="#时间线" class="headerlink" title="时间线"></a>时间线</h6><p>8:00~9:00，刷了两道Leetcode。分别是<a href="https://leetcode-cn.com/problems/sqrtx/" target="_blank" rel="noopener">求x的平方根</a>和<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener">删除排序链表中的重复元素</a>，都比较简单。前者运用基本不等式，后者是逻辑简单的遍历链表。</p>
-<p>9:00~10:30，学习了操作系统的有关内存这部分的内容。主要搞清楚了逻辑地址和物理地址的生成方法，以及os在这之中到底起到了什么样的作用。除此以外，内存分层结构也体现了计算机存储数据的一个层次关系（从CPU到物理内存到磁盘，容量正三角，速度倒三角）。最后就是有关内存分配的内存碎片的处理的简单知识。</p>
+<p>9:00~10:30，学习了操作系统的有关内存这部分的内容。主要搞清楚了逻辑地址和物理地址的生成方法，以及os在这之中到底起到了什么样的作用。除此以外，内存分层结构也体现了计算机存储数据的一个层次关系（从CPU到物理内存到磁盘，容量正三角，速度倒三角）。最后就是有关连续内存分配的内存碎片的处理的简单知识。</p>
 <p>附上7.3的重点：</p>
 <ul>
 <li>BIOS,bootloader,os在启动过程中的行为和作用</li>
@@ -152,6 +152,23 @@
 <p>22:00~23:00，完成了Leetcode上的<a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">删除链表的倒数第n个节点</a>，算是一个对今天链表复习的巩固。而且又一次遇到了双指针，下次我一定能想出来双指针。</p>
 <h6 id="今日感悟"><a href="#今日感悟" class="headerlink" title="今日感悟"></a>今日感悟</h6><p>以后Leetcode上刷题，要刷今天学的知识，就当是巩固啦~</p>
 <hr>
+<h4 id="7-5"><a href="#7-5" class="headerlink" title="7.5"></a>7.5</h4><p>今天比昨天懒了许多，这才第二天啊，反省！</p>
+<h5 id="小笔记-1"><a href="#小笔记-1" class="headerlink" title="小笔记"></a>小笔记</h5><p>地址空间是操作系统如何跟踪分配给每个程序的内存的方式。</p>
+<p>内存空间是堆中的实际物理内存。</p>
+<p>地址空间映射到内存空间，当程序终止时，内存空间被释放回堆。</p>
+<p>地址空间是虚拟的，也称为虚拟内存。</p>
+<p>虚拟内存给人的印象是计算机内存很大，但是它一直在重复使用内存空间。</p>
+<h5 id="时间线-1"><a href="#时间线-1" class="headerlink" title="时间线"></a>时间线</h5><p>9:30~11:30，学习了操作系统非连续内存分配这部分内容。将之前学过的分段和分页机制尤其是<strong>分页机制的如何将逻辑地址空间映射到物理地址空间</strong>这方面搞得很明白了。关键的几个流程图都记在了Goodnotes上，课下要经常翻阅这部分的内容。</p>
+<ul>
+<li>分段机制</li>
+<li>分页机制</li>
+<li>页寻址机制</li>
+<li><a href="https://blog.csdn.net/qq_37924084/article/details/78360003" target="_blank" rel="noopener">分段与分页</a></li>
+</ul>
+<p>13:00~15:00, 继续动态规划，掌握了动态规划3问题中的两个：最值问题、计数问题，并完成了两个实例。</p>
+<p>16:00~17:00，爬虫的正则表达式库的学习，掌握了正则表达式的语法。还未进入re库的学习。</p>
+<p>19:30~20:30，继续学习了一小部分Vue的内容。还未感受到Vue的简单之处，可能是之前并未做过类似的前端大作业，对原来直接操作DOM和现在这种挂载的方式并未感受到其强大。</p>
+<p>21:00<del>22:00，Leetcode做了一道动态规划的题，正好遇到了一个明天要学的题，按照思路做出来了，明天看完那位大神的教程之后再写这个Leetcode的总结\</del></p>
 ]]></content>
       <categories>
         <category>学习日志</category>
@@ -509,8 +526,69 @@
 <li>求最值</li>
 <li>求存在性</li>
 </ol>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="实例1"><a href="#实例1" class="headerlink" title="实例1"></a>实例1</h4><p>结账时，需要交价值27元，要求用2元、5元、7元想出一种使得<strong>纸币数最少</strong>的交钱方法。</p>
-<h3 id="动态规划组成部分一：确定状态"><a href="#动态规划组成部分一：确定状态" class="headerlink" title="动态规划组成部分一：确定状态"></a>动态规划组成部分一：确定状态</h3><h4 id="两个意识"><a href="#两个意识" class="headerlink" title="两个意识"></a>两个意识</h4><ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="实例1–求最值"><a href="#实例1–求最值" class="headerlink" title="实例1–求最值"></a>实例1–求最值</h4><p>结账时，需要交价值27元，要求用2元、5元、7元想出一种使得<strong>纸币数最少</strong>的交钱方法。</p>
+<h4 id="实例2–计数"><a href="#实例2–计数" class="headerlink" title="实例2–计数"></a>实例2–计数</h4><p>给定m行n列(m=4,n=8)的网络，有一个机器人从左上角(0,0)出发，每一步可以向下或者向右走一步。问有多少种不同的方式走到右下角？</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">起点</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">终点</td>
+</tr>
+</tbody></table>
+<h4 id="实例3–存在性"><a href="#实例3–存在性" class="headerlink" title="实例3–存在性"></a>实例3–存在性</h4><p>有n块石头分别在x轴的0,1,…,n-1位置，一只青蛙在石头0，想跳到石头n-1。如果青蛙在第i块石头上，它最多可以向右跳距离$a_i$，问青蛙能否跳到石头n-1</p>
+<h3 id="动态规划四组成"><a href="#动态规划四组成" class="headerlink" title="动态规划四组成"></a>动态规划四组成</h3><h4 id="动态规划组成部分一：确定状态"><a href="#动态规划组成部分一：确定状态" class="headerlink" title="动态规划组成部分一：确定状态"></a>动态规划组成部分一：确定状态</h4><h5 id="两个意识"><a href="#两个意识" class="headerlink" title="两个意识"></a>两个意识</h5><ul>
 <li>最后一步</li>
 <li>子问题</li>
 </ul>
@@ -520,18 +598,67 @@
 <p>我们根据这个公式可以写出一种递归算法：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> x==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    res=np.inf  <span class="comment"># res初始化为极大值</span></span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">2</span>:</span><br><span class="line">        res=min(f(x<span class="number">-2</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">5</span>:</span><br><span class="line">        res=min(f(x<span class="number">-5</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">7</span>:</span><br><span class="line">        res=min(f(x<span class="number">-7</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">return</span> res  <span class="comment"># 当传入的x为1时，res返回的是inf，也就相当于不成立！！</span></span><br><span class="line">print(f(<span class="number">27</span>))</span><br></pre></td></tr></table></figure>
 
-<h3 id="动态规划组成部分二：转移方程"><a href="#动态规划组成部分二：转移方程" class="headerlink" title="动态规划组成部分二：转移方程"></a>动态规划组成部分二：转移方程</h3><p>$$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$$</p>
-<h3 id="动态规划组成部分三：初始条件和边界情况"><a href="#动态规划组成部分三：初始条件和边界情况" class="headerlink" title="动态规划组成部分三：初始条件和边界情况"></a>动态规划组成部分三：初始条件和边界情况</h3><p>初始条件：</p>
+<h4 id="动态规划组成部分二：转移方程"><a href="#动态规划组成部分二：转移方程" class="headerlink" title="动态规划组成部分二：转移方程"></a>动态规划组成部分二：转移方程</h4><p>$$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$$</p>
+<h4 id="动态规划组成部分三：初始条件和边界情况"><a href="#动态规划组成部分三：初始条件和边界情况" class="headerlink" title="动态规划组成部分三：初始条件和边界情况"></a>动态规划组成部分三：初始条件和边界情况</h4><p>初始条件：</p>
 <p>$$f[0] = 0$$</p>
 <p>边界情况：</p>
 <p align="center">数组不越界</p>
 
-<h3 id="动态规划组成部分四：计算顺序"><a href="#动态规划组成部分四：计算顺序" class="headerlink" title="动态规划组成部分四：计算顺序"></a>动态规划组成部分四：计算顺序</h3><ul>
+<h4 id="动态规划组成部分四：计算顺序"><a href="#动态规划组成部分四：计算顺序" class="headerlink" title="动态规划组成部分四：计算顺序"></a>动态规划组成部分四：计算顺序</h4><ul>
 <li>正序</li>
 <li>逆序</li>
 <li>其他</li>
 </ul>
-<h3 id="实例1解答"><a href="#实例1解答" class="headerlink" title="实例1解答"></a>实例1解答</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">f = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">28</span>)]</span><br><span class="line">f[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">f[<span class="number">1</span>] = np.inf</span><br><span class="line">n = <span class="number">27</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>): <span class="comment"># 时间复杂度O(n)</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;=<span class="number">7</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>,f[i<span class="number">-5</span>]+<span class="number">1</span>,f[i<span class="number">-7</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">7</span>&gt;i&gt;=<span class="number">5</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>, f[i<span class="number">-5</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">5</span>):</span><br><span class="line">        f[i] = f[i<span class="number">-2</span>]+<span class="number">1</span></span><br><span class="line">print(f[<span class="number">27</span>])</span><br></pre></td></tr></table></figure>
+<p>判断标准：当前的数据在已经算出后，前面（后面）的数据是否已经得出了。</p>
+<h4 id="实例1解答"><a href="#实例1解答" class="headerlink" title="实例1解答"></a>实例1解答</h4><p>个人解答</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">f = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">28</span>)]</span><br><span class="line">f[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">f[<span class="number">1</span>] = np.inf</span><br><span class="line">n = <span class="number">27</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>): <span class="comment"># 时间复杂度O(n)</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;=<span class="number">7</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>,f[i<span class="number">-5</span>]+<span class="number">1</span>,f[i<span class="number">-7</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">7</span>&gt;i&gt;=<span class="number">5</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>, f[i<span class="number">-5</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">5</span>):</span><br><span class="line">        f[i] = f[i<span class="number">-2</span>]+<span class="number">1</span></span><br><span class="line">print(f[<span class="number">27</span>])</span><br></pre></td></tr></table></figure>
+<p>完美改进</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span> *A, <span class="keyword">int</span> M)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *fun;</span><br><span class="line">    fun = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(M+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(A)/<span class="keyword">sizeof</span>(A[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    fun[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=M;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= A[j] &amp;&amp; fun[i-A[j]] != INT_MAX)&#123; </span><br><span class="line">                <span class="comment">// 防止下标溢出；防止无穷大加法溢出！！</span></span><br><span class="line">                fun[i] = <span class="built_in">min</span>(fun[i-A[j]]+<span class="number">1</span>, fun[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(fun[M]==INT_MAX)&#123;</span><br><span class="line">        fun[M] = <span class="number">-1</span>; <span class="comment">// 题目要求</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fun[M];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="动态规划组成部分概括"><a href="#动态规划组成部分概括" class="headerlink" title="动态规划组成部分概括"></a>动态规划组成部分概括</h4><ol>
+<li>确定状态<ul>
+<li>最后一步（最优策略中使用的最后一枚硬币$a_k$）</li>
+<li>化成子问题（最少的硬币拼出来更小的面值$27-a_k$）</li>
+</ul>
+</li>
+<li>转移方程<ul>
+<li>$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$</li>
+</ul>
+</li>
+<li>初始条件和边界情况<ul>
+<li>f[0] = 0，如果不能拼出Y，f[Y]=inf</li>
+</ul>
+</li>
+<li>计算顺序<ul>
+<li>正序</li>
+</ul>
+</li>
+</ol>
+<h3 id="利用动态规划解实例2"><a href="#利用动态规划解实例2" class="headerlink" title="利用动态规划解实例2"></a>利用动态规划解实例2</h3><ol>
+<li>确定状态<ul>
+<li>最后一步：到达(m-1,n-1)前的方法是以M种方法到(m-2,n-1)加上以N种方法到(m-1,n-2)</li>
+<li>化成子问题：有多少种方法到达(m-2,n-1)或(m-1,n-2)</li>
+<li>状态：设$f[i][j]$为从左上角有多少种路径走到$(i,j)$</li>
+</ul>
+</li>
+<li>转移方程<ul>
+<li>$f[i][j] = f[i-1][j] + f[i][j-1]$</li>
+</ul>
+</li>
+<li>初始条件和边界情况<ul>
+<li>初始条件：$f[0][0]=1$</li>
+<li>边界情况：$i=j=0$时，$f[i][j]=1$</li>
+</ul>
+</li>
+<li>计算顺序<ul>
+<li>由左到右，逐行计算</li>
+</ul>
+</li>
+</ol>
+<p>代码解答：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uniquePath</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f[m][n];</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i = <span class="number">0</span> || j = <span class="number">0</span>)&#123;</span><br><span class="line">                f[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j] + f[i][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 ]]></content>
       <categories>
         <category>算法题目</category>
@@ -702,7 +829,8 @@
   <entry>
     <title>数据结构之链表</title>
     <url>/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<a id="more"></a>
+    <content><![CDATA[<p>链表的内容非常非常的基础，快速回顾~</p>
+<a id="more"></a>
 <h2 id="绕不开的malloc和free"><a href="#绕不开的malloc和free" class="headerlink" title="绕不开的malloc和free"></a>绕不开的malloc和free</h2><p>C没有虚浮的<code>new</code>关键字，只能用使用起来不是很直观的<code>malloc</code>关键字进行内存分配。</p>
 <h3 id="malloc"><a href="#malloc" class="headerlink" title="malloc"></a>malloc</h3><h4 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h4><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(<span class="keyword">int</span> <span class="built_in">size</span>)</span></span>;</span><br></pre></td></tr></table></figure>
 <p>声明：<code>malloc</code>向系统申请分配指定<code>size</code>个字节的内存空间。返回类型是 <code>void*</code> 类型。<code>void*</code> 表示未确定类型的指针。C,C++规定，<code>void*</code> 类型可以强制转换为<strong>任何其它类型的指针</strong>。</p>
@@ -744,6 +872,104 @@
       </categories>
       <tags>
         <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫笔记-3</title>
+    <url>/2020/07/05/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-3/</url>
+    <content><![CDATA[<p>主要介绍re库和相关实例。</p>
+<a id="more"></a>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><h4 id="正则表达式的概述"><a href="#正则表达式的概述" class="headerlink" title="正则表达式的概述"></a>正则表达式的概述</h4><p>正则表达式是用来<strong>简洁</strong>表达一组字符串的表达式。</p>
+<p>正则表达式的使用：通过编译，将符合正则表达式语法的字符串转换成正则表达式特征。</p>
+<h4 id="正则表达式的语法"><a href="#正则表达式的语法" class="headerlink" title="正则表达式的语法"></a>正则表达式的语法</h4><p>语法表</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作符</th>
+<th align="center">说明</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.</code></td>
+<td align="center">表示任何单个字符</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center"><code>[]</code></td>
+<td align="center">字符集，对单个字符给出取值范围</td>
+<td align="center">[abc]/[a-z]</td>
+</tr>
+<tr>
+<td align="center"><code>[^]</code></td>
+<td align="center">非字符集，对单个字符给出排除范围</td>
+<td align="center">[^abc]表示非a非b非c的单个字符</td>
+</tr>
+<tr>
+<td align="center"><code>*</code></td>
+<td align="center">前一个字符0次或无限次扩展</td>
+<td align="center">abc*-&gt;ab、abc、abcc……</td>
+</tr>
+<tr>
+<td align="center"><code>+</code></td>
+<td align="center">前一个字符1次或无限次扩展</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center"><code>?</code></td>
+<td align="center">前一个字符0次或1次扩展</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center">`</td>
+<td align="center">`</td>
+<td align="center">左右表达式任意一个</td>
+</tr>
+<tr>
+<td align="center"><code>{m}</code></td>
+<td align="center">扩展前一个字符m次</td>
+<td align="center">ab{2}c-&gt;abbc</td>
+</tr>
+<tr>
+<td align="center"><code>{m,n}</code></td>
+<td align="center">扩展前一个字符m至n次(含n)</td>
+<td align="center">ab{1,2}c-&gt;abc、abbc</td>
+</tr>
+<tr>
+<td align="center"><code>^</code></td>
+<td align="center">匹配字符串开头</td>
+<td align="center">^abc表示abc且在一个字符串的开头</td>
+</tr>
+<tr>
+<td align="center"><code>$</code></td>
+<td align="center">匹配字符串结尾</td>
+<td align="center">abc$表示abc且在一个字符串的结尾</td>
+</tr>
+<tr>
+<td align="center"><code>()</code></td>
+<td align="center">分组标记，内部只能用`</td>
+<td align="center">`</td>
+</tr>
+<tr>
+<td align="center"><code>\d</code></td>
+<td align="center">数字，等价于[0-9]</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center"><code>\w</code></td>
+<td align="center">单词字符，等价于[A-Za-z0-9_]</td>
+<td align="center">略</td>
+</tr>
+</tbody></table>
+<p>经典正则表达式实例：<br>|表达式|意义|<br>|:–:|:–:|<br>|<code>^[A-Za-z]+$</code>|26个字母组成的字符串|<br>|<code>^-?\d+$</code>|整数形式的字符串|<br>|<code>^[0-9]*[1-9][0-9]*$</code>|正整数形式字符串|<br>|<code>[1-9]\d{5}</code>|中国境内邮政编码，6位|<br>|<code>[\u4e00-\u9fa5]</code>|匹配中文字符|<br>|<code>\d{3}-\d{8}|\d{4}-\d{7}</code>|国内电话号码|<br>|<code>[1-9]?\d</code>|0-99|<br>|<code>1\d{2}</code>|100-199|</p>
+<p>表示0-255：<br><code>([1‐9]?\d | 1\d{2} | 2[0‐4]\d | 25[0‐5])</code></p>
+<p>表示IP地址：<br><code>(([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5]).){3}([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5])</code></p>
+<h3 id="re库"><a href="#re库" class="headerlink" title="re库"></a>re库</h3>]]></content>
+      <categories>
+        <category>python笔记</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
       </tags>
   </entry>
 </search>
