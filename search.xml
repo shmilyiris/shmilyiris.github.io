@@ -169,10 +169,90 @@
 <p>16:00~17:00，爬虫的正则表达式库的学习，掌握了正则表达式的语法。还未进入re库的学习。</p>
 <p>19:30~20:30，继续学习了一小部分Vue的内容。还未感受到Vue的简单之处，可能是之前并未做过类似的前端大作业，对原来直接操作DOM和现在这种挂载的方式并未感受到其强大。</p>
 <p>21:00<del>22:00，Leetcode做了一道动态规划的题，正好遇到了一个明天要学的题，按照思路做出来了，明天看完那位大神的教程之后再写这个Leetcode的总结\</del></p>
-]]></content>
+<hr>
+<h4 id="7-6-7-7"><a href="#7-6-7-7" class="headerlink" title="7.6-7.7"></a>7.6-7.7</h4><h5 id="小笔记-2"><a href="#小笔记-2" class="headerlink" title="小笔记"></a>小笔记</h5><p>有关TLB的相关知识：</p>
+<p>页表一般都很大，并且存放在内存中，所以处理器引入MMU后，读取指令、数据<strong>需要访问两次内存：首先通过查询页表得到物理地址，然后访问该物理地址读取指令、数据</strong>。为了减少因为MMU导致的处理器性能下降，引入了TLB，TLB是Translation Lookaside Buffer的简称，可翻译为“地址转换后援缓冲器”，也可简称为“快表”。简单地说，<strong>TLB就是页表的Cache</strong>，其中<strong>存储了当前最可能被访问到的页表项</strong>，其内容是<strong>部分页表项的一个<em>副本</em></strong>。只有在TLB无法完成地址翻译任务时，才会到内存中查询页表，这样就减少了页表查询导致的处理器性能下降。</p>
+<p>TLB中的项由两部分组成：<strong>标识和数据</strong>。标识中存放的是虚地址的一部分，而数据部分中存放物理页号、存储保护信息以及其他一些辅助信息。</p>
+<p>因为页大小是8KB，所以虚拟地址的0-12bit作为页内地址偏移。TLB表有64项，所以虚拟地址的13-18bit作为TLB表项的索引。假如虚拟地址的13-18bit是1，那么就会查询TLB的第1项，从中取出标识，与虚拟地址的19-31位作比较，如果相等，表示TLB命中，反之，表示TLB失靶。TLB失靶时，可以由硬件将需要的页表项加载入TLB，也可由软件加载，具体取决于处理器设计，OR1200没有提供硬件加载页表项的功能，只能由软件实现。TLB命中时，此时翻译得到的物理地址就是TLB第1项中的标识（即物理地址13-31位）与虚拟地址0-12bit的结合。在地址翻译的过程中还会结合TLB项中的辅助信息判断是否发生违反安全策略的情况，比如：要修改某一页，但该页是禁止修改的，此时就违反了安全策略，会触发异常。</p>
+<h5 id="时间线-2"><a href="#时间线-2" class="headerlink" title="时间线"></a>时间线</h5><p>10:00~12:00，完成操作系统的非连续内存分配内容，虚拟内存单元开了个小头。重点学习了页表的机制。</p>
+<ul>
+<li>页表内容(resident bit)</li>
+<li>TLB引入</li>
+<li>内存覆盖技术</li>
+</ul>
+<p>14:00~15:30，完成了re库爬虫的理论部分，正则表达式使用起来非常方便，具体语法还需加深记忆。</p>
+<p>17:00~18:00，完成了动态规划的网课学习。理论上已经知道如何解决动态规划的三类题，具体解决还需勤加练习。另外的，某些题目(跳跃游戏)更适配贪心法，并不是所有题目都适配动态规划。贪心法和动态规划法的理论部分了解不够深入，还需回溯定义。</p>
+<p>19:00~21:00，磕了一道Leetcode，具体见Leetcode日记。</p>
+<hr>
+<h4 id="7-8"><a href="#7-8" class="headerlink" title="7.8"></a>7.8</h4>]]></content>
       <categories>
         <category>学习日志</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Basic Javascript学习笔记</title>
+    <url>/2020/06/30/Javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<p>　　昨天刚刚搭建了自己的博客，这也算是自己写的第一个blog吧（正好也是第一次markdown，顺便感受一下哈哈）。</p>
+<p>　　最近刚刚学习到前端的相关知识，在<a href="https://github.com/freeCodeCamp/freeCodeCamp" target="_blank" rel="noopener">FreeCodeCamp</a>上练习<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/" target="_blank" rel="noopener">Basic Javascript</a>的基础知识，知识体系有点混乱，这篇笔记也是帮助自己理清一下思路。那么就让我开始吧~（麦子式破音）</p>
+<a id="more"></a>
+
+<h2 id="Basic-javascript"><a href="#Basic-javascript" class="headerlink" title="Basic javascript"></a>Basic javascript</h2><p><em>注：不按系统知识记，只记录自己不熟的知识点</em></p>
+<hr>
+<h3 id="字符串不变性"><a href="#字符串不变性" class="headerlink" title="字符串不变性"></a>字符串不变性</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> usedString = <span class="string">"Bob"</span>;</span><br><span class="line">usedString[<span class="number">0</span>] = <span class="string">'J'</span>;</span><br></pre></td></tr></table></figure>
+<p>以上这段代码并不能修改<code>usedString</code> 为<code>&quot;Job&quot;</code>的输出，这就是字符串的不变性。要想实现替换的话，只能将字符串重新赋值。</p>
+<hr>
+<h3 id="push-pop-shift-unshift方法"><a href="#push-pop-shift-unshift方法" class="headerlink" title="push, pop, shift, unshift方法"></a>push, pop, shift, unshift方法</h3><ul>
+<li>push()将括号中的数据追加到数组的末尾</li>
+<li>pop()用来抛出数组的末尾数据，同时还可以将该数据赋给一个变量</li>
+<li>shift()抛出第一个数据，其他和pop()一样</li>
+<li>unshift()将该数据移到数组的开头</li>
+</ul>
+<p><strong>用这些方法能够很容易的实现经典的数据结构–堆栈</strong></p>
+<hr>
+<h3 id="对象（python的字典）"><a href="#对象（python的字典）" class="headerlink" title="对象（python的字典）"></a>对象（python的字典）</h3><h4 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h4><h5 id="new详解"><a href="#new详解" class="headerlink" title="new详解"></a>new详解</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="keyword">constructor</span>[([arguments])]; //new的声明</span><br></pre></td></tr></table></figure>
+<p>对两个参数的解释为</p>
+<ul>
+<li><code>constructor</code>一个指定对象实例的类型的<strong>类或函数</strong>。</li>
+<li><code>arguments</code>一个用于被 constructor 调用的参数列表。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.make = make;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.year = year;</span><br><span class="line">&#125; <span class="comment">// 这个function其实就是个(构造)函数，ES6中改进成了类中的构造函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> car1 = <span class="keyword">new</span> Car(<span class="string">'Eagle'</span>, <span class="string">'Talon TSi'</span>, <span class="number">1993</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(car1.make);</span><br><span class="line"><span class="comment">// expected output: "Eagle"</span></span><br></pre></td></tr></table></figure>
+<p><code>new</code>操作符做了什么？</p>
+<ol>
+<li>创建obj{}对象</li>
+<li>将函数的作用域赋给新对象</li>
+<li>执行函数（为对象初始化，添加..）</li>
+<li>考察第3步返回的返回值，无返回值或者返回一个非对象值时，则将创建的新对象返回，否则会将返回值作为新对象返回。</li>
+</ol>
+<p>如果代码层面看的更深，当<code>new Foo(..)</code>执行时：</p>
+<ol>
+<li>一个继承自<code>Foo.prototype</code>的新对象被创建。（<code>prototype</code>-&gt;原型对象）</li>
+<li>使用指定参数调用构造函数<code>Foo</code>，并<strong>将<code>this</code>绑定到新创建的对象，也就是没有指定参数列表，<code>Foo</code>不带任何参数调用的情况</strong>（然后开始执行函数）。</li>
+<li>由构造函数返回的对象就是<code>new</code>表达式的结果。如果构造函数没有显式返回一个对象，则使用步骤1创建的对象（一般情况下，构造函数不返回值，但是用户可以选择主动返回对象，来覆盖正常的对象创建步骤）</li>
+</ol>
+<h4 id="访问方式"><a href="#访问方式" class="headerlink" title="访问方式"></a>访问方式</h4><h5 id="中括号访问"><a href="#中括号访问" class="headerlink" title="中括号访问"></a>中括号访问</h5><p>中括号访问可以进行多层寻找，而且中间的属性名称可以是来自于某个变量的值，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> johnsonOneOfTheSportHobby;</span><br><span class="line"><span class="keyword">var</span> myInfo=&#123;</span><br><span class="line">    name: <span class="string">"Johnson"</span>,</span><br><span class="line">    sex: <span class="string">"male"</span>,</span><br><span class="line">    hobby_sport: &#123;<span class="string">"basketball"</span>, <span class="string">"swimming"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">johnsonOneOfTheSportHobby = myInfo[hobby_sport][<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
+<h5 id="点操作符访问"><a href="#点操作符访问" class="headerlink" title="点操作符访问"></a>点操作符访问</h5><p>点操作符的使用场景比较局限。只有属性名称已知的话，才可以使用点操作符，<strong>变量名+点操作符访问变量的操作不合法</strong>，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> johnsonOneOfTheSportHobby;</span><br><span class="line"><span class="keyword">var</span> property = sex;</span><br><span class="line"><span class="keyword">var</span> myInfo=&#123;</span><br><span class="line">    name: <span class="string">"Johnson"</span>,</span><br><span class="line">    sex: <span class="string">"male"</span>,</span><br><span class="line">    hobby_sport: &#123;<span class="string">"basketball"</span>, <span class="string">"swimming"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">johnsonSex = myInfo.property; <span class="comment">// 不正确</span></span><br><span class="line">johnsonSex = myInfo.sex; <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="更新方式"><a href="#更新方式" class="headerlink" title="更新方式"></a>更新方式</h4><p><em>以下中括号方式修改也可</em></p>
+<h5 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> myInfo.sex; <span class="comment">// 删除myInfo的sex属性</span></span><br></pre></td></tr></table></figure>
+<h5 id="更改数据"><a href="#更改数据" class="headerlink" title="更改数据"></a>更改数据</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">myInfo.sex = <span class="string">"female"</span>; <span class="comment">// 更改Info中的属性</span></span><br></pre></td></tr></table></figure>
+<h5 id="添加属性"><a href="#添加属性" class="headerlink" title="添加属性"></a>添加属性</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">myInfo.job = <span class="string">"coder"</span>;  <span class="comment">// 添加job属性，并将数据初始化为coder</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="判断方式"><a href="#判断方式" class="headerlink" title="判断方式"></a>判断方式</h4><h5 id="判断属性是否存在"><a href="#判断属性是否存在" class="headerlink" title="判断属性是否存在"></a>判断属性是否存在</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(myInfo.hasOwnProperty(job) == <span class="literal">false</span>)&#123;</span><br><span class="line">    myInfo.job = <span class="string">"coder"</span>;  </span><br><span class="line">    <span class="comment">// 如果没有job属性，则添加该属性并初始化为coder</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="JavaScript-Object-Notation-JSON"><a href="#JavaScript-Object-Notation-JSON" class="headerlink" title="JavaScript Object Notation(JSON)"></a>JavaScript Object Notation(JSON)</h4><p><strong>JSON使用Javascript对象的格式来存储数据</strong>，JSON是灵活的，因为它允许多种数据结构的任意组合，下面来看一个JSON的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MyFriend=[</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">"Iris"</span>,</span><br><span class="line">        sex: <span class="string">"female"</span>,</span><br><span class="line">        hobby_sport: [<span class="string">"basketball"</span>, <span class="string">"movie"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">"Kevin Durant"</span>,</span><br><span class="line">        sex: <span class="string">"male"</span>,</span><br><span class="line">        hobby_sport: [<span class="string">"basketball"</span>, <span class="string">"chatting"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>JSON可以按一种类似串联的方式，来访问格式中的某个数据，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">girlfriendHobby = MyFriend[<span class="number">0</span>].hobby_sport[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>ES6学习笔记</title>
@@ -280,68 +360,165 @@
       </tags>
   </entry>
   <entry>
-    <title>Basic Javascript学习笔记</title>
-    <url>/2020/06/30/Javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<p>　　昨天刚刚搭建了自己的博客，这也算是自己写的第一个blog吧（正好也是第一次markdown，顺便感受一下哈哈）。</p>
-<p>　　最近刚刚学习到前端的相关知识，在<a href="https://github.com/freeCodeCamp/freeCodeCamp" target="_blank" rel="noopener">FreeCodeCamp</a>上练习<a href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/basic-javascript/" target="_blank" rel="noopener">Basic Javascript</a>的基础知识，知识体系有点混乱，这篇笔记也是帮助自己理清一下思路。那么就让我开始吧~（麦子式破音）</p>
+    <title>python爬虫笔记_2</title>
+    <url>/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/</url>
+    <content><![CDATA[<p>主要介绍python的第三方库BS4库的应用场景。</p>
 <a id="more"></a>
+<h3 id="BS4库"><a href="#BS4库" class="headerlink" title="BS4库"></a>BS4库</h3><p>BS4库主要用于<strong>HTML页面的解析</strong>。是解析、遍历、维护“标签树”的功能库。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">demo = requests.get(url).text</span><br><span class="line">soup = BeautifulSoup(demo, <span class="string">"html.parser"</span>)</span><br></pre></td></tr></table></figure>
+<p><code>soup</code>便承载了解析后的<code>标签树</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">基本元素</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Tag</td>
+<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;和&lt;/&gt;标明开头和结尾</td>
+</tr>
+<tr>
+<td align="center">Name</td>
+<td align="center">标签的名字，格式：<code>&lt;tag&gt;.name</code></td>
+</tr>
+<tr>
+<td align="center">Attributes</td>
+<td align="center">标签的属性，字典形式组织，格式：<code>&lt;tag&gt;.attrs</code></td>
+</tr>
+<tr>
+<td align="center">NavigableString</td>
+<td align="center">标签内非属性字符串，格式：<code>&lt;tag&gt;.string</code></td>
+</tr>
+<tr>
+<td align="center">Comment</td>
+<td align="center">标签内字符串的注释部分，一种特殊的Comment类型</td>
+</tr>
+</tbody></table>
+<h4 id="标签树的遍历"><a href="#标签树的遍历" class="headerlink" title="标签树的遍历"></a>标签树的遍历</h4><h5 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h5><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.contents</code></td>
+<td align="center">子节点的列表，将<code>&lt;tag&gt;</code>所有儿子节点存入列表</td>
+</tr>
+<tr>
+<td align="center"><code>.children</code></td>
+<td align="center">子节点的迭代类型，与<code>contents</code>类似，用于循环遍历儿子节点</td>
+</tr>
+<tr>
+<td align="center"><code>.descendants</code></td>
+<td align="center">子孙节点的迭代类型，包含所有子孙节点</td>
+</tr>
+</tbody></table>
+<p>迭代类型的下行遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> demoSoup.body.children: <span class="comment"># descendants是子孙结点</span></span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure>
 
-<h2 id="Basic-javascript"><a href="#Basic-javascript" class="headerlink" title="Basic javascript"></a>Basic javascript</h2><p><em>注：不按系统知识记，只记录自己不熟的知识点</em></p>
-<hr>
-<h3 id="字符串不变性"><a href="#字符串不变性" class="headerlink" title="字符串不变性"></a>字符串不变性</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> usedString = <span class="string">"Bob"</span>;</span><br><span class="line">usedString[<span class="number">0</span>] = <span class="string">'J'</span>;</span><br></pre></td></tr></table></figure>
-<p>以上这段代码并不能修改<code>usedString</code> 为<code>&quot;Job&quot;</code>的输出，这就是字符串的不变性。要想实现替换的话，只能将字符串重新赋值。</p>
-<hr>
-<h3 id="push-pop-shift-unshift方法"><a href="#push-pop-shift-unshift方法" class="headerlink" title="push, pop, shift, unshift方法"></a>push, pop, shift, unshift方法</h3><ul>
-<li>push()将括号中的数据追加到数组的末尾</li>
-<li>pop()用来抛出数组的末尾数据，同时还可以将该数据赋给一个变量</li>
-<li>shift()抛出第一个数据，其他和pop()一样</li>
-<li>unshift()将该数据移到数组的开头</li>
-</ul>
-<p><strong>用这些方法能够很容易的实现经典的数据结构–堆栈</strong></p>
-<hr>
-<h3 id="对象（python的字典）"><a href="#对象（python的字典）" class="headerlink" title="对象（python的字典）"></a>对象（python的字典）</h3><h4 id="创建方式"><a href="#创建方式" class="headerlink" title="创建方式"></a>创建方式</h4><h5 id="new详解"><a href="#new详解" class="headerlink" title="new详解"></a>new详解</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="keyword">constructor</span>[([arguments])]; //new的声明</span><br></pre></td></tr></table></figure>
-<p>对两个参数的解释为</p>
+<h5 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h5><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.parent</code></td>
+<td align="center">节点的父亲标签</td>
+</tr>
+<tr>
+<td align="center"><code>.parents</code></td>
+<td align="center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
+</tr>
+</tbody></table>
+<p>迭代类型的上行遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> demoSoup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br></pre></td></tr></table></figure>
+
+<h5 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h5><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.next_sibling</code></td>
+<td align="center">返回按照HTML文本顺序的下一个平行节点标签</td>
+</tr>
+<tr>
+<td align="center"><code>.previous_sibling</code></td>
+<td align="center">返回按照HTML文本顺序的上一个平行节点标签</td>
+</tr>
+<tr>
+<td align="center"><code>.next_siblings</code></td>
+<td align="center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
+</tr>
+<tr>
+<td align="center"><code>.previous_siblings</code></td>
+<td align="center">迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
+</tr>
+</tbody></table>
+<p>迭代类型的上行遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> demoSoup.a.next_siblings:  <span class="comment"># or previous_siblings</span></span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
+
+<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><p><code>soup.prettify()</code></p>
+<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>name</code></td>
+<td align="center">对标签名称的检索字符串</td>
+</tr>
+<tr>
+<td align="center"><code>attrs</code></td>
+<td align="center">对标签属性值的检索字符串，可标注属性检索</td>
+</tr>
+<tr>
+<td align="center"><code>recursive</code></td>
+<td align="center">是否对子孙全部检索，默认True</td>
+</tr>
+<tr>
+<td align="center"><code>string</code></td>
+<td align="center">&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串</td>
+</tr>
+</tbody></table>
+<h3 id="实例：全球大学学术排名"><a href="#实例：全球大学学术排名" class="headerlink" title="实例：全球大学学术排名"></a>实例：全球大学学术排名</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> bs4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"爬取失败"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fillUnivList</span><span class="params">(ulist, html)</span>:</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="keyword">for</span> tr <span class="keyword">in</span> soup.find(<span class="string">'tbody'</span>).children:</span><br><span class="line">        <span class="keyword">if</span> isinstance(tr, bs4.element.Tag):  <span class="comment"># Tag是bs4定义的标签类型</span></span><br><span class="line">            tds = tr(<span class="string">'td'</span>)</span><br><span class="line">            ulist.append([tds[<span class="number">0</span>].string, tds[<span class="number">1</span>].string, tds[<span class="number">4</span>].string])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printUnivList</span><span class="params">(ulist, num)</span>:</span></span><br><span class="line">    tplt1 = <span class="string">"&#123;0:^10&#125;\t&#123;1:^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    tplt2 = <span class="string">"&#123;0:^10&#125;\t&#123;1:&#123;3&#125;^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    print(<span class="string">"全球大学学术排名情况\n"</span>)</span><br><span class="line">    ls = [<span class="string">"排名"</span>,<span class="string">"学校名称"</span>,<span class="string">"得分"</span>]</span><br><span class="line">    print(tplt1.format(ls[<span class="number">0</span>], ls[<span class="number">1</span>], ls[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">        u = ulist[i]</span><br><span class="line">        print(tplt2.format(u[<span class="number">0</span>], u[<span class="number">1</span>], u[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    uinfo = []</span><br><span class="line">    url = <span class="string">"http://www.zuihaodaxue.cn/ARWU2019.html"</span></span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    fillUnivList(uinfo, html)</span><br><span class="line">    printUnivList(uinfo, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p>涉及知识点：</p>
 <ul>
-<li><code>constructor</code>一个指定对象实例的类型的<strong>类或函数</strong>。</li>
-<li><code>arguments</code>一个用于被 constructor 调用的参数列表。</li>
+<li>下行遍历<ol>
+<li>遍历tsbody中的tr，并依次输出每个tr下的td</li>
+<li>遍历时不只有td这样的标签，还会有像<code>navigablestring</code>..所以要先check是否是bs4定义的标签类型</li>
+</ol>
+</li>
+<li>中文对齐–char(12288)来控制中文对齐</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Car</span>(<span class="params">make, model, year</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.make = make;</span><br><span class="line">  <span class="keyword">this</span>.model = model;</span><br><span class="line">  <span class="keyword">this</span>.year = year;</span><br><span class="line">&#125; <span class="comment">// 这个function其实就是个(构造)函数，ES6中改进成了类中的构造函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> car1 = <span class="keyword">new</span> Car(<span class="string">'Eagle'</span>, <span class="string">'Talon TSi'</span>, <span class="number">1993</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(car1.make);</span><br><span class="line"><span class="comment">// expected output: "Eagle"</span></span><br></pre></td></tr></table></figure>
-<p><code>new</code>操作符做了什么？</p>
-<ol>
-<li>创建obj{}对象</li>
-<li>将函数的作用域赋给新对象</li>
-<li>执行函数（为对象初始化，添加..）</li>
-<li>考察第3步返回的返回值，无返回值或者返回一个非对象值时，则将创建的新对象返回，否则会将返回值作为新对象返回。</li>
-</ol>
-<p>如果代码层面看的更深，当<code>new Foo(..)</code>执行时：</p>
-<ol>
-<li>一个继承自<code>Foo.prototype</code>的新对象被创建。（<code>prototype</code>-&gt;原型对象）</li>
-<li>使用指定参数调用构造函数<code>Foo</code>，并<strong>将<code>this</code>绑定到新创建的对象，也就是没有指定参数列表，<code>Foo</code>不带任何参数调用的情况</strong>（然后开始执行函数）。</li>
-<li>由构造函数返回的对象就是<code>new</code>表达式的结果。如果构造函数没有显式返回一个对象，则使用步骤1创建的对象（一般情况下，构造函数不返回值，但是用户可以选择主动返回对象，来覆盖正常的对象创建步骤）</li>
-</ol>
-<h4 id="访问方式"><a href="#访问方式" class="headerlink" title="访问方式"></a>访问方式</h4><h5 id="中括号访问"><a href="#中括号访问" class="headerlink" title="中括号访问"></a>中括号访问</h5><p>中括号访问可以进行多层寻找，而且中间的属性名称可以是来自于某个变量的值，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> johnsonOneOfTheSportHobby;</span><br><span class="line"><span class="keyword">var</span> myInfo=&#123;</span><br><span class="line">    name: <span class="string">"Johnson"</span>,</span><br><span class="line">    sex: <span class="string">"male"</span>,</span><br><span class="line">    hobby_sport: &#123;<span class="string">"basketball"</span>, <span class="string">"swimming"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">johnsonOneOfTheSportHobby = myInfo[hobby_sport][<span class="number">0</span>];</span><br></pre></td></tr></table></figure>
-<h5 id="点操作符访问"><a href="#点操作符访问" class="headerlink" title="点操作符访问"></a>点操作符访问</h5><p>点操作符的使用场景比较局限。只有属性名称已知的话，才可以使用点操作符，<strong>变量名+点操作符访问变量的操作不合法</strong>，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> johnsonOneOfTheSportHobby;</span><br><span class="line"><span class="keyword">var</span> property = sex;</span><br><span class="line"><span class="keyword">var</span> myInfo=&#123;</span><br><span class="line">    name: <span class="string">"Johnson"</span>,</span><br><span class="line">    sex: <span class="string">"male"</span>,</span><br><span class="line">    hobby_sport: &#123;<span class="string">"basketball"</span>, <span class="string">"swimming"</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line">johnsonSex = myInfo.property; <span class="comment">// 不正确</span></span><br><span class="line">johnsonSex = myInfo.sex; <span class="comment">// 正确</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="更新方式"><a href="#更新方式" class="headerlink" title="更新方式"></a>更新方式</h4><p><em>以下中括号方式修改也可</em></p>
-<h5 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">delete</span> myInfo.sex; <span class="comment">// 删除myInfo的sex属性</span></span><br></pre></td></tr></table></figure>
-<h5 id="更改数据"><a href="#更改数据" class="headerlink" title="更改数据"></a>更改数据</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">myInfo.sex = <span class="string">"female"</span>; <span class="comment">// 更改Info中的属性</span></span><br></pre></td></tr></table></figure>
-<h5 id="添加属性"><a href="#添加属性" class="headerlink" title="添加属性"></a>添加属性</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">myInfo.job = <span class="string">"coder"</span>;  <span class="comment">// 添加job属性，并将数据初始化为coder</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="判断方式"><a href="#判断方式" class="headerlink" title="判断方式"></a>判断方式</h4><h5 id="判断属性是否存在"><a href="#判断属性是否存在" class="headerlink" title="判断属性是否存在"></a>判断属性是否存在</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(myInfo.hasOwnProperty(job) == <span class="literal">false</span>)&#123;</span><br><span class="line">    myInfo.job = <span class="string">"coder"</span>;  </span><br><span class="line">    <span class="comment">// 如果没有job属性，则添加该属性并初始化为coder</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="JavaScript-Object-Notation-JSON"><a href="#JavaScript-Object-Notation-JSON" class="headerlink" title="JavaScript Object Notation(JSON)"></a>JavaScript Object Notation(JSON)</h4><p><strong>JSON使用Javascript对象的格式来存储数据</strong>，JSON是灵活的，因为它允许多种数据结构的任意组合，下面来看一个JSON的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> MyFriend=[</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">"Iris"</span>,</span><br><span class="line">        sex: <span class="string">"female"</span>,</span><br><span class="line">        hobby_sport: [<span class="string">"basketball"</span>, <span class="string">"movie"</span>]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        name: <span class="string">"Kevin Durant"</span>,</span><br><span class="line">        sex: <span class="string">"male"</span>,</span><br><span class="line">        hobby_sport: [<span class="string">"basketball"</span>, <span class="string">"chatting"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-<p>JSON可以按一种类似串联的方式，来访问格式中的某个数据，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">girlfriendHobby = MyFriend[<span class="number">0</span>].hobby_sport[<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>python笔记</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构之堆栈</title>
+    <url>/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A0%86%E6%A0%88/</url>
+    <content><![CDATA[<a id="more"></a>
 
 ]]></content>
       <categories>
-        <category>前端笔记</category>
+        <category>数据结构笔记</category>
       </categories>
       <tags>
-        <tag>Javascript</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -349,16 +526,18 @@
     <url>/2020/07/02/LeetCode%E6%97%A5%E8%AE%B0/</url>
     <content><![CDATA[<p>偶尔在力扣上刷刷题碰到些有价值的题目随手都记录到这里了。</p>
 <a id="more"></a>
-<h4 id="二进制求和"><a href="#二进制求和" class="headerlink" title="二进制求和"></a>二进制求和</h4><h6 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h6><p>输入：两个二进制字符串<br>输出：加法后得到的二进制字符串</p>
-<h6 id="个人解答-Python"><a href="#个人解答-Python" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h6><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addBinary</span><span class="params">(self, a, b)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type a: str</span></span><br><span class="line"><span class="string">        :type b: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        carry = <span class="number">0</span>  <span class="comment"># 进位初始化为0</span></span><br><span class="line">        result = <span class="string">""</span></span><br><span class="line">        n = max(len(a),len(b))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(a)<span class="number">-1</span>):  <span class="comment"># 当b未遍历完，a遍历完</span></span><br><span class="line">                result += str((int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(b)<span class="number">-1</span>):  <span class="comment"># 当a未遍历完，b遍历完</span></span><br><span class="line">                result += str((int(a[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(a[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            result += str((int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">            carry = (int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span>(carry == <span class="number">1</span>):  <span class="comment"># 如果最后进位是1，补位</span></span><br><span class="line">            result += str(carry)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> result[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-<h6 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h6><p>当两个数字位数较小的一个，直接用0补齐，使得两个字符串的位数相同，可以节省代码空间，减少判断次数，降低运行时间。</p>
-<h6 id="法2：位运算"><a href="#法2：位运算" class="headerlink" title="法2：位运算"></a>法2：位运算</h6><p><a href="https://leetcode-cn.com/problems/add-binary/solution/er-jin-zhi-qiu-he-by-leetcode-solution/" target="_blank" rel="noopener">戳我看解法</a></p>
+<hr>
+<h4 id="二进制求和"><a href="#二进制求和" class="headerlink" title="二进制求和"></a>二进制求和</h4><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>输入：两个二进制字符串<br>输出：加法后得到的二进制字符串</p>
+<h5 id="个人解答-Python"><a href="#个人解答-Python" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addBinary</span><span class="params">(self, a, b)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type a: str</span></span><br><span class="line"><span class="string">        :type b: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        carry = <span class="number">0</span>  <span class="comment"># 进位初始化为0</span></span><br><span class="line">        result = <span class="string">""</span></span><br><span class="line">        n = max(len(a),len(b))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(a)<span class="number">-1</span>):  <span class="comment"># 当b未遍历完，a遍历完</span></span><br><span class="line">                result += str((int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(b)<span class="number">-1</span>):  <span class="comment"># 当a未遍历完，b遍历完</span></span><br><span class="line">                result += str((int(a[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(a[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            result += str((int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">            carry = (int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span>(carry == <span class="number">1</span>):  <span class="comment"># 如果最后进位是1，补位</span></span><br><span class="line">            result += str(carry)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> result[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<h5 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h5><p>当两个数字位数较小的一个，直接用0补齐，使得两个字符串的位数相同，可以节省代码空间，减少判断次数，降低运行时间。</p>
+<h5 id="法2：位运算"><a href="#法2：位运算" class="headerlink" title="法2：位运算"></a>法2：位运算</h5><p><a href="https://leetcode-cn.com/problems/add-binary/solution/er-jin-zhi-qiu-he-by-leetcode-solution/" target="_blank" rel="noopener">戳我看解法</a></p>
 <br/>
 <br/>
 
-<h4 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h4><h6 id="需求-1"><a href="#需求-1" class="headerlink" title="需求"></a>需求</h6><p>人一次只能爬1个或2个楼梯<br>输入：楼梯个数<br>输出：爬楼梯共有多少种爬法</p>
-<h6 id="个人解答-Python-1"><a href="#个人解答-Python-1" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h6><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n * f(n<span class="number">-1</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        num = (n//<span class="number">2</span>)+<span class="number">1</span>  <span class="comment"># 共有多少种不重复的已经确定的1，2个数分布</span></span><br><span class="line">        j = n  <span class="comment"># 排列组合公式的底数</span></span><br><span class="line"></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">            result += f(j)/(f(i)*f(j-i))</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-<h6 id="我的总结"><a href="#我的总结" class="headerlink" title="我的总结"></a>我的总结</h6><p>我的思路是先找到1，2个数的所有组合，举个例子：<br>比如n=6，那么楼梯的1，2组合只能是以下四种：</p>
+<hr>
+<h4 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h4><h5 id="需求-1"><a href="#需求-1" class="headerlink" title="需求"></a>需求</h5><p>人一次只能爬1个或2个楼梯<br>输入：楼梯个数<br>输出：爬楼梯共有多少种爬法</p>
+<h5 id="个人解答-Python-1"><a href="#个人解答-Python-1" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n * f(n<span class="number">-1</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        num = (n//<span class="number">2</span>)+<span class="number">1</span>  <span class="comment"># 共有多少种不重复的已经确定的1，2个数分布</span></span><br><span class="line">        j = n  <span class="comment"># 排列组合公式的底数</span></span><br><span class="line"></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">            result += f(j)/(f(i)*f(j-i))</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h5 id="我的总结"><a href="#我的总结" class="headerlink" title="我的总结"></a>我的总结</h5><p>我的思路是先找到1，2个数的所有组合，举个例子：<br>比如n=6，那么楼梯的1，2组合只能是以下四种：</p>
 <ul>
 <li>111111</li>
 <li>11112</li>
@@ -373,20 +552,257 @@
 <li>3/3 222</li>
 </ul>
 <p>虽然找到了公式，但不得不说，我这个不论空间还是时间都垃圾的很……直接看标答吧…<br><a href="https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-by-leetcode-solution/" target="_blank" rel="noopener">戳我看完整答案</a></p>
-<h6 id="方法1：动态规划！"><a href="#方法1：动态规划！" class="headerlink" title="方法1：动态规划！"></a>方法1：动态规划！</h6><p>我们用 <code>f(x)</code> 表示爬到第 <code>x</code> 级台阶的方案数，考虑最后一步可能跨了一级台阶，也可能跨了两级台阶，所以我们可以列出如下式子：<br>$$f(x) = f(x-1) + f(x-2)$$</p>
+<h5 id="方法1：动态规划！"><a href="#方法1：动态规划！" class="headerlink" title="方法1：动态规划！"></a>方法1：动态规划！</h5><p>我们用 <code>f(x)</code> 表示爬到第 <code>x</code> 级台阶的方案数，考虑最后一步可能跨了一级台阶，也可能跨了两级台阶，所以我们可以列出如下式子：<br>$$f(x) = f(x-1) + f(x-2)$$</p>
 <p>这个公式的意思是，爬到第n级台阶只能是爬到n-1级（爬到第n级用了一步）或是爬到n-2级（爬到n级用了两步）的方案的集合。看到这里就一目了然，这不就是传说中的<code>斐波那契数列</code>吗？（后话）<br>利用滚动数组的方法求解代码如下：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">    p = <span class="number">0</span></span><br><span class="line">    q = <span class="number">0</span></span><br><span class="line">    r = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">        p = q  <span class="comment"># q前移一位</span></span><br><span class="line">        q = r  <span class="comment"># r前移一位</span></span><br><span class="line">        r = p + q  <span class="comment"># 更新r</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
 <p>时间复杂度：<code>O(n)</code><br>空间复杂度：<code>O(1)</code></p>
-<h6 id="方法2：斐波那契公式"><a href="#方法2：斐波那契公式" class="headerlink" title="方法2：斐波那契公式"></a>方法2：斐波那契公式</h6><p>$$f ( n ) = \frac { 1 } { \sqrt { 5 } } [ ( \frac { 1 + \sqrt { 5 } } { 2 } ) ^ { n } - ( \frac { 1 - \sqrt { 5 } } { 2 } ) ^ { n } ]<br>$$</p>
+<h5 id="方法2：斐波那契公式"><a href="#方法2：斐波那契公式" class="headerlink" title="方法2：斐波那契公式"></a>方法2：斐波那契公式</h5><p>$$f ( n ) = \frac { 1 } { \sqrt { 5 } } [ ( \frac { 1 + \sqrt { 5 } } { 2 } ) ^ { n } - ( \frac { 1 - \sqrt { 5 } } { 2 } ) ^ { n } ]<br>$$</p>
+<hr>
 <h4 id="删除链表的倒数第n个节点"><a href="#删除链表的倒数第n个节点" class="headerlink" title="删除链表的倒数第n个节点"></a>删除链表的倒数第n个节点</h4><h5 id="个人解答-C-两次遍历"><a href="#个人解答-C-两次遍历" class="headerlink" title="个人解答(C,两次遍历)"></a>个人解答(C,两次遍历)</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">removeNthFromEnd</span><span class="params">(struct ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">cur</span> = <span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cur!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        cur = cur -&gt; next;</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(count==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 如果删除头结点，直接返回</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        cur=head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;count-n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125; <span class="comment">// 如果不删除头结点，按照结点删除法删除对应节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="我的总结-1"><a href="#我的总结-1" class="headerlink" title="我的总结"></a>我的总结</h5><p>遍历2L-n次，时间复杂度 $O(L)$<br>空间复杂度$O(1)$</p>
 <h5 id="优化：一次遍历法（双指针）"><a href="#优化：一次遍历法（双指针）" class="headerlink" title="优化：一次遍历法（双指针）"></a>优化：一次遍历法（双指针）</h5><p>哎呀，想了十分钟没想出来，一说双指针一下子明白了。双指针保持间隔为n，依次向前递推，直到快指针指向空，慢指针定位成功。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">removeNthFromEnd</span><span class="params">(struct ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">fast</span> = <span class="title">head</span>, *<span class="title">slow</span> = <span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(n!=<span class="number">0</span>)&#123;</span><br><span class="line">        n--;</span><br><span class="line">        fast = fast-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 定位快指针到第n+1个结点</span></span><br><span class="line">    <span class="keyword">if</span>(fast==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 如果第n+1个结点为空，直接返回head-&gt;next</span></span><br><span class="line">    <span class="keyword">while</span>(fast-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">        fast = fast-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>注意：<strong>free语句是必不可少的，这里为了省空间就没用q承载再删除</strong>。正解如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">q = p-&gt;next;</span><br><span class="line">p-&gt;next = q-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(q);</span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">q = p-&gt;next;</span><br><span class="line">p-&gt;next = q-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(q);</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h4 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a>跳跃游戏</h4><h5 id="需求-2"><a href="#需求-2" class="headerlink" title="需求"></a>需求</h5><p>给定一个非负整数数组，你最初位于数组的第一个位置。<br>数组中的每个元素代表你在该位置可以跳跃的最大长度。<br>判断你是否能够到达最后一个位置。</p>
+<h5 id="个人解答-C"><a href="#个人解答-C" class="headerlink" title="个人解答(C)"></a>个人解答(C)</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = numsSize<span class="number">-2</span>;i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &gt;= numsSize-i<span class="number">-1</span>)&#123; </span><br><span class="line">            <span class="comment">// 如果这个在尾元素之前的元素可以到达末尾，则以该元素为末尾</span></span><br><span class="line">            numsSize -= (numsSize-i<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(numsSize==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：$O(n)$<br>空间复杂度：$O(1)$</p>
+<h5 id="标答-贪心法"><a href="#标答-贪心法" class="headerlink" title="标答(贪心法)"></a>标答(贪心法)</h5><p><strong>更新能跳到的最远位置</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        n, rightmost = len(nums), <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> i &lt;= rightmost:</span><br><span class="line">                rightmost = max(rightmost, i + nums[i])</span><br><span class="line">                <span class="keyword">if</span> rightmost &gt;= n - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="两链表之和"><a href="#两链表之和" class="headerlink" title="两链表之和"></a>两链表之和</h4><h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
+<p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<p>例如：<br>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>输出：7 -&gt; 0 -&gt; 8<br>原因：342 + 465 = 807</p>
+<h5 id="个人解答"><a href="#个人解答" class="headerlink" title="个人解答"></a>个人解答</h5><p>本来想省一点空间，直接在L1上操作，现在导致前后两难：</p>
+<ol>
+<li>逻辑不清晰，可读性很差</li>
+<li>时间复杂度提高的鸭子！！</li>
+<li>代码冗长</li>
+</ol>
+<p>浪费了我俩小时，先睡了。/(ㄒoㄒ)/~~</p>
+<p>2020.7.8..今天早上用c语言做出来了，直接贴代码。之前的思路（改变L1），造成了我遍历完其中一个链表，就会分类讨论出三种情况，无疑复杂化了原问题。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">addTwoNumbers</span><span class="params">(struct ListNode* l1, struct ListNode* l2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=<span class="number">0</span>; <span class="comment">// 进位位初始化</span></span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>; <span class="comment">// 每位的加和</span></span><br><span class="line">    <span class="keyword">int</span> x,y; <span class="comment">// 每位的真实加法数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">L1</span>=<span class="title">l1</span>,*<span class="title">L2</span>=<span class="title">l2</span>,*<span class="title">result</span>,*<span class="title">cur</span>,*<span class="title">high</span>,*<span class="title">nextNode</span>;</span></span><br><span class="line">    result = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">    cur = result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(L1!=<span class="literal">NULL</span> || L2!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        x = L1!=<span class="literal">NULL</span> ? L1-&gt;val : <span class="number">0</span>;</span><br><span class="line">        y = L2!=<span class="literal">NULL</span> ? L2-&gt;val : <span class="number">0</span>;</span><br><span class="line">        nextNode = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">        sum = x + y + temp;</span><br><span class="line">        <span class="keyword">if</span>(sum&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            nextNode -&gt; val = sum%<span class="number">10</span>;</span><br><span class="line">            temp = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            nextNode -&gt; val = sum;</span><br><span class="line">            temp = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L1!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            L1=L1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L2!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            L2=L2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;next = nextNode;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最后排除多位问题</span></span><br><span class="line">    <span class="keyword">if</span>(temp == <span class="number">1</span>)&#123;</span><br><span class="line">        high = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">        high -&gt; val = <span class="number">1</span>;</span><br><span class="line">        cur -&gt; next = high;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cur -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result -&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所以以后再碰到类似的题目，要先想好自己要不要优化空间（时间），到底是先试着把题目做出来，还是就着一个优化空间的角度钻牛角尖，还是要衡量一下的。</strong>后面还看到了一个时间上比我快很多的算法，其实和我之前的思路有一点类似(当某一个链表遍历完，剩余的链接到后面，但是由于我一心只想改变L1，造成了很多不必要的麻烦，而且后面的关于进位位的处理也没人家想的好)大体讲一下思路，开阔一下视野。</p>
+<ol>
+<li>新建一个链表l3，用以存放l1+l2的和</li>
+<li>分3种情况，在l1，l2都没到尾的前提下<ul>
+<li>l1先结束，l2多出来的部分直接加入到l3</li>
+<li>l2先结束，l1多出来的部分直接加到l3</li>
+<li>两个一起结束，直接相加，不管结果是否大于10</li>
+</ul>
+</li>
+<li>遍历l3，先不考虑链表最后一个数，<ul>
+<li>如果l3.val&gt;10，减去10，并在下一个节点上加1</li>
+<li>如果链表最后一个数大于10，则减去10，并新建一个节点存1</li>
+</ul>
+</li>
+</ol>
+<p>这个思路的<strong>对进位位的处理</strong>是很值得借鉴的，就是先不管进位位的情况下统一加完，再遍历链表实现进位位的加法，这种方法看似消耗了时间（相当于两次遍历），实际上居然比我那个要快很多，显然是因为我那个的条件判断语句有点过多了。</p>
+]]></content>
       <categories>
         <category>算法题目</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫笔记-3</title>
+    <url>/2020/07/05/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-3/</url>
+    <content><![CDATA[<p>主要介绍re库和相关实例。</p>
+<a id="more"></a>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><h4 id="正则表达式的概述"><a href="#正则表达式的概述" class="headerlink" title="正则表达式的概述"></a>正则表达式的概述</h4><p>正则表达式是用来<strong>简洁</strong>表达一组字符串的表达式。</p>
+<p>正则表达式的使用：通过编译，将符合正则表达式语法的字符串转换成正则表达式特征。</p>
+<h4 id="正则表达式的语法"><a href="#正则表达式的语法" class="headerlink" title="正则表达式的语法"></a>正则表达式的语法</h4><p>语法表</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作符</th>
+<th align="center">说明</th>
+<th align="center">实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.</code></td>
+<td align="center">表示任何单个字符</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center"><code>[]</code></td>
+<td align="center">字符集，对单个字符给出取值范围</td>
+<td align="center">[abc]/[a-z]</td>
+</tr>
+<tr>
+<td align="center"><code>[^]</code></td>
+<td align="center">非字符集，对单个字符给出排除范围</td>
+<td align="center">[^abc]表示非a非b非c的单个字符</td>
+</tr>
+<tr>
+<td align="center"><code>*</code></td>
+<td align="center">前一个字符0次或无限次扩展</td>
+<td align="center">abc*-&gt;ab、abc、abcc……</td>
+</tr>
+<tr>
+<td align="center"><code>+</code></td>
+<td align="center">前一个字符1次或无限次扩展</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center"><code>?</code></td>
+<td align="center">前一个字符0次或1次扩展</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center">`</td>
+<td align="center">`</td>
+<td align="center">左右表达式任意一个</td>
+</tr>
+<tr>
+<td align="center"><code>{m}</code></td>
+<td align="center">扩展前一个字符m次</td>
+<td align="center">ab{2}c-&gt;abbc</td>
+</tr>
+<tr>
+<td align="center"><code>{m,n}</code></td>
+<td align="center">扩展前一个字符m至n次(含n)</td>
+<td align="center">ab{1,2}c-&gt;abc、abbc</td>
+</tr>
+<tr>
+<td align="center"><code>^</code></td>
+<td align="center">匹配字符串开头</td>
+<td align="center">^abc表示abc且在一个字符串的开头</td>
+</tr>
+<tr>
+<td align="center"><code>$</code></td>
+<td align="center">匹配字符串结尾</td>
+<td align="center">abc$表示abc且在一个字符串的结尾</td>
+</tr>
+<tr>
+<td align="center"><code>()</code></td>
+<td align="center">分组标记，内部只能用`</td>
+<td align="center">`</td>
+</tr>
+<tr>
+<td align="center"><code>\d</code></td>
+<td align="center">数字，等价于[0-9]</td>
+<td align="center">略</td>
+</tr>
+<tr>
+<td align="center"><code>\w</code></td>
+<td align="center">单词字符，等价于[A-Za-z0-9_]</td>
+<td align="center">略</td>
+</tr>
+</tbody></table>
+<p>经典正则表达式实例：<br>|表达式|意义|<br>|:–:|:–:|<br>|<code>^[A-Za-z]+$</code>|26个字母组成的字符串|<br>|<code>^-?\d+$</code>|整数形式的字符串|<br>|<code>^[0-9]*[1-9][0-9]*$</code>|正整数形式字符串|<br>|<code>[1-9]\d{5}</code>|中国境内邮政编码，6位|<br>|<code>[\u4e00-\u9fa5]</code>|匹配中文字符|<br>|<code>\d{3}-\d{8}|\d{4}-\d{7}</code>|国内电话号码|<br>|<code>[1-9]?\d</code>|0-99|<br>|<code>1\d{2}</code>|100-199|</p>
+<p>表示0-255：<br><code>([1‐9]?\d | 1\d{2} | 2[0‐4]\d | 25[0‐5])</code></p>
+<p>表示IP地址：<br><code>(([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5]).){3}([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5])</code></p>
+<h3 id="re库"><a href="#re库" class="headerlink" title="re库"></a>re库</h3><p>正则表达式的表示类型：<br><strong>raw string</strong>类型：<code>r&#39;text&#39;</code>–不包含转义符的类型</p>
+<h4 id="re库主要功能函数"><a href="#re库主要功能函数" class="headerlink" title="re库主要功能函数"></a>re库主要功能函数</h4><table>
+<thead>
+<tr>
+<th align="center">函数</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>re.search()</code></td>
+<td align="center">在一个字符串中搜索匹配正则表达式的第一个位置，返回match对象</td>
+</tr>
+<tr>
+<td align="center"><code>re.match()</code></td>
+<td align="center">从一个字符串的开始位置起匹配正则表达式，返回match对象</td>
+</tr>
+<tr>
+<td align="center"><code>re.findall()</code></td>
+<td align="center">搜索字符串，以列表类型返回全部能匹配的子串</td>
+</tr>
+<tr>
+<td align="center"><code>re.split()</code></td>
+<td align="center">将一个字符串按照正则表达式匹配结果进行分割，返回列表类型</td>
+</tr>
+<tr>
+<td align="center"><code>re.finditer()</code></td>
+<td align="center">搜索字符串，返回一个匹配结果的迭代类型，每个迭代元素是match对象</td>
+</tr>
+<tr>
+<td align="center"><code>re.sub()</code></td>
+<td align="center">在一个字符串中替换所有匹配正则表达式的子串，返回替换后的字符串</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">常用标记</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>re.I</code></td>
+<td align="center">忽略正则表达式的大小写，<code>[A‐Z]</code>能够匹配小写字符</td>
+</tr>
+<tr>
+<td align="center"><code>re.M</code></td>
+<td align="center">正则表达式中的<code>^</code>操作符能够将给定字符串的每行当作匹配开始</td>
+</tr>
+<tr>
+<td align="center"><code>re.S</code></td>
+<td align="center">正则表达式中的.操作符能够匹配所有字符，默认匹配除换行外的所有字符</td>
+</tr>
+</tbody></table>
+<h4 id="re库面向对象用法"><a href="#re库面向对象用法" class="headerlink" title="re库面向对象用法"></a>re库面向对象用法</h4><p>一次编译后，可以多次使用该正则表达式。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">pat = re.compile(<span class="string">r'[1-9]\d&#123;5&#125;'</span>)</span><br><span class="line">rst = pat.research(<span class="string">'BIT 100081'</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="match对象"><a href="#match对象" class="headerlink" title="match对象"></a>match对象</h4><table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.string</code></td>
+<td align="center">带匹配的文本</td>
+</tr>
+<tr>
+<td align="center"><code>.re</code></td>
+<td align="center">匹配时使用的patter对象（正则表达式）</td>
+</tr>
+<tr>
+<td align="center"><code>.pos</code></td>
+<td align="center">正则表达式搜索文本的开始位置</td>
+</tr>
+<tr>
+<td align="center"><code>.endpos</code></td>
+<td align="center">正则表达式搜索文本的结束位置</td>
+</tr>
+<tr>
+<td align="center"><code>.group(0)</code></td>
+<td align="center">获得匹配后的字符串</td>
+</tr>
+<tr>
+<td align="center"><code>.start()</code></td>
+<td align="center">匹配字符串在原始字符串的开始位置</td>
+</tr>
+<tr>
+<td align="center"><code>.end()</code></td>
+<td align="center">匹配字符串在原始字符串的结束位置</td>
+</tr>
+<tr>
+<td align="center"><code>.span()</code></td>
+<td align="center">返回(<code>.start()</code>,<code>.end()</code>)</td>
+</tr>
+</tbody></table>
+<h4 id="贪婪匹配和最小匹配"><a href="#贪婪匹配和最小匹配" class="headerlink" title="贪婪匹配和最小匹配"></a>贪婪匹配和最小匹配</h4><p>Re库默认采用贪婪匹配，即输出匹配最长的子串。<br>最小匹配需要引入最小匹配操作符：<br>|操作符|说明|<br>|:–:|:–:|<br>|<code>*?</code>||<br>|<code>+?</code>||<br>|<code>??</code>||<br>|<code>{m,n}?</code>|</p>
+]]></content>
+      <categories>
+        <category>python笔记</category>
       </categories>
       <tags>
         <tag>Python</tag>
@@ -587,7 +1003,7 @@
 <td align="center">终点</td>
 </tr>
 </tbody></table>
-<h4 id="实例3–存在性"><a href="#实例3–存在性" class="headerlink" title="实例3–存在性"></a>实例3–存在性</h4><p>有n块石头分别在x轴的0,1,…,n-1位置，一只青蛙在石头0，想跳到石头n-1。如果青蛙在第i块石头上，它最多可以向右跳距离$a_i$，问青蛙能否跳到石头n-1</p>
+<h4 id="实例3–存在性"><a href="#实例3–存在性" class="headerlink" title="实例3–存在性"></a>实例3–存在性</h4><p>有n块石头分别在x轴的0,1,…,n-1位置，一只青蛙在石头0，想跳到石头n-1。如果青蛙在第i块石头上，它最多可以向右跳距离$a_i$，问青蛙能否跳到石头n-1?</p>
 <h3 id="动态规划四组成"><a href="#动态规划四组成" class="headerlink" title="动态规划四组成"></a>动态规划四组成</h3><h4 id="动态规划组成部分一：确定状态"><a href="#动态规划组成部分一：确定状态" class="headerlink" title="动态规划组成部分一：确定状态"></a>动态规划组成部分一：确定状态</h4><h5 id="两个意识"><a href="#两个意识" class="headerlink" title="两个意识"></a>两个意识</h5><ul>
 <li>最后一步</li>
 <li>子问题</li>
@@ -658,173 +1074,32 @@
 <p>代码解答：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uniquePath</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f[m][n];</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i = <span class="number">0</span> || j = <span class="number">0</span>)&#123;</span><br><span class="line">                f[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j] + f[i][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
+<h3 id="利用动态规划解实例3"><a href="#利用动态规划解实例3" class="headerlink" title="利用动态规划解实例3"></a>利用动态规划解实例3</h3><ol>
+<li>确定状态<ul>
+<li>最后一步：到达n-1之前已经到达i</li>
+<li>化成子问题：跳到n-1 -&gt; 跳到i</li>
+<li>状态：设$f[j]$为青蛙能不能跳到石头j</li>
+</ul>
+</li>
+<li>转移方程<ul>
+<li>$f[j]=OR_{0&lt;=i&lt;j}(f[i] AND i +a[i]&gt;=j)$</li>
+</ul>
+</li>
+<li>初始条件和边界情况<ul>
+<li>初始条件：$f[0]=true$</li>
+</ul>
+</li>
+<li>计算顺序<ul>
+<li>从小到大</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span> *A)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="keyword">sizeof</span>(A)/<span class="keyword">sizeof</span>(A[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">int</span> *f;</span><br><span class="line">    f = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(n));</span><br><span class="line">    f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        f[i] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(f[j] &amp;&amp; j+A[j] &gt;= i)&#123;</span><br><span class="line">                <span class="comment">// 能到达目标点前的这个点，并且还能跳到目标点，则能到达目标点</span></span><br><span class="line">                f[i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[n<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：$O(n^2)$<br>空间复杂度：$O(n)$</p>
 ]]></content>
       <categories>
         <category>算法题目</category>
       </categories>
-  </entry>
-  <entry>
-    <title>数据结构之堆栈</title>
-    <url>/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A0%86%E6%A0%88/</url>
-    <content><![CDATA[<a id="more"></a>
-
-]]></content>
-      <categories>
-        <category>数据结构笔记</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫笔记_2</title>
-    <url>/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/</url>
-    <content><![CDATA[<p>主要介绍python的第三方库BS4库的应用场景。</p>
-<a id="more"></a>
-<h3 id="BS4库"><a href="#BS4库" class="headerlink" title="BS4库"></a>BS4库</h3><p>BS4库主要用于<strong>HTML页面的解析</strong>。是解析、遍历、维护“标签树”的功能库。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">demo = requests.get(url).text</span><br><span class="line">soup = BeautifulSoup(demo, <span class="string">"html.parser"</span>)</span><br></pre></td></tr></table></figure>
-<p><code>soup</code>便承载了解析后的<code>标签树</code>。</p>
-<table>
-<thead>
-<tr>
-<th align="center">基本元素</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Tag</td>
-<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;和&lt;/&gt;标明开头和结尾</td>
-</tr>
-<tr>
-<td align="center">Name</td>
-<td align="center">标签的名字，格式：<code>&lt;tag&gt;.name</code></td>
-</tr>
-<tr>
-<td align="center">Attributes</td>
-<td align="center">标签的属性，字典形式组织，格式：<code>&lt;tag&gt;.attrs</code></td>
-</tr>
-<tr>
-<td align="center">NavigableString</td>
-<td align="center">标签内非属性字符串，格式：<code>&lt;tag&gt;.string</code></td>
-</tr>
-<tr>
-<td align="center">Comment</td>
-<td align="center">标签内字符串的注释部分，一种特殊的Comment类型</td>
-</tr>
-</tbody></table>
-<h4 id="标签树的遍历"><a href="#标签树的遍历" class="headerlink" title="标签树的遍历"></a>标签树的遍历</h4><h5 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.contents</code></td>
-<td align="center">子节点的列表，将<code>&lt;tag&gt;</code>所有儿子节点存入列表</td>
-</tr>
-<tr>
-<td align="center"><code>.children</code></td>
-<td align="center">子节点的迭代类型，与<code>contents</code>类似，用于循环遍历儿子节点</td>
-</tr>
-<tr>
-<td align="center"><code>.descendants</code></td>
-<td align="center">子孙节点的迭代类型，包含所有子孙节点</td>
-</tr>
-</tbody></table>
-<p>迭代类型的下行遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> demoSoup.body.children: <span class="comment"># descendants是子孙结点</span></span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure>
-
-<h5 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.parent</code></td>
-<td align="center">节点的父亲标签</td>
-</tr>
-<tr>
-<td align="center"><code>.parents</code></td>
-<td align="center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
-</tr>
-</tbody></table>
-<p>迭代类型的上行遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> demoSoup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br></pre></td></tr></table></figure>
-
-<h5 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.next_sibling</code></td>
-<td align="center">返回按照HTML文本顺序的下一个平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.previous_sibling</code></td>
-<td align="center">返回按照HTML文本顺序的上一个平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.next_siblings</code></td>
-<td align="center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.previous_siblings</code></td>
-<td align="center">迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
-</tr>
-</tbody></table>
-<p>迭代类型的上行遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> demoSoup.a.next_siblings:  <span class="comment"># or previous_siblings</span></span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
-
-<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><p><code>soup.prettify()</code></p>
-<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。</p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>name</code></td>
-<td align="center">对标签名称的检索字符串</td>
-</tr>
-<tr>
-<td align="center"><code>attrs</code></td>
-<td align="center">对标签属性值的检索字符串，可标注属性检索</td>
-</tr>
-<tr>
-<td align="center"><code>recursive</code></td>
-<td align="center">是否对子孙全部检索，默认True</td>
-</tr>
-<tr>
-<td align="center"><code>string</code></td>
-<td align="center">&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串</td>
-</tr>
-</tbody></table>
-<h3 id="实例：全球大学学术排名"><a href="#实例：全球大学学术排名" class="headerlink" title="实例：全球大学学术排名"></a>实例：全球大学学术排名</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> bs4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"爬取失败"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fillUnivList</span><span class="params">(ulist, html)</span>:</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="keyword">for</span> tr <span class="keyword">in</span> soup.find(<span class="string">'tbody'</span>).children:</span><br><span class="line">        <span class="keyword">if</span> isinstance(tr, bs4.element.Tag):  <span class="comment"># Tag是bs4定义的标签类型</span></span><br><span class="line">            tds = tr(<span class="string">'td'</span>)</span><br><span class="line">            ulist.append([tds[<span class="number">0</span>].string, tds[<span class="number">1</span>].string, tds[<span class="number">4</span>].string])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printUnivList</span><span class="params">(ulist, num)</span>:</span></span><br><span class="line">    tplt1 = <span class="string">"&#123;0:^10&#125;\t&#123;1:^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    tplt2 = <span class="string">"&#123;0:^10&#125;\t&#123;1:&#123;3&#125;^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    print(<span class="string">"全球大学学术排名情况\n"</span>)</span><br><span class="line">    ls = [<span class="string">"排名"</span>,<span class="string">"学校名称"</span>,<span class="string">"得分"</span>]</span><br><span class="line">    print(tplt1.format(ls[<span class="number">0</span>], ls[<span class="number">1</span>], ls[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">        u = ulist[i]</span><br><span class="line">        print(tplt2.format(u[<span class="number">0</span>], u[<span class="number">1</span>], u[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    uinfo = []</span><br><span class="line">    url = <span class="string">"http://www.zuihaodaxue.cn/ARWU2019.html"</span></span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    fillUnivList(uinfo, html)</span><br><span class="line">    printUnivList(uinfo, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
-<p>涉及知识点：</p>
-<ul>
-<li>下行遍历<ol>
-<li>遍历tsbody中的tr，并依次输出每个tr下的td</li>
-<li>遍历时不只有td这样的标签，还会有像<code>navigablestring</code>..所以要先check是否是bs4定义的标签类型</li>
-</ol>
-</li>
-<li>中文对齐–char(12288)来控制中文对齐</li>
-</ul>
-]]></content>
-      <categories>
-        <category>python笔记</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
   </entry>
   <entry>
     <title>数据结构之链表</title>
@@ -872,104 +1147,6 @@
       </categories>
       <tags>
         <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫笔记-3</title>
-    <url>/2020/07/05/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-3/</url>
-    <content><![CDATA[<p>主要介绍re库和相关实例。</p>
-<a id="more"></a>
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><h4 id="正则表达式的概述"><a href="#正则表达式的概述" class="headerlink" title="正则表达式的概述"></a>正则表达式的概述</h4><p>正则表达式是用来<strong>简洁</strong>表达一组字符串的表达式。</p>
-<p>正则表达式的使用：通过编译，将符合正则表达式语法的字符串转换成正则表达式特征。</p>
-<h4 id="正则表达式的语法"><a href="#正则表达式的语法" class="headerlink" title="正则表达式的语法"></a>正则表达式的语法</h4><p>语法表</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作符</th>
-<th align="center">说明</th>
-<th align="center">实例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.</code></td>
-<td align="center">表示任何单个字符</td>
-<td align="center">略</td>
-</tr>
-<tr>
-<td align="center"><code>[]</code></td>
-<td align="center">字符集，对单个字符给出取值范围</td>
-<td align="center">[abc]/[a-z]</td>
-</tr>
-<tr>
-<td align="center"><code>[^]</code></td>
-<td align="center">非字符集，对单个字符给出排除范围</td>
-<td align="center">[^abc]表示非a非b非c的单个字符</td>
-</tr>
-<tr>
-<td align="center"><code>*</code></td>
-<td align="center">前一个字符0次或无限次扩展</td>
-<td align="center">abc*-&gt;ab、abc、abcc……</td>
-</tr>
-<tr>
-<td align="center"><code>+</code></td>
-<td align="center">前一个字符1次或无限次扩展</td>
-<td align="center">略</td>
-</tr>
-<tr>
-<td align="center"><code>?</code></td>
-<td align="center">前一个字符0次或1次扩展</td>
-<td align="center">略</td>
-</tr>
-<tr>
-<td align="center">`</td>
-<td align="center">`</td>
-<td align="center">左右表达式任意一个</td>
-</tr>
-<tr>
-<td align="center"><code>{m}</code></td>
-<td align="center">扩展前一个字符m次</td>
-<td align="center">ab{2}c-&gt;abbc</td>
-</tr>
-<tr>
-<td align="center"><code>{m,n}</code></td>
-<td align="center">扩展前一个字符m至n次(含n)</td>
-<td align="center">ab{1,2}c-&gt;abc、abbc</td>
-</tr>
-<tr>
-<td align="center"><code>^</code></td>
-<td align="center">匹配字符串开头</td>
-<td align="center">^abc表示abc且在一个字符串的开头</td>
-</tr>
-<tr>
-<td align="center"><code>$</code></td>
-<td align="center">匹配字符串结尾</td>
-<td align="center">abc$表示abc且在一个字符串的结尾</td>
-</tr>
-<tr>
-<td align="center"><code>()</code></td>
-<td align="center">分组标记，内部只能用`</td>
-<td align="center">`</td>
-</tr>
-<tr>
-<td align="center"><code>\d</code></td>
-<td align="center">数字，等价于[0-9]</td>
-<td align="center">略</td>
-</tr>
-<tr>
-<td align="center"><code>\w</code></td>
-<td align="center">单词字符，等价于[A-Za-z0-9_]</td>
-<td align="center">略</td>
-</tr>
-</tbody></table>
-<p>经典正则表达式实例：<br>|表达式|意义|<br>|:–:|:–:|<br>|<code>^[A-Za-z]+$</code>|26个字母组成的字符串|<br>|<code>^-?\d+$</code>|整数形式的字符串|<br>|<code>^[0-9]*[1-9][0-9]*$</code>|正整数形式字符串|<br>|<code>[1-9]\d{5}</code>|中国境内邮政编码，6位|<br>|<code>[\u4e00-\u9fa5]</code>|匹配中文字符|<br>|<code>\d{3}-\d{8}|\d{4}-\d{7}</code>|国内电话号码|<br>|<code>[1-9]?\d</code>|0-99|<br>|<code>1\d{2}</code>|100-199|</p>
-<p>表示0-255：<br><code>([1‐9]?\d | 1\d{2} | 2[0‐4]\d | 25[0‐5])</code></p>
-<p>表示IP地址：<br><code>(([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5]).){3}([1‐9]?\d|1\d{2}|2[0‐4]\d|25[0‐5])</code></p>
-<h3 id="re库"><a href="#re库" class="headerlink" title="re库"></a>re库</h3>]]></content>
-      <categories>
-        <category>python笔记</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
       </tags>
   </entry>
 </search>

@@ -28,7 +28,7 @@
 <meta property="og:description" content="这是个大二升大三的关键暑假，下学期各类与计算机专业无关的课真的烦，必须要再这个暑假抽出时间来学习计算机。我暑期的学习目标就是完成并巩固基础课的学习并以兴趣带动学习完成一个小项目(暂定前端开发)。这个文档来规划和督促我的这个第一阶段的学习。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-03T16:11:12.000Z">
-<meta property="article:modified_time" content="2020-07-05T15:34:14.341Z">
+<meta property="article:modified_time" content="2020-07-08T03:42:32.351Z">
 <meta property="article:author" content="Michael Johnson">
 <meta name="twitter:card" content="summary">
 
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-05 23:34:14" itemprop="dateModified" datetime="2020-07-05T23:34:14+08:00">2020-07-05</time>
+                <time title="修改时间：2020-07-08 11:42:32" itemprop="dateModified" datetime="2020-07-08T11:42:32+08:00">2020-07-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -414,7 +414,22 @@
 <p>16:00~17:00，爬虫的正则表达式库的学习，掌握了正则表达式的语法。还未进入re库的学习。</p>
 <p>19:30~20:30，继续学习了一小部分Vue的内容。还未感受到Vue的简单之处，可能是之前并未做过类似的前端大作业，对原来直接操作DOM和现在这种挂载的方式并未感受到其强大。</p>
 <p>21:00<del>22:00，Leetcode做了一道动态规划的题，正好遇到了一个明天要学的题，按照思路做出来了，明天看完那位大神的教程之后再写这个Leetcode的总结\</del></p>
-
+<hr>
+<h4 id="7-6-7-7"><a href="#7-6-7-7" class="headerlink" title="7.6-7.7"></a>7.6-7.7</h4><h5 id="小笔记-2"><a href="#小笔记-2" class="headerlink" title="小笔记"></a>小笔记</h5><p>有关TLB的相关知识：</p>
+<p>页表一般都很大，并且存放在内存中，所以处理器引入MMU后，读取指令、数据<strong>需要访问两次内存：首先通过查询页表得到物理地址，然后访问该物理地址读取指令、数据</strong>。为了减少因为MMU导致的处理器性能下降，引入了TLB，TLB是Translation Lookaside Buffer的简称，可翻译为“地址转换后援缓冲器”，也可简称为“快表”。简单地说，<strong>TLB就是页表的Cache</strong>，其中<strong>存储了当前最可能被访问到的页表项</strong>，其内容是<strong>部分页表项的一个<em>副本</em></strong>。只有在TLB无法完成地址翻译任务时，才会到内存中查询页表，这样就减少了页表查询导致的处理器性能下降。</p>
+<p>TLB中的项由两部分组成：<strong>标识和数据</strong>。标识中存放的是虚地址的一部分，而数据部分中存放物理页号、存储保护信息以及其他一些辅助信息。</p>
+<p>因为页大小是8KB，所以虚拟地址的0-12bit作为页内地址偏移。TLB表有64项，所以虚拟地址的13-18bit作为TLB表项的索引。假如虚拟地址的13-18bit是1，那么就会查询TLB的第1项，从中取出标识，与虚拟地址的19-31位作比较，如果相等，表示TLB命中，反之，表示TLB失靶。TLB失靶时，可以由硬件将需要的页表项加载入TLB，也可由软件加载，具体取决于处理器设计，OR1200没有提供硬件加载页表项的功能，只能由软件实现。TLB命中时，此时翻译得到的物理地址就是TLB第1项中的标识（即物理地址13-31位）与虚拟地址0-12bit的结合。在地址翻译的过程中还会结合TLB项中的辅助信息判断是否发生违反安全策略的情况，比如：要修改某一页，但该页是禁止修改的，此时就违反了安全策略，会触发异常。</p>
+<h5 id="时间线-2"><a href="#时间线-2" class="headerlink" title="时间线"></a>时间线</h5><p>10:00~12:00，完成操作系统的非连续内存分配内容，虚拟内存单元开了个小头。重点学习了页表的机制。</p>
+<ul>
+<li>页表内容(resident bit)</li>
+<li>TLB引入</li>
+<li>内存覆盖技术</li>
+</ul>
+<p>14:00~15:30，完成了re库爬虫的理论部分，正则表达式使用起来非常方便，具体语法还需加深记忆。</p>
+<p>17:00~18:00，完成了动态规划的网课学习。理论上已经知道如何解决动态规划的三类题，具体解决还需勤加练习。另外的，某些题目(跳跃游戏)更适配贪心法，并不是所有题目都适配动态规划。贪心法和动态规划法的理论部分了解不够深入，还需回溯定义。</p>
+<p>19:00~21:00，磕了一道Leetcode，具体见Leetcode日记。</p>
+<hr>
+<h4 id="7-8"><a href="#7-8" class="headerlink" title="7.8"></a>7.8</h4>
     </div>
 
     
@@ -494,7 +509,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事项交代"><span class="nav-number">1.</span> <span class="nav-text">事项交代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暑期学习表（不断更新）"><span class="nav-number">1.1.</span> <span class="nav-text">暑期学习表（不断更新）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#该阶段主要目标"><span class="nav-number">1.2.</span> <span class="nav-text">该阶段主要目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志部分"><span class="nav-number">2.</span> <span class="nav-text">日志部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4"><span class="nav-number">2.1.</span> <span class="nav-text">7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记"><span class="nav-number">2.1.1.</span> <span class="nav-text">小笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HTML-DOM节点"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">HTML DOM节点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日记"><span class="nav-number">2.1.2.</span> <span class="nav-text">日记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#时间线"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">时间线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#今日感悟"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">今日感悟</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5"><span class="nav-number">2.2.</span> <span class="nav-text">7.5</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">小笔记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间线-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">时间线</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#事项交代"><span class="nav-number">1.</span> <span class="nav-text">事项交代</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#暑期学习表（不断更新）"><span class="nav-number">1.1.</span> <span class="nav-text">暑期学习表（不断更新）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#该阶段主要目标"><span class="nav-number">1.2.</span> <span class="nav-text">该阶段主要目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#日志部分"><span class="nav-number">2.</span> <span class="nav-text">日志部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4"><span class="nav-number">2.1.</span> <span class="nav-text">7.4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记"><span class="nav-number">2.1.1.</span> <span class="nav-text">小笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#HTML-DOM节点"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">HTML DOM节点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#日记"><span class="nav-number">2.1.2.</span> <span class="nav-text">日记</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#时间线"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">时间线</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#今日感悟"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">今日感悟</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5"><span class="nav-number">2.2.</span> <span class="nav-text">7.5</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">小笔记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间线-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">时间线</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-6-7-7"><span class="nav-number">2.3.</span> <span class="nav-text">7.6-7.7</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小笔记-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">小笔记</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间线-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">时间线</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-8"><span class="nav-number">2.4.</span> <span class="nav-text">7.8</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
