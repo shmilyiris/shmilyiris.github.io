@@ -235,7 +235,7 @@
 </ul>
 <p>12:00~13:30，Leetcode的一道dp题，这次的dp是多状态的，总结在Leetcode笔记里了。</p>
 <p>16:00~17:00，Hash表的学习。<br>plus：买了一本考研机试的书，希望能提高应试能力吧。</p>
-<p>19:00~20:00，一道简单的Leetcode题目。</p>
+<p>19:00~20:00，一道简单的Leetcode题目，合并两个有序数组。</p>
 <h5 id="今日感悟-1"><a href="#今日感悟-1" class="headerlink" title="今日感悟"></a>今日感悟</h5><p>最近真的懒了好多，最近几天说好的MySQL和Vue都没有看，接下来的阶段打算变动一部分学习计划</p>
 <ol>
 <li>新加入：<ul>
@@ -249,10 +249,55 @@
 </ul>
 </li>
 </ol>
+<hr>
+<h4 id="7-11"><a href="#7-11" class="headerlink" title="7.11"></a>7.11</h4><h5 id="时间线-6"><a href="#时间线-6" class="headerlink" title="时间线"></a>时间线</h5><p>10:00~12:00，操作系统。</p>
+<ul>
+<li>二次机会算法（加入dirty bit判断）</li>
+<li>LFU算法</li>
+<li>Belady现象</li>
+<li>Clock、FIFO、LRU算法对比</li>
+</ul>
+<p>13:00~14:00，Leetcode每日一题，今天的太难，能力它不够呀。。</p>
+<p>15:00~19:00，<strong>天那我承认我没咋学，我再也不这样了</strong>。</p>
+<p>19:00~21:00，JS项目1_DrumKit。</p>
+<p>21:30~22:30，一道Leetcode，浪漫的相交链表。</p>
+<p>23:00~24:00，一道Leetcode，环形链表。</p>
+<h5 id="今日遗留"><a href="#今日遗留" class="headerlink" title="今日遗留"></a>今日遗留</h5><p>hash表的C语言实现</p>
 ]]></content>
       <categories>
         <category>学习日志</category>
       </categories>
+  </entry>
+  <entry>
+    <title>30个JS小项目</title>
+    <url>/2020/07/11/30%E4%B8%AAJS%E5%B0%8F%E9%A1%B9%E7%9B%AE/</url>
+    <content><![CDATA[<p>一个对Javascript学习很有帮助的实操项目。</p>
+<a id="more"></a>
+<h2 id="打鼓点"><a href="#打鼓点" class="headerlink" title="打鼓点"></a>打鼓点</h2><h3 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h3><ol>
+<li><code>querySelector()</code>方法返回文档中匹配指定CSS选择器的一个元素。<code>querySelectorAll()</code>返回全部元素。</li>
+<li><code>&lt;kbd&gt;</code>标签用于指定该字符是从键盘输入的。</li>
+<li><code>keyCode</code>65-90对应的是键盘上A-Z。</li>
+<li><code>element.classList.add()</code>添加一个或多个类名。对应的<code>remove()</code>删除。</li>
+<li>当发生<code>transitionend</code>事件时，<code>propertyName</code>属性返回<strong>与转换关联的CSS属性的名称</strong>。此属性是只读的。</li>
+</ol>
+<h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><ol>
+<li>加入对键盘按键的事件监听，每当按下一个按键时<ul>
+<li>audio要play</li>
+<li>加入playing类，从而使得样式改变。</li>
+</ul>
+</li>
+<li>加入对每一个key的监听，若事件结束，则remove playing类从而返回初始状态。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeTransition</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (e.propertyName !== <span class="string">'transform'</span>) <span class="keyword">return</span>; <span class="comment">// 只有监听到transition结束时，才remove playing</span></span><br><span class="line">  e.target.classList.remove(<span class="string">'playing'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">playSound</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// audio和key承载了整个标签和标签里的内容</span></span><br><span class="line">  <span class="keyword">const</span> audio = <span class="built_in">document</span>.querySelector(<span class="string">`audio[data-key="<span class="subst">$&#123;e.keyCode&#125;</span>"]`</span>);</span><br><span class="line">  <span class="keyword">const</span> key = <span class="built_in">document</span>.querySelector(<span class="string">`div[data-key="<span class="subst">$&#123;e.keyCode&#125;</span>"]`</span>);</span><br><span class="line">  <span class="keyword">if</span> (!audio) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  key.classList.add(<span class="string">'playing'</span>);</span><br><span class="line">  audio.currentTime = <span class="number">0</span>; <span class="comment">// 使时间归零，重新播放当前鼓点</span></span><br><span class="line">  audio.play();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> keys = <span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'.key'</span>));</span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> key.addEventListener(<span class="string">'transitionend'</span>, removeTransition));</span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'keydown'</span>, playSound);</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>前端笔记</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+      </tags>
   </entry>
   <entry>
     <title>ES6学习笔记</title>
@@ -357,130 +402,6 @@
       </categories>
       <tags>
         <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>LeetCode日记</title>
-    <url>/2020/07/02/LeetCode%E6%97%A5%E8%AE%B0/</url>
-    <content><![CDATA[<p>偶尔在力扣上刷刷题碰到些有价值的题目随手都记录到这里了。</p>
-<a id="more"></a>
-<hr>
-<h4 id="二进制求和"><a href="#二进制求和" class="headerlink" title="二进制求和"></a>二进制求和</h4><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>输入：两个二进制字符串<br>输出：加法后得到的二进制字符串</p>
-<h5 id="个人解答-Python"><a href="#个人解答-Python" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addBinary</span><span class="params">(self, a, b)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type a: str</span></span><br><span class="line"><span class="string">        :type b: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        carry = <span class="number">0</span>  <span class="comment"># 进位初始化为0</span></span><br><span class="line">        result = <span class="string">""</span></span><br><span class="line">        n = max(len(a),len(b))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(a)<span class="number">-1</span>):  <span class="comment"># 当b未遍历完，a遍历完</span></span><br><span class="line">                result += str((int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(b)<span class="number">-1</span>):  <span class="comment"># 当a未遍历完，b遍历完</span></span><br><span class="line">                result += str((int(a[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(a[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            result += str((int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">            carry = (int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span>(carry == <span class="number">1</span>):  <span class="comment"># 如果最后进位是1，补位</span></span><br><span class="line">            result += str(carry)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> result[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
-<h5 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h5><p>当两个数字位数较小的一个，直接用0补齐，使得两个字符串的位数相同，可以节省代码空间，减少判断次数，降低运行时间。</p>
-<h5 id="法2：位运算"><a href="#法2：位运算" class="headerlink" title="法2：位运算"></a>法2：位运算</h5><p><a href="https://leetcode-cn.com/problems/add-binary/solution/er-jin-zhi-qiu-he-by-leetcode-solution/" target="_blank" rel="noopener">戳我看解法</a></p>
-<br/>
-<br/>
-
-<hr>
-<h4 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h4><h5 id="需求-1"><a href="#需求-1" class="headerlink" title="需求"></a>需求</h5><p>人一次只能爬1个或2个楼梯<br>输入：楼梯个数<br>输出：爬楼梯共有多少种爬法</p>
-<h5 id="个人解答-Python-1"><a href="#个人解答-Python-1" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n * f(n<span class="number">-1</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        num = (n//<span class="number">2</span>)+<span class="number">1</span>  <span class="comment"># 共有多少种不重复的已经确定的1，2个数分布</span></span><br><span class="line">        j = n  <span class="comment"># 排列组合公式的底数</span></span><br><span class="line"></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">            result += f(j)/(f(i)*f(j-i))</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
-<h5 id="我的总结"><a href="#我的总结" class="headerlink" title="我的总结"></a>我的总结</h5><p>我的思路是先找到1，2个数的所有组合，举个例子：<br>比如n=6，那么楼梯的1，2组合只能是以下四种：</p>
-<ul>
-<li>111111</li>
-<li>11112</li>
-<li>1122</li>
-<li>222</li>
-</ul>
-<p>那么只需要找到2的排列组合数就行：</p>
-<ul>
-<li>0/6 111111</li>
-<li>1/5 11112</li>
-<li>2/4 1122</li>
-<li>3/3 222</li>
-</ul>
-<p>虽然找到了公式，但不得不说，我这个不论空间还是时间都垃圾的很……直接看标答吧…<br><a href="https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-by-leetcode-solution/" target="_blank" rel="noopener">戳我看完整答案</a></p>
-<h5 id="方法1：动态规划！"><a href="#方法1：动态规划！" class="headerlink" title="方法1：动态规划！"></a>方法1：动态规划！</h5><p>我们用 <code>f(x)</code> 表示爬到第 <code>x</code> 级台阶的方案数，考虑最后一步可能跨了一级台阶，也可能跨了两级台阶，所以我们可以列出如下式子：<br>$$f(x) = f(x-1) + f(x-2)$$</p>
-<p>这个公式的意思是，爬到第n级台阶只能是爬到n-1级（爬到第n级用了一步）或是爬到n-2级（爬到n级用了两步）的方案的集合。看到这里就一目了然，这不就是传说中的<code>斐波那契数列</code>吗？（后话）<br>利用滚动数组的方法求解代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">    p = <span class="number">0</span></span><br><span class="line">    q = <span class="number">0</span></span><br><span class="line">    r = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">        p = q  <span class="comment"># q前移一位</span></span><br><span class="line">        q = r  <span class="comment"># r前移一位</span></span><br><span class="line">        r = p + q  <span class="comment"># 更新r</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：<code>O(n)</code><br>空间复杂度：<code>O(1)</code></p>
-<h5 id="方法2：斐波那契公式"><a href="#方法2：斐波那契公式" class="headerlink" title="方法2：斐波那契公式"></a>方法2：斐波那契公式</h5><p>$$f ( n ) = \frac { 1 } { \sqrt { 5 } } [ ( \frac { 1 + \sqrt { 5 } } { 2 } ) ^ { n } - ( \frac { 1 - \sqrt { 5 } } { 2 } ) ^ { n } ]<br>$$</p>
-<hr>
-<h4 id="删除链表的倒数第n个节点"><a href="#删除链表的倒数第n个节点" class="headerlink" title="删除链表的倒数第n个节点"></a>删除链表的倒数第n个节点</h4><h5 id="个人解答-C-两次遍历"><a href="#个人解答-C-两次遍历" class="headerlink" title="个人解答(C,两次遍历)"></a>个人解答(C,两次遍历)</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">removeNthFromEnd</span><span class="params">(struct ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">cur</span> = <span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cur!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        cur = cur -&gt; next;</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(count==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 如果删除头结点，直接返回</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        cur=head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;count-n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125; <span class="comment">// 如果不删除头结点，按照结点删除法删除对应节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="我的总结-1"><a href="#我的总结-1" class="headerlink" title="我的总结"></a>我的总结</h5><p>遍历2L-n次，时间复杂度 $O(L)$<br>空间复杂度$O(1)$</p>
-<h5 id="优化：一次遍历法（双指针）"><a href="#优化：一次遍历法（双指针）" class="headerlink" title="优化：一次遍历法（双指针）"></a>优化：一次遍历法（双指针）</h5><p>哎呀，想了十分钟没想出来，一说双指针一下子明白了。双指针保持间隔为n，依次向前递推，直到快指针指向空，慢指针定位成功。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">removeNthFromEnd</span><span class="params">(struct ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">fast</span> = <span class="title">head</span>, *<span class="title">slow</span> = <span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(n!=<span class="number">0</span>)&#123;</span><br><span class="line">        n--;</span><br><span class="line">        fast = fast-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 定位快指针到第n+1个结点</span></span><br><span class="line">    <span class="keyword">if</span>(fast==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 如果第n+1个结点为空，直接返回head-&gt;next</span></span><br><span class="line">    <span class="keyword">while</span>(fast-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">        fast = fast-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>注意：<strong>free语句是必不可少的，这里为了省空间就没用q承载再删除</strong>。正解如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">q = p-&gt;next;</span><br><span class="line">p-&gt;next = q-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(q);</span><br></pre></td></tr></table></figure>
-
-
-<hr>
-<h4 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a>跳跃游戏</h4><h5 id="需求-2"><a href="#需求-2" class="headerlink" title="需求"></a>需求</h5><p>给定一个非负整数数组，你最初位于数组的第一个位置。<br>数组中的每个元素代表你在该位置可以跳跃的最大长度。<br>判断你是否能够到达最后一个位置。</p>
-<h5 id="个人解答-C"><a href="#个人解答-C" class="headerlink" title="个人解答(C)"></a>个人解答(C)</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = numsSize<span class="number">-2</span>;i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &gt;= numsSize-i<span class="number">-1</span>)&#123; </span><br><span class="line">            <span class="comment">// 如果这个在尾元素之前的元素可以到达末尾，则以该元素为末尾</span></span><br><span class="line">            numsSize -= (numsSize-i<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(numsSize==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：$O(n)$<br>空间复杂度：$O(1)$</p>
-<h5 id="标答-贪心法"><a href="#标答-贪心法" class="headerlink" title="标答(贪心法)"></a>标答(贪心法)</h5><p><strong>更新能跳到的最远位置</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        n, rightmost = len(nums), <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> i &lt;= rightmost:</span><br><span class="line">                rightmost = max(rightmost, i + nums[i])</span><br><span class="line">                <span class="keyword">if</span> rightmost &gt;= n - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="两链表之和"><a href="#两链表之和" class="headerlink" title="两链表之和"></a>两链表之和</h4><h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
-<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
-<p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
-<p>例如：<br>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>输出：7 -&gt; 0 -&gt; 8<br>原因：342 + 465 = 807</p>
-<h5 id="个人解答"><a href="#个人解答" class="headerlink" title="个人解答"></a>个人解答</h5><p>本来想省一点空间，直接在L1上操作，现在导致前后两难：</p>
-<ol>
-<li>逻辑不清晰，可读性很差</li>
-<li>时间复杂度提高的鸭子！！</li>
-<li>代码冗长</li>
-</ol>
-<p>浪费了我俩小时，先睡了。/(ㄒoㄒ)/~~</p>
-<p>2020.7.8..今天早上用c语言做出来了，直接贴代码。之前的思路（改变L1），造成了我遍历完其中一个链表，就会分类讨论出三种情况，无疑复杂化了原问题。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">addTwoNumbers</span><span class="params">(struct ListNode* l1, struct ListNode* l2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=<span class="number">0</span>; <span class="comment">// 进位位初始化</span></span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>; <span class="comment">// 每位的加和</span></span><br><span class="line">    <span class="keyword">int</span> x,y; <span class="comment">// 每位的真实加法数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">L1</span>=<span class="title">l1</span>,*<span class="title">L2</span>=<span class="title">l2</span>,*<span class="title">result</span>,*<span class="title">cur</span>,*<span class="title">high</span>,*<span class="title">nextNode</span>;</span></span><br><span class="line">    result = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">    cur = result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(L1!=<span class="literal">NULL</span> || L2!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        x = L1!=<span class="literal">NULL</span> ? L1-&gt;val : <span class="number">0</span>;</span><br><span class="line">        y = L2!=<span class="literal">NULL</span> ? L2-&gt;val : <span class="number">0</span>;</span><br><span class="line">        nextNode = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">        sum = x + y + temp;</span><br><span class="line">        <span class="keyword">if</span>(sum&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            nextNode -&gt; val = sum%<span class="number">10</span>;</span><br><span class="line">            temp = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            nextNode -&gt; val = sum;</span><br><span class="line">            temp = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L1!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            L1=L1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L2!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            L2=L2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;next = nextNode;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最后排除多位问题</span></span><br><span class="line">    <span class="keyword">if</span>(temp == <span class="number">1</span>)&#123;</span><br><span class="line">        high = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">        high -&gt; val = <span class="number">1</span>;</span><br><span class="line">        cur -&gt; next = high;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cur -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result -&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>所以以后再碰到类似的题目，要先想好自己要不要优化空间（时间），到底是先试着把题目做出来，还是就着一个优化空间的角度钻牛角尖，还是要衡量一下的。</strong>后面还看到了一个时间上比我快很多的算法，其实和我之前的思路有一点类似(当某一个链表遍历完，剩余的链接到后面，但是由于我一心只想改变L1，造成了很多不必要的麻烦，而且后面的关于进位位的处理也没人家想的好)大体讲一下思路，开阔一下视野。</p>
-<ol>
-<li>新建一个链表l3，用以存放l1+l2的和</li>
-<li>分3种情况，在l1，l2都没到尾的前提下<ul>
-<li>l1先结束，l2多出来的部分直接加入到l3</li>
-<li>l2先结束，l1多出来的部分直接加到l3</li>
-<li>两个一起结束，直接相加，不管结果是否大于10</li>
-</ul>
-</li>
-<li>遍历l3，先不考虑链表最后一个数，<ul>
-<li>如果l3.val&gt;10，减去10，并在下一个节点上加1</li>
-<li>如果链表最后一个数大于10，则减去10，并新建一个节点存1</li>
-</ul>
-</li>
-</ol>
-<p>这个思路的<strong>对进位位的处理</strong>是很值得借鉴的，就是先不管进位位的情况下统一加完，再遍历链表实现进位位的加法，这种方法看似消耗了时间（相当于两次遍历），实际上居然比我那个要快很多，显然是因为我那个的条件判断语句有点过多了。</p>
-<hr>
-<h4 id="跳水板"><a href="#跳水板" class="headerlink" title="跳水板"></a>跳水板</h4><h5 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h5><p>你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。<br>返回的长度需要<strong>从小到大排列</strong>。</p>
-<h5 id="个人解答-1"><a href="#个人解答-1" class="headerlink" title="个人解答"></a>个人解答</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">divingBoard</span><span class="params">(<span class="keyword">int</span> shorter, <span class="keyword">int</span> longer, <span class="keyword">int</span> k, <span class="keyword">int</span>* returnSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *newNode;</span><br><span class="line">    <span class="keyword">if</span>(k==<span class="number">0</span>)&#123;</span><br><span class="line">        *returnSize = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(longer==shorter)&#123;</span><br><span class="line">        newNode = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)); </span><br><span class="line">        *newNode = longer*k;</span><br><span class="line">        *returnSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    newNode = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(k+<span class="number">1</span>));</span><br><span class="line">    *returnSize = k+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=k; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">        newNode[k-i] = i*shorter + (k-i)*longer; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="删除排序链表里的重复元素II"><a href="#删除排序链表里的重复元素II" class="headerlink" title="删除排序链表里的重复元素II"></a>删除排序链表里的重复元素II</h4><p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中<strong>没有重复出现</strong>的数字。</p>
-<h5 id="个人原解答"><a href="#个人原解答" class="headerlink" title="个人原解答"></a>个人原解答</h5><p>思路：</p>
-<ol>
-<li>如果链表只有0/1个元素，返回head。 </li>
-<li>将链表化为<strong>前两个元素一定不一样</strong>的模型。</li>
-<li>设置快指针q，慢指针p。</li>
-<li>p-&gt;next-&gt;val == q-&gt;val时是删除条件<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">deleteDuplicates</span><span class="params">(struct ListNode* head)</span></span>&#123;</span><br><span class="line">    <span class="comment">// p是慢指针，q是快指针</span></span><br><span class="line">    <span class="comment">// 如果是开头重复：label=1</span></span><br><span class="line">    <span class="comment">// 如果是中间重复：label=0</span></span><br><span class="line">    <span class="comment">// 由于头结点和后面都不一样，我觉得先摘除头结点重复的前半部分，将链表化为“前两个一定不相同的模型”</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">p</span>=<span class="title">head</span>, *<span class="title">q</span>=<span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">int</span> label = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span> || head-&gt;next==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(head!=<span class="literal">NULL</span> &amp;&amp; head-&gt;next-&gt;val == head-&gt;val)&#123;</span><br><span class="line">        label = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(head-&gt;next!=<span class="literal">NULL</span> &amp;&amp; head-&gt;next-&gt;val == head-&gt;val)&#123;</span><br><span class="line">            label = <span class="number">1</span>;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(label)&#123;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    q = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(q!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;next-&gt;val == q-&gt;val)&#123; <span class="comment">// 若相等</span></span><br><span class="line">            <span class="keyword">if</span>(q-&gt;next==<span class="literal">NULL</span> &amp;&amp; p-&gt;next-&gt;next!=<span class="literal">NULL</span>)&#123; <span class="comment">// 到达链表尾，则删除</span></span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">                p-&gt;next = q;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123; <span class="comment">// 否则快指针后移</span></span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123; <span class="comment">// 若不等</span></span><br><span class="line">            <span class="keyword">if</span>(p-&gt;next-&gt;next == q)&#123; <span class="comment">// 不能删，要后移p</span></span><br><span class="line">                p = p-&gt;next;</span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123; <span class="comment">// 否则应该删掉中间结点</span></span><br><span class="line">                p-&gt;next = q;</span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-我感觉我想法挺好的啊！但真的做崩了，被各种细节卡了下来，提交了5次都没成功，我是真的垃圾。都说能用递归，那我用递归试试，半小时不行就劝退吧，现在是0：49，我很困。<br>1：01，爷想不出来，气死了，睡觉。</li>
-</ol>
-<h5 id="标准解法"><a href="#标准解法" class="headerlink" title="标准解法"></a>标准解法</h5><h6 id="方法1：递归"><a href="#方法1：递归" class="headerlink" title="方法1：递归"></a>方法1：递归</h6><ul>
-<li><code>head</code>后面有值而且和<code>head</code>的值相等，那么就找到不相等为止，然后对后面一个结点去递归，这样就把前面重复的给删除了。</li>
-<li><code>head</code>后面有值但和<code>head</code>的值不等，那么就递归后面一个结点，接在<code>head</code>的后面。</li>
-<li>最后返回<code>head</code>。</li>
-</ul>
-<p>想法和我是一样的，但是我就……没能力实现出来？？其实中间很多循环条件判断条件也是完全一样的，，这个<code>return deleteDuplicates(head-&gt;next)</code>我服了，我当时怎么都没想出来解决(1,1,2,2)这种情况，人家一句就解决了</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">deleteDuplicates</span><span class="params">(struct ListNode* head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(head-&gt;next!=<span class="literal">NULL</span> &amp;&amp; head-&gt;val == head-&gt;next-&gt;val)&#123;</span><br><span class="line">        <span class="keyword">while</span>(head-&gt;next!=<span class="literal">NULL</span> &amp;&amp; head-&gt;val == head-&gt;next-&gt;val)&#123;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> deleteDuplicates(head-&gt;next);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        head-&gt;next = deleteDuplicates(head-&gt;next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="方法2：hash表"><a href="#方法2：hash表" class="headerlink" title="方法2：hash表"></a>方法2：hash表</h6><p>hash_map 统计出现次数，如果出现次数等于1，那么就放在新链表后面。</p>
-<h6 id="方法3：双指针"><a href="#方法3：双指针" class="headerlink" title="方法3：双指针"></a>方法3：双指针</h6><p><strong>先建一个哑结点真的省事儿</strong>，当建完哑结点后，删除就会和<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener">删除排序链表里的重复元素I</a>这道题的方法基本一样–<strong>顺序遍历，若同则删</strong>，不同的是，<code>cur-&gt;next</code>是否为空要加以判断。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">deleteDuplicates</span><span class="params">(struct ListNode* head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!head || !head-&gt;next)</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 哑结点指向head</span></span><br><span class="line">    ListNode* dummy = (struct ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">    dummy-&gt;next = head;</span><br><span class="line">    </span><br><span class="line">    ListNode* pre = dummy;</span><br><span class="line">    ListNode* cur = head;</span><br><span class="line">    <span class="keyword">while</span> (cur!=<span class="literal">NULL</span> &amp;&amp; cur-&gt;next!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;val == cur-&gt;next-&gt;val) &#123;</span><br><span class="line">            <span class="keyword">while</span> (cur-&gt;next!=<span class="literal">NULL</span> &amp;&amp; cur-&gt;val == cur-&gt;next-&gt;val) &#123;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            pre-&gt;next = cur-&gt;next;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;                </span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="个人感悟"><a href="#个人感悟" class="headerlink" title="个人感悟"></a>个人感悟</h5><p>当这种情况下，可能有很多种情况，首先想能不能把这几个情况想个方法合并。比如法1的递归和法3的双指针的哑结点，都是<strong>为了排除特殊情情况而设计的</strong>。</p>
-<h4 id="恢复空格"><a href="#恢复空格" class="headerlink" title="恢复空格"></a>恢复空格</h4><h5 id="别人解答C"><a href="#别人解答C" class="headerlink" title="别人解答C"></a>别人解答C</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MIN</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CMP</span><span class="params">(<span class="keyword">void</span> * a,<span class="keyword">void</span> * b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * S1 = *(<span class="keyword">char</span> **)a;</span><br><span class="line">    <span class="keyword">char</span> * S2 = *(<span class="keyword">char</span> **)b;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(S1,S2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Binary</span><span class="params">(<span class="keyword">char</span> **dictionary,<span class="keyword">int</span> dictionarySize,<span class="keyword">char</span> * <span class="built_in">string</span>,<span class="keyword">int</span> lenth)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = dictionarySize - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>,ret2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(left &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        mid = left + (right - left) / <span class="number">2</span>;        <span class="comment">//mid是一个区间</span></span><br><span class="line">        ret = <span class="built_in">strncmp</span>(dictionary[mid],<span class="built_in">string</span>,lenth);</span><br><span class="line">        <span class="keyword">if</span>(ret == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ret2 = <span class="built_in">strlen</span>(dictionary[mid]);</span><br><span class="line">            <span class="keyword">if</span>(ret2 == lenth)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(ret2 &gt; lenth)</span><br><span class="line">            &#123;</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(ret &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">respace</span><span class="params">(<span class="keyword">char</span>** dictionary, <span class="keyword">int</span> dictionarySize, <span class="keyword">char</span>* sentence)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    qsort(dictionary,dictionarySize,<span class="keyword">sizeof</span>(<span class="keyword">char</span> *),CMP);</span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(sentence);</span><br><span class="line">    <span class="keyword">int</span> * dp = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * (len + <span class="number">1</span>));</span><br><span class="line">    * dp = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt;= len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            *(dp + i) = *(dp + i - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>;j &lt;= i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(Binary(dictionary,dictionarySize,sentence + j,i - j + <span class="number">1</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(j == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    *(dp + i) = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    *(dp + i) = MIN(dp[i],dp[j - <span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> answer = dp[len] - <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">free</span>(dp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>下面是我改进后的，用C语言基于动态规划的答案：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">substr</span><span class="params">(<span class="keyword">char</span>* sentence, <span class="keyword">int</span> start, <span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *substring = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*(len+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        substring[i] = sentence[start+i];</span><br><span class="line">    &#125;</span><br><span class="line">    substring[len] = <span class="string">'\0'</span>; <span class="comment">// 这个结尾一定要赋'\0'要不比较不了</span></span><br><span class="line">    <span class="keyword">return</span> substring;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">respace</span><span class="params">(<span class="keyword">char</span>** dictionary, <span class="keyword">int</span> dictionarySize, <span class="keyword">char</span>* sentence)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 返回的是字符数，不是单词数……</span></span><br><span class="line">    <span class="comment">// 这题应该能用动态规划解</span></span><br><span class="line">    <span class="comment">// 转移方程：f[i]=min&#123;f[i-word.length],f[i]&#125;</span></span><br><span class="line">    <span class="comment">// 之所以会有min函数是因为 </span></span><br><span class="line">    <span class="comment">// sentence:"looked" dictionary:["looked","oked"]这种情况，最后就会采取最小匹配</span></span><br><span class="line">    <span class="keyword">int</span> n = <span class="built_in">strlen</span>(sentence); <span class="comment">// sentence长度</span></span><br><span class="line">    <span class="keyword">int</span> dp[n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">size</span>; <span class="comment">// 单词长度</span></span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        dp[i+<span class="number">1</span>] = dp[i] + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j &lt; dictionarySize;j++)&#123;</span><br><span class="line">            <span class="built_in">size</span> = <span class="built_in">strlen</span>(dictionary[j]);</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">size</span>&lt;=i+<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(dictionary[j], substr(sentence, i+<span class="number">1</span>-<span class="built_in">size</span>, <span class="built_in">size</span>))==<span class="number">0</span>)&#123;</span><br><span class="line">                    dp[i+<span class="number">1</span>] = dp[i+<span class="number">1</span>]&lt;dp[i+<span class="number">1</span>-<span class="built_in">size</span>] ? dp[i+<span class="number">1</span>] : dp[i+<span class="number">1</span>-<span class="built_in">size</span>];</span><br><span class="line">                </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看别人家的题解，了解到了<strong>字典树</strong>（Trie树）这个概念，同时还有<strong>字符串hash</strong>的解法。<br><a href="https://leetcode-cn.com/problems/re-space-lcci/solution/jian-dan-dp-trieshu-bi-xu-miao-dong-by-sweetiee/" target="_blank" rel="noopener">甜姐的trie解法</a></p>
-]]></content>
-      <categories>
-        <category>算法题目</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -607,6 +528,135 @@
       </tags>
   </entry>
   <entry>
+    <title>LeetCode日记</title>
+    <url>/2020/07/02/LeetCode%E6%97%A5%E8%AE%B0/</url>
+    <content><![CDATA[<p>偶尔在力扣上刷刷题碰到些有价值的题目随手都记录到这里了。</p>
+<a id="more"></a>
+<hr>
+<h4 id="二进制求和"><a href="#二进制求和" class="headerlink" title="二进制求和"></a>二进制求和</h4><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><p>输入：两个二进制字符串<br>输出：加法后得到的二进制字符串</p>
+<h5 id="个人解答-Python"><a href="#个人解答-Python" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addBinary</span><span class="params">(self, a, b)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type a: str</span></span><br><span class="line"><span class="string">        :type b: str</span></span><br><span class="line"><span class="string">        :rtype: str</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        carry = <span class="number">0</span>  <span class="comment"># 进位初始化为0</span></span><br><span class="line">        result = <span class="string">""</span></span><br><span class="line">        n = max(len(a),len(b))</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(a)<span class="number">-1</span>):  <span class="comment"># 当b未遍历完，a遍历完</span></span><br><span class="line">                result += str((int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span>(i &gt; len(b)<span class="number">-1</span>):  <span class="comment"># 当a未遍历完，b遍历完</span></span><br><span class="line">                result += str((int(a[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">                carry = (int(a[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            result += str((int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) % <span class="number">2</span>)</span><br><span class="line">            carry = (int(a[-i<span class="number">-1</span>])+int(b[-i<span class="number">-1</span>])+carry) // <span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span>(carry == <span class="number">1</span>):  <span class="comment"># 如果最后进位是1，补位</span></span><br><span class="line">            result += str(carry)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> result[::<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<h5 id="算法改进"><a href="#算法改进" class="headerlink" title="算法改进"></a>算法改进</h5><p>当两个数字位数较小的一个，直接用0补齐，使得两个字符串的位数相同，可以节省代码空间，减少判断次数，降低运行时间。</p>
+<h5 id="法2：位运算"><a href="#法2：位运算" class="headerlink" title="法2：位运算"></a>法2：位运算</h5><p><a href="https://leetcode-cn.com/problems/add-binary/solution/er-jin-zhi-qiu-he-by-leetcode-solution/" target="_blank" rel="noopener">戳我看解法</a></p>
+<br/>
+<br/>
+
+<hr>
+<h4 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h4><h5 id="需求-1"><a href="#需求-1" class="headerlink" title="需求"></a>需求</h5><p>人一次只能爬1个或2个楼梯<br>输入：楼梯个数<br>输出：爬楼梯共有多少种爬法</p>
+<h5 id="个人解答-Python-1"><a href="#个人解答-Python-1" class="headerlink" title="个人解答(Python)"></a>个人解答(Python)</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> n * f(n<span class="number">-1</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type n: int</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        num = (n//<span class="number">2</span>)+<span class="number">1</span>  <span class="comment"># 共有多少种不重复的已经确定的1，2个数分布</span></span><br><span class="line">        j = n  <span class="comment"># 排列组合公式的底数</span></span><br><span class="line"></span><br><span class="line">        result = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">            result += f(j)/(f(i)*f(j-i))</span><br><span class="line">            j -= <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h5 id="我的总结"><a href="#我的总结" class="headerlink" title="我的总结"></a>我的总结</h5><p>我的思路是先找到1，2个数的所有组合，举个例子：<br>比如n=6，那么楼梯的1，2组合只能是以下四种：</p>
+<ul>
+<li>111111</li>
+<li>11112</li>
+<li>1122</li>
+<li>222</li>
+</ul>
+<p>那么只需要找到2的排列组合数就行：</p>
+<ul>
+<li>0/6 111111</li>
+<li>1/5 11112</li>
+<li>2/4 1122</li>
+<li>3/3 222</li>
+</ul>
+<p>虽然找到了公式，但不得不说，我这个不论空间还是时间都垃圾的很……直接看标答吧…<br><a href="https://leetcode-cn.com/problems/climbing-stairs/solution/pa-lou-ti-by-leetcode-solution/" target="_blank" rel="noopener">戳我看完整答案</a></p>
+<h5 id="方法1：动态规划！"><a href="#方法1：动态规划！" class="headerlink" title="方法1：动态规划！"></a>方法1：动态规划！</h5><p>我们用 <code>f(x)</code> 表示爬到第 <code>x</code> 级台阶的方案数，考虑最后一步可能跨了一级台阶，也可能跨了两级台阶，所以我们可以列出如下式子：<br>$$f(x) = f(x-1) + f(x-2)$$</p>
+<p>这个公式的意思是，爬到第n级台阶只能是爬到n-1级（爬到第n级用了一步）或是爬到n-2级（爬到n级用了两步）的方案的集合。看到这里就一目了然，这不就是传说中的<code>斐波那契数列</code>吗？（后话）<br>利用滚动数组的方法求解代码如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n)</span>:</span></span><br><span class="line">    p = <span class="number">0</span></span><br><span class="line">    q = <span class="number">0</span></span><br><span class="line">    r = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>):</span><br><span class="line">        p = q  <span class="comment"># q前移一位</span></span><br><span class="line">        q = r  <span class="comment"># r前移一位</span></span><br><span class="line">        r = p + q  <span class="comment"># 更新r</span></span><br><span class="line">    <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：<code>O(n)</code><br>空间复杂度：<code>O(1)</code></p>
+<h5 id="方法2：斐波那契公式"><a href="#方法2：斐波那契公式" class="headerlink" title="方法2：斐波那契公式"></a>方法2：斐波那契公式</h5><p>$$f ( n ) = \frac { 1 } { \sqrt { 5 } } [ ( \frac { 1 + \sqrt { 5 } } { 2 } ) ^ { n } - ( \frac { 1 - \sqrt { 5 } } { 2 } ) ^ { n } ]<br>$$</p>
+<hr>
+<h4 id="删除链表的倒数第n个节点"><a href="#删除链表的倒数第n个节点" class="headerlink" title="删除链表的倒数第n个节点"></a>删除链表的倒数第n个节点</h4><h5 id="个人解答-C-两次遍历"><a href="#个人解答-C-两次遍历" class="headerlink" title="个人解答(C,两次遍历)"></a>个人解答(C,两次遍历)</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">removeNthFromEnd</span><span class="params">(struct ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">cur</span> = <span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">int</span> count=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(cur!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        cur = cur -&gt; next;</span><br><span class="line">        count++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(count==n)&#123;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 如果删除头结点，直接返回</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        cur=head;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;count-n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;next = cur-&gt;next-&gt;next;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125; <span class="comment">// 如果不删除头结点，按照结点删除法删除对应节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="我的总结-1"><a href="#我的总结-1" class="headerlink" title="我的总结"></a>我的总结</h5><p>遍历2L-n次，时间复杂度 $O(L)$<br>空间复杂度$O(1)$</p>
+<h5 id="优化：一次遍历法（双指针）"><a href="#优化：一次遍历法（双指针）" class="headerlink" title="优化：一次遍历法（双指针）"></a>优化：一次遍历法（双指针）</h5><p>哎呀，想了十分钟没想出来，一说双指针一下子明白了。双指针保持间隔为n，依次向前递推，直到快指针指向空，慢指针定位成功。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">removeNthFromEnd</span><span class="params">(struct ListNode* head, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">fast</span> = <span class="title">head</span>, *<span class="title">slow</span> = <span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(n!=<span class="number">0</span>)&#123;</span><br><span class="line">        n--;</span><br><span class="line">        fast = fast-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 定位快指针到第n+1个结点</span></span><br><span class="line">    <span class="keyword">if</span>(fast==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head-&gt;next;</span><br><span class="line">    &#125; <span class="comment">// 如果第n+1个结点为空，直接返回head-&gt;next</span></span><br><span class="line">    <span class="keyword">while</span>(fast-&gt;next!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">        fast = fast-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    slow-&gt;next = slow-&gt;next-&gt;next;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意：<strong>free语句是必不可少的，这里为了省空间就没用q承载再删除</strong>。正解如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">q = p-&gt;next;</span><br><span class="line">p-&gt;next = q-&gt;next;</span><br><span class="line"><span class="built_in">free</span>(q);</span><br></pre></td></tr></table></figure>
+
+
+<hr>
+<h4 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a>跳跃游戏</h4><h5 id="需求-2"><a href="#需求-2" class="headerlink" title="需求"></a>需求</h5><p>给定一个非负整数数组，你最初位于数组的第一个位置。<br>数组中的每个元素代表你在该位置可以跳跃的最大长度。<br>判断你是否能够到达最后一个位置。</p>
+<h5 id="个人解答-C"><a href="#个人解答-C" class="headerlink" title="个人解答(C)"></a>个人解答(C)</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span>* nums, <span class="keyword">int</span> numsSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i = numsSize<span class="number">-2</span>;i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[i] &gt;= numsSize-i<span class="number">-1</span>)&#123; </span><br><span class="line">            <span class="comment">// 如果这个在尾元素之前的元素可以到达末尾，则以该元素为末尾</span></span><br><span class="line">            numsSize -= (numsSize-i<span class="number">-1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(numsSize==<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：$O(n)$<br>空间复杂度：$O(1)$</p>
+<h5 id="标答-贪心法"><a href="#标答-贪心法" class="headerlink" title="标答(贪心法)"></a>标答(贪心法)</h5><p><strong>更新能跳到的最远位置</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">canJump</span><span class="params">(self, nums: List[int])</span> -&gt; bool:</span></span><br><span class="line">        n, rightmost = len(nums), <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            <span class="keyword">if</span> i &lt;= rightmost:</span><br><span class="line">                rightmost = max(rightmost, i + nums[i])</span><br><span class="line">                <span class="keyword">if</span> rightmost &gt;= n - <span class="number">1</span>:</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="两链表之和"><a href="#两链表之和" class="headerlink" title="两链表之和"></a>两链表之和</h4><h5 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h5><p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
+<p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<p>例如：<br>输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>输出：7 -&gt; 0 -&gt; 8<br>原因：342 + 465 = 807</p>
+<h5 id="个人解答"><a href="#个人解答" class="headerlink" title="个人解答"></a>个人解答</h5><p>本来想省一点空间，直接在L1上操作，现在导致前后两难：</p>
+<ol>
+<li>逻辑不清晰，可读性很差</li>
+<li>时间复杂度提高的鸭子！！</li>
+<li>代码冗长</li>
+</ol>
+<p>浪费了我俩小时，先睡了。/(ㄒoㄒ)/~~</p>
+<p>2020.7.8..今天早上用c语言做出来了，直接贴代码。之前的思路（改变L1），造成了我遍历完其中一个链表，就会分类讨论出三种情况，无疑复杂化了原问题。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">addTwoNumbers</span><span class="params">(struct ListNode* l1, struct ListNode* l2)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> temp=<span class="number">0</span>; <span class="comment">// 进位位初始化</span></span><br><span class="line">    <span class="keyword">int</span> sum=<span class="number">0</span>; <span class="comment">// 每位的加和</span></span><br><span class="line">    <span class="keyword">int</span> x,y; <span class="comment">// 每位的真实加法数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">L1</span>=<span class="title">l1</span>,*<span class="title">L2</span>=<span class="title">l2</span>,*<span class="title">result</span>,*<span class="title">cur</span>,*<span class="title">high</span>,*<span class="title">nextNode</span>;</span></span><br><span class="line">    result = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">    cur = result;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(L1!=<span class="literal">NULL</span> || L2!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        x = L1!=<span class="literal">NULL</span> ? L1-&gt;val : <span class="number">0</span>;</span><br><span class="line">        y = L2!=<span class="literal">NULL</span> ? L2-&gt;val : <span class="number">0</span>;</span><br><span class="line">        nextNode = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">        sum = x + y + temp;</span><br><span class="line">        <span class="keyword">if</span>(sum&gt;=<span class="number">10</span>)&#123;</span><br><span class="line">            nextNode -&gt; val = sum%<span class="number">10</span>;</span><br><span class="line">            temp = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            nextNode -&gt; val = sum;</span><br><span class="line">            temp = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L1!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            L1=L1-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(L2!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            L2=L2-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        cur-&gt;next = nextNode;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最后排除多位问题</span></span><br><span class="line">    <span class="keyword">if</span>(temp == <span class="number">1</span>)&#123;</span><br><span class="line">        high = (struct ListNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">        high -&gt; val = <span class="number">1</span>;</span><br><span class="line">        cur -&gt; next = high;</span><br><span class="line">        cur = cur-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    cur -&gt; next = <span class="literal">NULL</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result -&gt; next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>所以以后再碰到类似的题目，要先想好自己要不要优化空间（时间），到底是先试着把题目做出来，还是就着一个优化空间的角度钻牛角尖，还是要衡量一下的。</strong>后面还看到了一个时间上比我快很多的算法，其实和我之前的思路有一点类似(当某一个链表遍历完，剩余的链接到后面，但是由于我一心只想改变L1，造成了很多不必要的麻烦，而且后面的关于进位位的处理也没人家想的好)大体讲一下思路，开阔一下视野。</p>
+<ol>
+<li>新建一个链表l3，用以存放l1+l2的和</li>
+<li>分3种情况，在l1，l2都没到尾的前提下<ul>
+<li>l1先结束，l2多出来的部分直接加入到l3</li>
+<li>l2先结束，l1多出来的部分直接加到l3</li>
+<li>两个一起结束，直接相加，不管结果是否大于10</li>
+</ul>
+</li>
+<li>遍历l3，先不考虑链表最后一个数，<ul>
+<li>如果l3.val&gt;10，减去10，并在下一个节点上加1</li>
+<li>如果链表最后一个数大于10，则减去10，并新建一个节点存1</li>
+</ul>
+</li>
+</ol>
+<p>这个思路的<strong>对进位位的处理</strong>是很值得借鉴的，就是先不管进位位的情况下统一加完，再遍历链表实现进位位的加法，这种方法看似消耗了时间（相当于两次遍历），实际上居然比我那个要快很多，显然是因为我那个的条件判断语句有点过多了。</p>
+<hr>
+<h4 id="跳水板"><a href="#跳水板" class="headerlink" title="跳水板"></a>跳水板</h4><h5 id="题目-1"><a href="#题目-1" class="headerlink" title="题目"></a>题目</h5><p>你正在使用一堆木板建造跳水板。有两种类型的木板，其中长度较短的木板长度为shorter，长度较长的木板长度为longer。你必须正好使用k块木板。编写一个方法，生成跳水板所有可能的长度。<br>返回的长度需要<strong>从小到大排列</strong>。</p>
+<h5 id="个人解答-1"><a href="#个人解答-1" class="headerlink" title="个人解答"></a>个人解答</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span>* <span class="title">divingBoard</span><span class="params">(<span class="keyword">int</span> shorter, <span class="keyword">int</span> longer, <span class="keyword">int</span> k, <span class="keyword">int</span>* returnSize)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *newNode;</span><br><span class="line">    <span class="keyword">if</span>(k==<span class="number">0</span>)&#123;</span><br><span class="line">        *returnSize = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(longer==shorter)&#123;</span><br><span class="line">        newNode = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)); </span><br><span class="line">        *newNode = longer*k;</span><br><span class="line">        *returnSize = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> newNode;</span><br><span class="line">    &#125;</span><br><span class="line">    newNode = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(k+<span class="number">1</span>));</span><br><span class="line">    *returnSize = k+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=k; i&gt;=<span class="number">0</span>; i--)&#123;</span><br><span class="line">        newNode[k-i] = i*shorter + (k-i)*longer; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> newNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="删除排序链表里的重复元素II"><a href="#删除排序链表里的重复元素II" class="headerlink" title="删除排序链表里的重复元素II"></a>删除排序链表里的重复元素II</h4><p>给定一个排序链表，删除所有含有重复数字的节点，只保留原始链表中<strong>没有重复出现</strong>的数字。</p>
+<h5 id="个人原解答"><a href="#个人原解答" class="headerlink" title="个人原解答"></a>个人原解答</h5><p>思路：</p>
+<ol>
+<li>如果链表只有0/1个元素，返回head。 </li>
+<li>将链表化为<strong>前两个元素一定不一样</strong>的模型。</li>
+<li>设置快指针q，慢指针p。</li>
+<li>p-&gt;next-&gt;val == q-&gt;val时是删除条件<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">deleteDuplicates</span><span class="params">(struct ListNode* head)</span></span>&#123;</span><br><span class="line">    <span class="comment">// p是慢指针，q是快指针</span></span><br><span class="line">    <span class="comment">// 如果是开头重复：label=1</span></span><br><span class="line">    <span class="comment">// 如果是中间重复：label=0</span></span><br><span class="line">    <span class="comment">// 由于头结点和后面都不一样，我觉得先摘除头结点重复的前半部分，将链表化为“前两个一定不相同的模型”</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">p</span>=<span class="title">head</span>, *<span class="title">q</span>=<span class="title">head</span>;</span></span><br><span class="line">    <span class="keyword">int</span> label = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span> || head-&gt;next==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(head!=<span class="literal">NULL</span> &amp;&amp; head-&gt;next-&gt;val == head-&gt;val)&#123;</span><br><span class="line">        label = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(head-&gt;next!=<span class="literal">NULL</span> &amp;&amp; head-&gt;next-&gt;val == head-&gt;val)&#123;</span><br><span class="line">            label = <span class="number">1</span>;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(label)&#123;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    q = head-&gt;next;</span><br><span class="line">    <span class="keyword">while</span>(q!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;next-&gt;val == q-&gt;val)&#123; <span class="comment">// 若相等</span></span><br><span class="line">            <span class="keyword">if</span>(q-&gt;next==<span class="literal">NULL</span> &amp;&amp; p-&gt;next-&gt;next!=<span class="literal">NULL</span>)&#123; <span class="comment">// 到达链表尾，则删除</span></span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">                p-&gt;next = q;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123; <span class="comment">// 否则快指针后移</span></span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123; <span class="comment">// 若不等</span></span><br><span class="line">            <span class="keyword">if</span>(p-&gt;next-&gt;next == q)&#123; <span class="comment">// 不能删，要后移p</span></span><br><span class="line">                p = p-&gt;next;</span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123; <span class="comment">// 否则应该删掉中间结点</span></span><br><span class="line">                p-&gt;next = q;</span><br><span class="line">                q = q-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+我感觉我想法挺好的啊！但真的做崩了，被各种细节卡了下来，提交了5次都没成功，我是真的垃圾。都说能用递归，那我用递归试试，半小时不行就劝退吧，现在是0：49，我很困。<br>1：01，爷想不出来，气死了，睡觉。</li>
+</ol>
+<h5 id="标准解法"><a href="#标准解法" class="headerlink" title="标准解法"></a>标准解法</h5><h6 id="方法1：递归"><a href="#方法1：递归" class="headerlink" title="方法1：递归"></a>方法1：递归</h6><ul>
+<li><code>head</code>后面有值而且和<code>head</code>的值相等，那么就找到不相等为止，然后对后面一个结点去递归，这样就把前面重复的给删除了。</li>
+<li><code>head</code>后面有值但和<code>head</code>的值不等，那么就递归后面一个结点，接在<code>head</code>的后面。</li>
+<li>最后返回<code>head</code>。</li>
+</ul>
+<p>想法和我是一样的，但是我就……没能力实现出来？？其实中间很多循环条件判断条件也是完全一样的，，这个<code>return deleteDuplicates(head-&gt;next)</code>我服了，我当时怎么都没想出来解决(1,1,2,2)这种情况，人家一句就解决了</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">deleteDuplicates</span><span class="params">(struct ListNode* head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(head-&gt;next!=<span class="literal">NULL</span> &amp;&amp; head-&gt;val == head-&gt;next-&gt;val)&#123;</span><br><span class="line">        <span class="keyword">while</span>(head-&gt;next!=<span class="literal">NULL</span> &amp;&amp; head-&gt;val == head-&gt;next-&gt;val)&#123;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> deleteDuplicates(head-&gt;next);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        head-&gt;next = deleteDuplicates(head-&gt;next);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="方法2：hash表"><a href="#方法2：hash表" class="headerlink" title="方法2：hash表"></a>方法2：hash表</h6><p>hash_map 统计出现次数，如果出现次数等于1，那么就放在新链表后面。</p>
+<h6 id="方法3：双指针"><a href="#方法3：双指针" class="headerlink" title="方法3：双指针"></a>方法3：双指针</h6><p><strong>先建一个哑结点真的省事儿</strong>，当建完哑结点后，删除就会和<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/" target="_blank" rel="noopener">删除排序链表里的重复元素I</a>这道题的方法基本一样–<strong>顺序遍历，若同则删</strong>，不同的是，<code>cur-&gt;next</code>是否为空要加以判断。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode* <span class="title">deleteDuplicates</span><span class="params">(struct ListNode* head)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!head || !head-&gt;next)</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 哑结点指向head</span></span><br><span class="line">    ListNode* dummy = (struct ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line">    dummy-&gt;next = head;</span><br><span class="line">    </span><br><span class="line">    ListNode* pre = dummy;</span><br><span class="line">    ListNode* cur = head;</span><br><span class="line">    <span class="keyword">while</span> (cur!=<span class="literal">NULL</span> &amp;&amp; cur-&gt;next!=<span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cur-&gt;val == cur-&gt;next-&gt;val) &#123;</span><br><span class="line">            <span class="keyword">while</span> (cur-&gt;next!=<span class="literal">NULL</span> &amp;&amp; cur-&gt;val == cur-&gt;next-&gt;val) &#123;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            pre-&gt;next = cur-&gt;next;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> &#123;                </span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dummy-&gt;next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="个人感悟"><a href="#个人感悟" class="headerlink" title="个人感悟"></a>个人感悟</h5><p>当这种情况下，可能有很多种情况，首先想能不能把这几个情况想个方法合并。比如法1的递归和法3的双指针的哑结点，都是<strong>为了排除特殊情情况而设计的</strong>。</p>
+<h4 id="恢复空格"><a href="#恢复空格" class="headerlink" title="恢复空格"></a>恢复空格</h4><h5 id="别人解答C"><a href="#别人解答C" class="headerlink" title="别人解答C"></a>别人解答C</h5><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">MIN</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; y)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">CMP</span><span class="params">(<span class="keyword">void</span> * a,<span class="keyword">void</span> * b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> * S1 = *(<span class="keyword">char</span> **)a;</span><br><span class="line">    <span class="keyword">char</span> * S2 = *(<span class="keyword">char</span> **)b;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">strcmp</span>(S1,S2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">Binary</span><span class="params">(<span class="keyword">char</span> **dictionary,<span class="keyword">int</span> dictionarySize,<span class="keyword">char</span> * <span class="built_in">string</span>,<span class="keyword">int</span> lenth)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> right = dictionarySize - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> ret = <span class="number">0</span>,ret2 = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(left &lt;= right)</span><br><span class="line">    &#123;</span><br><span class="line">        mid = left + (right - left) / <span class="number">2</span>;        <span class="comment">//mid是一个区间</span></span><br><span class="line">        ret = <span class="built_in">strncmp</span>(dictionary[mid],<span class="built_in">string</span>,lenth);</span><br><span class="line">        <span class="keyword">if</span>(ret == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ret2 = <span class="built_in">strlen</span>(dictionary[mid]);</span><br><span class="line">            <span class="keyword">if</span>(ret2 == lenth)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(ret2 &gt; lenth)</span><br><span class="line">            &#123;</span><br><span class="line">                right = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                left = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(ret &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            right = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            left = mid + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">respace</span><span class="params">(<span class="keyword">char</span>** dictionary, <span class="keyword">int</span> dictionarySize, <span class="keyword">char</span>* sentence)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    qsort(dictionary,dictionarySize,<span class="keyword">sizeof</span>(<span class="keyword">char</span> *),CMP);</span><br><span class="line">    <span class="keyword">int</span> len = <span class="built_in">strlen</span>(sentence);</span><br><span class="line">    <span class="keyword">int</span> * dp = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>) * (len + <span class="number">1</span>));</span><br><span class="line">    * dp = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt;= len;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(i &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            *(dp + i) = *(dp + i - <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>;j &lt;= i;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(Binary(dictionary,dictionarySize,sentence + j,i - j + <span class="number">1</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(j == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    *(dp + i) = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    *(dp + i) = MIN(dp[i],dp[j - <span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> answer = dp[len] - <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">free</span>(dp);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> answer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是我改进后的，用C语言基于动态规划的答案：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">substr</span><span class="params">(<span class="keyword">char</span>* sentence, <span class="keyword">int</span> start, <span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *substring = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*(len+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i &lt; len; i++)&#123;</span><br><span class="line">        substring[i] = sentence[start+i];</span><br><span class="line">    &#125;</span><br><span class="line">    substring[len] = <span class="string">'\0'</span>; <span class="comment">// 这个结尾一定要赋'\0'要不比较不了</span></span><br><span class="line">    <span class="keyword">return</span> substring;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">respace</span><span class="params">(<span class="keyword">char</span>** dictionary, <span class="keyword">int</span> dictionarySize, <span class="keyword">char</span>* sentence)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 返回的是字符数，不是单词数……</span></span><br><span class="line">    <span class="comment">// 这题应该能用动态规划解</span></span><br><span class="line">    <span class="comment">// 转移方程：f[i]=min&#123;f[i-word.length],f[i]&#125;</span></span><br><span class="line">    <span class="comment">// 之所以会有min函数是因为 </span></span><br><span class="line">    <span class="comment">// sentence:"looked" dictionary:["looked","oked"]这种情况，最后就会采取最小匹配</span></span><br><span class="line">    <span class="keyword">int</span> n = <span class="built_in">strlen</span>(sentence); <span class="comment">// sentence长度</span></span><br><span class="line">    <span class="keyword">int</span> dp[n+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">size</span>; <span class="comment">// 单词长度</span></span><br><span class="line">    dp[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i &lt; n;i++)&#123;</span><br><span class="line">        dp[i+<span class="number">1</span>] = dp[i] + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j &lt; dictionarySize;j++)&#123;</span><br><span class="line">            <span class="built_in">size</span> = <span class="built_in">strlen</span>(dictionary[j]);</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">size</span>&lt;=i+<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="built_in">strcmp</span>(dictionary[j], substr(sentence, i+<span class="number">1</span>-<span class="built_in">size</span>, <span class="built_in">size</span>))==<span class="number">0</span>)&#123;</span><br><span class="line">                    dp[i+<span class="number">1</span>] = dp[i+<span class="number">1</span>]&lt;dp[i+<span class="number">1</span>-<span class="built_in">size</span>] ? dp[i+<span class="number">1</span>] : dp[i+<span class="number">1</span>-<span class="built_in">size</span>];</span><br><span class="line">                </span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[n];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看别人家的题解，了解到了<strong>字典树</strong>（Trie树）这个概念，同时还有<strong>字符串hash</strong>的解法。<br><a href="https://leetcode-cn.com/problems/re-space-lcci/solution/jian-dan-dp-trieshu-bi-xu-miao-dong-by-sweetiee/" target="_blank" rel="noopener">甜姐的trie解法</a></p>
+<h4 id="相交链表"><a href="#相交链表" class="headerlink" title="相交链表"></a>相交链表</h4><p>编写一个程序，找到两个单链表相交的起始节点。<br>利用<strong>两个链表的总长是一样的</strong>这一看似弱智的现象，有点类似于那个前移n位的算法，就是将[0:m]的前[0:n]和后[n+1:m]分别反转，整体再反转，就能实现前移。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function">struct ListNode *<span class="title">getIntersectionNode</span><span class="params">(struct ListNode *headA, struct ListNode *headB)</span> </span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">pA</span> = <span class="title">headA</span>, *<span class="title">pB</span> = <span class="title">headB</span>;</span></span><br><span class="line">    <span class="keyword">if</span>(pA==<span class="literal">NULL</span> || pB==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(pA != pB)&#123;</span><br><span class="line">        pA = pA == <span class="literal">NULL</span> ? headB : pA-&gt;next;</span><br><span class="line">        pB = pB == <span class="literal">NULL</span> ? headA : pB-&gt;next; </span><br><span class="line">    &#125; <span class="comment">// 当无相交现象时，最后都为NULL时会直接跳出</span></span><br><span class="line">    <span class="keyword">return</span> pA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="环形链表"><a href="#环形链表" class="headerlink" title="环形链表"></a>环形链表</h4><p>判断给定链表是否有环。<br>设置快慢指针，快指针一次两步，慢指针一次一步。设置哑结点以优雅的处理边界(后来发现设置没有什么卵用)。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">hasCycle</span><span class="params">(struct ListNode *head)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head==<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">dummyhead</span>, *<span class="title">fast</span>, *<span class="title">slow</span>;</span> </span><br><span class="line">    dummyhead = (struct ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(struct ListNode));</span><br><span class="line"></span><br><span class="line">    dummyhead-&gt;next = head;</span><br><span class="line">    slow = dummyhead;</span><br><span class="line">    fast = dummyhead;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        fast = fast-&gt;next-&gt;next;</span><br><span class="line">        slow = slow-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(fast==<span class="literal">NULL</span> || fast-&gt;next==<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">while</span>(slow!=fast);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法题目</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Basic Javascript学习笔记</title>
     <url>/2020/06/30/Javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p>　　昨天刚刚搭建了自己的博客，这也算是自己写的第一个blog吧（正好也是第一次markdown，顺便感受一下哈哈）。</p>
@@ -670,401 +720,6 @@
       <tags>
         <tag>Javascript</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>数据结构之堆栈</title>
-    <url>/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A0%86%E6%A0%88/</url>
-    <content><![CDATA[<a id="more"></a>
-
-]]></content>
-      <categories>
-        <category>数据结构笔记</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python爬虫笔记_2</title>
-    <url>/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/</url>
-    <content><![CDATA[<p>主要介绍python的第三方库BS4库的应用场景。</p>
-<a id="more"></a>
-<h3 id="BS4库"><a href="#BS4库" class="headerlink" title="BS4库"></a>BS4库</h3><p>BS4库主要用于<strong>HTML页面的解析</strong>。是解析、遍历、维护“标签树”的功能库。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">demo = requests.get(url).text</span><br><span class="line">soup = BeautifulSoup(demo, <span class="string">"html.parser"</span>)</span><br></pre></td></tr></table></figure>
-<p><code>soup</code>便承载了解析后的<code>标签树</code>。</p>
-<table>
-<thead>
-<tr>
-<th align="center">基本元素</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">Tag</td>
-<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;和&lt;/&gt;标明开头和结尾</td>
-</tr>
-<tr>
-<td align="center">Name</td>
-<td align="center">标签的名字，格式：<code>&lt;tag&gt;.name</code></td>
-</tr>
-<tr>
-<td align="center">Attributes</td>
-<td align="center">标签的属性，字典形式组织，格式：<code>&lt;tag&gt;.attrs</code></td>
-</tr>
-<tr>
-<td align="center">NavigableString</td>
-<td align="center">标签内非属性字符串，格式：<code>&lt;tag&gt;.string</code></td>
-</tr>
-<tr>
-<td align="center">Comment</td>
-<td align="center">标签内字符串的注释部分，一种特殊的Comment类型</td>
-</tr>
-</tbody></table>
-<h4 id="标签树的遍历"><a href="#标签树的遍历" class="headerlink" title="标签树的遍历"></a>标签树的遍历</h4><h5 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.contents</code></td>
-<td align="center">子节点的列表，将<code>&lt;tag&gt;</code>所有儿子节点存入列表</td>
-</tr>
-<tr>
-<td align="center"><code>.children</code></td>
-<td align="center">子节点的迭代类型，与<code>contents</code>类似，用于循环遍历儿子节点</td>
-</tr>
-<tr>
-<td align="center"><code>.descendants</code></td>
-<td align="center">子孙节点的迭代类型，包含所有子孙节点</td>
-</tr>
-</tbody></table>
-<p>迭代类型的下行遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> demoSoup.body.children: <span class="comment"># descendants是子孙结点</span></span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure>
-
-<h5 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.parent</code></td>
-<td align="center">节点的父亲标签</td>
-</tr>
-<tr>
-<td align="center"><code>.parents</code></td>
-<td align="center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
-</tr>
-</tbody></table>
-<p>迭代类型的上行遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> demoSoup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br></pre></td></tr></table></figure>
-
-<h5 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h5><table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>.next_sibling</code></td>
-<td align="center">返回按照HTML文本顺序的下一个平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.previous_sibling</code></td>
-<td align="center">返回按照HTML文本顺序的上一个平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.next_siblings</code></td>
-<td align="center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
-</tr>
-<tr>
-<td align="center"><code>.previous_siblings</code></td>
-<td align="center">迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
-</tr>
-</tbody></table>
-<p>迭代类型的上行遍历：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> demoSoup.a.next_siblings:  <span class="comment"># or previous_siblings</span></span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
-
-<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><p><code>soup.prettify()</code></p>
-<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。</p>
-<table>
-<thead>
-<tr>
-<th align="center">属性</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"><code>name</code></td>
-<td align="center">对标签名称的检索字符串</td>
-</tr>
-<tr>
-<td align="center"><code>attrs</code></td>
-<td align="center">对标签属性值的检索字符串，可标注属性检索</td>
-</tr>
-<tr>
-<td align="center"><code>recursive</code></td>
-<td align="center">是否对子孙全部检索，默认True</td>
-</tr>
-<tr>
-<td align="center"><code>string</code></td>
-<td align="center">&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串</td>
-</tr>
-</tbody></table>
-<h3 id="实例：全球大学学术排名"><a href="#实例：全球大学学术排名" class="headerlink" title="实例：全球大学学术排名"></a>实例：全球大学学术排名</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> bs4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"爬取失败"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fillUnivList</span><span class="params">(ulist, html)</span>:</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="keyword">for</span> tr <span class="keyword">in</span> soup.find(<span class="string">'tbody'</span>).children:</span><br><span class="line">        <span class="keyword">if</span> isinstance(tr, bs4.element.Tag):  <span class="comment"># Tag是bs4定义的标签类型</span></span><br><span class="line">            tds = tr(<span class="string">'td'</span>)</span><br><span class="line">            ulist.append([tds[<span class="number">0</span>].string, tds[<span class="number">1</span>].string, tds[<span class="number">4</span>].string])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printUnivList</span><span class="params">(ulist, num)</span>:</span></span><br><span class="line">    tplt1 = <span class="string">"&#123;0:^10&#125;\t&#123;1:^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    tplt2 = <span class="string">"&#123;0:^10&#125;\t&#123;1:&#123;3&#125;^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    print(<span class="string">"全球大学学术排名情况\n"</span>)</span><br><span class="line">    ls = [<span class="string">"排名"</span>,<span class="string">"学校名称"</span>,<span class="string">"得分"</span>]</span><br><span class="line">    print(tplt1.format(ls[<span class="number">0</span>], ls[<span class="number">1</span>], ls[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">        u = ulist[i]</span><br><span class="line">        print(tplt2.format(u[<span class="number">0</span>], u[<span class="number">1</span>], u[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    uinfo = []</span><br><span class="line">    url = <span class="string">"http://www.zuihaodaxue.cn/ARWU2019.html"</span></span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    fillUnivList(uinfo, html)</span><br><span class="line">    printUnivList(uinfo, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
-<p>涉及知识点：</p>
-<ul>
-<li>下行遍历<ol>
-<li>遍历tsbody中的tr，并依次输出每个tr下的td</li>
-<li>遍历时不只有td这样的标签，还会有像<code>navigablestring</code>..所以要先check是否是bs4定义的标签类型</li>
-</ol>
-</li>
-<li>中文对齐–char(12288)来控制中文对齐</li>
-</ul>
-]]></content>
-      <categories>
-        <category>python笔记</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>数据结构之查找</title>
-    <url>/2020/07/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/</url>
-    <content><![CDATA[<p>查找这部分是跟着郭老师学的，临近期末，又要复习这部分涉及到的内容又多，掌握的几乎为0。</p>
-<a id="more"></a>
-<h3 id="hash表查找"><a href="#hash表查找" class="headerlink" title="hash表查找"></a>hash表查找</h3><h4 id="散列查找"><a href="#散列查找" class="headerlink" title="散列查找"></a>散列查找</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>目标：不需要把待查记录的关键字与查找表的某些记录进行逐个比较。而是<strong>根据待查记录的关键字值，直接找到该记录的存储地址</strong>。<br>思想：建立一个确定的函数关系H(称为散列函数，或哈希函数)：</p>
-<ul>
-<li>以结点关键字key作为自变量</li>
-<li>以函数值H(key)作为结点的存储地址</li>
-<li>通常散列表的存储空间是一个一维数组，散列地址是数组的下标。</li>
-</ul>
-<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h5><h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><p>题目：已知一长度为14的线性表关键字集合<code>S = { and,
-begin, do, end, for, go, if, repeat, then, until, while,
-else, array, when }</code>。设查找表中每个关键字表示为<br><code>key[8]</code>。</p>
-<p>设计：</p>
-<ul>
-<li>散列表表示为<code>char ht[26][8];</code></li>
-<li>散列函数H(key)的值取为关键字key中的第一个字母在字母表中的序号</li>
-</ul>
-<p>总结：显然a、e、w开头的单词均在其地址内有冲突。</p>
-<h6 id="例题改进"><a href="#例题改进" class="headerlink" title="例题改进"></a>例题改进</h6><p>在例1的基础上，修改散列函数H(key)：<strong>值为key中首尾字母在字母表中序号的平均值</strong>，此时地址不产生冲突。</p>
-<h4 id="hash表"><a href="#hash表" class="headerlink" title="hash表"></a>hash表</h4><h5 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h5><p><strong>散列函数H</strong>：<br>$$Address=H(key)$$<br><strong>装载因子</strong>：<br>$$a=n/m$$<br>其中，m为散列表的空间大小，n为散列表中的记录数。</p>
-<h5 id="hash函数的构造方法"><a href="#hash函数的构造方法" class="headerlink" title="hash函数的构造方法"></a>hash函数的构造方法</h5><h6 id="除留余数法"><a href="#除留余数法" class="headerlink" title="除留余数法"></a>除留余数法</h6><p>$$H(key)=key%p$$<br>其中p一般取&lt;=m的最大素数。</p>
-<h6 id="直接定址法"><a href="#直接定址法" class="headerlink" title="直接定址法"></a>直接定址法</h6><ul>
-<li>取关键字作为其hash地址</li>
-<li>取关键字的某个线性函数：$H(key)=a*key+b$<h6 id="数字分析法"><a href="#数字分析法" class="headerlink" title="数字分析法"></a>数字分析法</h6>根据散列表的大小，选取其中各种符号分布均匀的若干位作为散列地址。<h6 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h6>先通过求关键字的平方值来扩大差别，<br>再取其中的几位或其组合作为散列地址。<br>具体取几位，由hash表的表长决定。<h6 id="分段叠加法"><a href="#分段叠加法" class="headerlink" title="分段叠加法"></a>分段叠加法</h6></li>
-<li>将关键字分割成位数相同的几部分（最后一部分位数可不同）</li>
-<li>然后取这几部分的叠加和舍去进位作为散列地址。</li>
-</ul>
-<h4 id="冲突解决方法"><a href="#冲突解决方法" class="headerlink" title="冲突解决方法"></a>冲突解决方法</h4><h5 id="开放地址法–找下一个空位"><a href="#开放地址法–找下一个空位" class="headerlink" title="开放地址法–找下一个空位"></a>开放地址法–找下一个空位</h5><p>当冲突发生时，使用某种方法为R的关键字key生成一个散列地址序列，其中第i次冲突散列地址：<br>$$d_i = (d_{i-1}+D)%m$$</p>
-<h6 id="线性探测再散列"><a href="#线性探测再散列" class="headerlink" title="线性探测再散列"></a>线性探测再散列</h6><p>$D=i$，i表示探测次数</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">D</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h6 id="二次探测再散列"><a href="#二次探测再散列" class="headerlink" title="二次探测再散列"></a>二次探测再散列</h6><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">D</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> -(i*i/<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (i+<span class="number">1</span>)*(i+<span class="number">1</span>)/<span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h6 id="伪随机探测再散列"><a href="#伪随机探测再散列" class="headerlink" title="伪随机探测再散列"></a>伪随机探测再散列</h6>]]></content>
-      <categories>
-        <category>数据结构笔记</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态规划</title>
-    <url>/2020/07/04/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
-    <content><![CDATA[<p>20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，创立了解决这类过程优化问题的新方法——<strong>动态规划</strong>。</p>
-<a id="more"></a>
-<p><a href="https://www.bilibili.com/video/BV1xb411e7ww?from=search&seid=6405207412150244964" target="_blank" rel="noopener">动态规划入门链接</a></p>
-<h3 id="动态规划题目特点"><a href="#动态规划题目特点" class="headerlink" title="动态规划题目特点"></a>动态规划题目特点</h3><ol>
-<li>计数</li>
-<li>求最值</li>
-<li>求存在性</li>
-</ol>
-<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="实例1–求最值"><a href="#实例1–求最值" class="headerlink" title="实例1–求最值"></a>实例1–求最值</h4><p>结账时，需要交价值27元，要求用2元、5元、7元想出一种使得<strong>纸币数最少</strong>的交钱方法。</p>
-<h4 id="实例2–计数"><a href="#实例2–计数" class="headerlink" title="实例2–计数"></a>实例2–计数</h4><p>给定m行n列(m=4,n=8)的网络，有一个机器人从左上角(0,0)出发，每一步可以向下或者向右走一步。问有多少种不同的方式走到右下角？</p>
-<table>
-<thead>
-<tr>
-<th align="center"></th>
-<th align="center">0</th>
-<th align="center">1</th>
-<th align="center">2</th>
-<th align="center">3</th>
-<th align="center">4</th>
-<th align="center">5</th>
-<th align="center">6</th>
-<th align="center">7</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">0</td>
-<td align="center">起点</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">3</td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">终点</td>
-</tr>
-</tbody></table>
-<h4 id="实例3–存在性"><a href="#实例3–存在性" class="headerlink" title="实例3–存在性"></a>实例3–存在性</h4><p>有n块石头分别在x轴的0,1,…,n-1位置，一只青蛙在石头0，想跳到石头n-1。如果青蛙在第i块石头上，它最多可以向右跳距离$a_i$，问青蛙能否跳到石头n-1?</p>
-<h4 id="实例4–求最值–多状态"><a href="#实例4–求最值–多状态" class="headerlink" title="实例4–求最值–多状态"></a>实例4–求最值–多状态</h4><p>出处：Leetcode309<br>给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​<br>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p>
-<ul>
-<li>你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</li>
-<li>卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。</li>
-</ul>
-<h3 id="动态规划四组成"><a href="#动态规划四组成" class="headerlink" title="动态规划四组成"></a>动态规划四组成</h3><h4 id="动态规划组成部分一：确定状态"><a href="#动态规划组成部分一：确定状态" class="headerlink" title="动态规划组成部分一：确定状态"></a>动态规划组成部分一：确定状态</h4><h5 id="两个意识"><a href="#两个意识" class="headerlink" title="两个意识"></a>两个意识</h5><ul>
-<li>最后一步</li>
-<li>子问题</li>
-</ul>
-<p>状态由<br>$$ f(x)=最少用多少枚硬币拼出27 $$<br>转换为<br>$$f(x)=最少用多少枚硬币拼出27-a_{k}$$<br>归纳为<br>$$状态f(x)=最少用多少枚硬币拼出x$$</p>
-<p>根据最后一步分部考虑： </p>
-<p>$$f(27) = min{f(27-2)+1, f(27-5)+1, f(27-7)+1}$$</p>
-<p>我们根据这个公式可以写出一种递归算法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> x==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    res=np.inf  <span class="comment"># res初始化为极大值</span></span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">2</span>:</span><br><span class="line">        res=min(f(x<span class="number">-2</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">5</span>:</span><br><span class="line">        res=min(f(x<span class="number">-5</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">7</span>:</span><br><span class="line">        res=min(f(x<span class="number">-7</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">return</span> res  <span class="comment"># 当传入的x为1时，res返回的是inf，也就相当于不成立！！</span></span><br><span class="line">print(f(<span class="number">27</span>))</span><br></pre></td></tr></table></figure>
-
-<h4 id="动态规划组成部分二：转移方程"><a href="#动态规划组成部分二：转移方程" class="headerlink" title="动态规划组成部分二：转移方程"></a>动态规划组成部分二：转移方程</h4><p>$$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$$</p>
-<h4 id="动态规划组成部分三：初始条件和边界情况"><a href="#动态规划组成部分三：初始条件和边界情况" class="headerlink" title="动态规划组成部分三：初始条件和边界情况"></a>动态规划组成部分三：初始条件和边界情况</h4><p>初始条件：</p>
-<p>$$f[0] = 0$$</p>
-<p>边界情况：</p>
-<p align="center">数组不越界</p>
-
-<h4 id="动态规划组成部分四：计算顺序"><a href="#动态规划组成部分四：计算顺序" class="headerlink" title="动态规划组成部分四：计算顺序"></a>动态规划组成部分四：计算顺序</h4><ul>
-<li>正序</li>
-<li>逆序</li>
-<li>其他</li>
-</ul>
-<p>判断标准：当前的数据在已经算出后，前面（后面）的数据是否已经得出了。</p>
-<h4 id="实例1解答"><a href="#实例1解答" class="headerlink" title="实例1解答"></a>实例1解答</h4><p>个人解答</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">f = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">28</span>)]</span><br><span class="line">f[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">f[<span class="number">1</span>] = np.inf</span><br><span class="line">n = <span class="number">27</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>): <span class="comment"># 时间复杂度O(n)</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;=<span class="number">7</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>,f[i<span class="number">-5</span>]+<span class="number">1</span>,f[i<span class="number">-7</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">7</span>&gt;i&gt;=<span class="number">5</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>, f[i<span class="number">-5</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">5</span>):</span><br><span class="line">        f[i] = f[i<span class="number">-2</span>]+<span class="number">1</span></span><br><span class="line">print(f[<span class="number">27</span>])</span><br></pre></td></tr></table></figure>
-<p>完美改进</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span> *A, <span class="keyword">int</span> M)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *fun;</span><br><span class="line">    fun = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(M+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(A)/<span class="keyword">sizeof</span>(A[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    fun[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=M;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= A[j] &amp;&amp; fun[i-A[j]] != INT_MAX)&#123; </span><br><span class="line">                <span class="comment">// 防止下标溢出；防止无穷大加法溢出！！</span></span><br><span class="line">                fun[i] = <span class="built_in">min</span>(fun[i-A[j]]+<span class="number">1</span>, fun[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(fun[M]==INT_MAX)&#123;</span><br><span class="line">        fun[M] = <span class="number">-1</span>; <span class="comment">// 题目要求</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fun[M];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="动态规划组成部分概括"><a href="#动态规划组成部分概括" class="headerlink" title="动态规划组成部分概括"></a>动态规划组成部分概括</h4><ol>
-<li>确定状态<ul>
-<li>最后一步（最优策略中使用的最后一枚硬币$a_k$）</li>
-<li>化成子问题（最少的硬币拼出来更小的面值$27-a_k$）</li>
-</ul>
-</li>
-<li>转移方程<ul>
-<li>$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$</li>
-</ul>
-</li>
-<li>初始条件和边界情况<ul>
-<li>f[0] = 0，如果不能拼出Y，f[Y]=inf</li>
-</ul>
-</li>
-<li>计算顺序<ul>
-<li>正序</li>
-</ul>
-</li>
-</ol>
-<h3 id="利用动态规划解实例2"><a href="#利用动态规划解实例2" class="headerlink" title="利用动态规划解实例2"></a>利用动态规划解实例2</h3><ol>
-<li>确定状态<ul>
-<li>最后一步：到达(m-1,n-1)前的方法是以M种方法到(m-2,n-1)加上以N种方法到(m-1,n-2)</li>
-<li>化成子问题：有多少种方法到达(m-2,n-1)或(m-1,n-2)</li>
-<li>状态：设$f[i][j]$为从左上角有多少种路径走到$(i,j)$</li>
-</ul>
-</li>
-<li>转移方程<ul>
-<li>$f[i][j] = f[i-1][j] + f[i][j-1]$</li>
-</ul>
-</li>
-<li>初始条件和边界情况<ul>
-<li>初始条件：$f[0][0]=1$</li>
-<li>边界情况：$i=j=0$时，$f[i][j]=1$</li>
-</ul>
-</li>
-<li>计算顺序<ul>
-<li>由左到右，逐行计算</li>
-</ul>
-</li>
-</ol>
-<p>代码解答：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uniquePath</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f[m][n];</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i = <span class="number">0</span> || j = <span class="number">0</span>)&#123;</span><br><span class="line">                f[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j] + f[i][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="利用动态规划解实例3"><a href="#利用动态规划解实例3" class="headerlink" title="利用动态规划解实例3"></a>利用动态规划解实例3</h3><ol>
-<li>确定状态<ul>
-<li>最后一步：到达n-1之前已经到达i</li>
-<li>化成子问题：跳到n-1 -&gt; 跳到i</li>
-<li>状态：设$f[j]$为青蛙能不能跳到石头j</li>
-</ul>
-</li>
-<li>转移方程<ul>
-<li>$f[j]=OR_{0&lt;=i&lt;j}(f[i] AND i +a[i]&gt;=j)$</li>
-</ul>
-</li>
-<li>初始条件和边界情况<ul>
-<li>初始条件：$f[0]=true$</li>
-</ul>
-</li>
-<li>计算顺序<ul>
-<li>从小到大</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span> *A)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="keyword">sizeof</span>(A)/<span class="keyword">sizeof</span>(A[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">int</span> *f;</span><br><span class="line">    f = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(n));</span><br><span class="line">    f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        f[i] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(f[j] &amp;&amp; j+A[j] &gt;= i)&#123;</span><br><span class="line">                <span class="comment">// 能到达目标点前的这个点，并且还能跳到目标点，则能到达目标点</span></span><br><span class="line">                f[i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[n<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>时间复杂度：$O(n^2)$<br>空间复杂度：$O(n)$</p>
-<h3 id="利用动态规划解实例4"><a href="#利用动态规划解实例4" class="headerlink" title="利用动态规划解实例4"></a>利用动态规划解实例4</h3><ol>
-<li><p>确定状态<br>用$f[i]$表示第i天结束后的累计最大收益，状态分为三种：</p>
-<ul>
-<li>持股状态：目前持有一种股票，累计最大收益为$f[i][0]$</li>
-<li>冷冻期状态：该天结束后处于冷冻期，对应的累计最大收益为$f[i][1]$</li>
-<li>双非状态：既不持有股票也不处于冷冻期状态，对应$f[i][2]$</li>
-</ul>
-</li>
-<li><p>转移方程<br> 状态转移：<br>$$f[i][0] = max{f[i-1][0], f[i-1][2]-prices[i]}$$<br>$$f[i][1] = f[i-1][0] + prices[i]$$<br>$$f[i][2] = max{f[i-1][2], f[i-1][1]}$$<br> 结果：<br>$$result = max{f[n-1][1],f[n-1][2]}$$</p>
-</li>
-<li><p>初始条件和边界情况<br>$$f[0][0] = -prices[0]$$<br>$$f[0][1] = 0$$<br>$$f[0][2] = 0$$</p>
-</li>
-</ol>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>* prices, <span class="keyword">int</span> pricesSize)</span></span>&#123;</span><br><span class="line">    <span class="comment">// f[i][0]代表目前持有一支股票</span></span><br><span class="line">    <span class="comment">// f[i][1]代表第i天结束后，位于冷冻期</span></span><br><span class="line">    <span class="comment">// f[i][2]代表当前不持股，也不位于冷冻期</span></span><br><span class="line">    <span class="keyword">if</span>(pricesSize==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> f[pricesSize][<span class="number">3</span>];</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i &lt; pricesSize; i++)&#123;</span><br><span class="line">        f[i][<span class="number">0</span>] = fmax(f[i<span class="number">-1</span>][<span class="number">0</span>], f[i<span class="number">-1</span>][<span class="number">2</span>]-prices[i]);</span><br><span class="line">        f[i][<span class="number">1</span>] = f[i<span class="number">-1</span>][<span class="number">0</span>] + prices[i];</span><br><span class="line">        f[i][<span class="number">2</span>] = fmax(f[i<span class="number">-1</span>][<span class="number">2</span>], f[i<span class="number">-1</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmax(f[pricesSize<span class="number">-1</span>][<span class="number">1</span>],f[pricesSize<span class="number">-1</span>][<span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>算法题目</category>
-      </categories>
   </entry>
   <entry>
     <title>python爬虫笔记-3</title>
@@ -1302,6 +957,401 @@ else, array, when }</code>。设查找表中每个关键字表示为<br><code>ke
       </categories>
       <tags>
         <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据结构之堆栈</title>
+    <url>/2020/07/04/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%A0%86%E6%A0%88/</url>
+    <content><![CDATA[<a id="more"></a>
+
+]]></content>
+      <categories>
+        <category>数据结构笔记</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python爬虫笔记_2</title>
+    <url>/2020/07/03/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-2/</url>
+    <content><![CDATA[<p>主要介绍python的第三方库BS4库的应用场景。</p>
+<a id="more"></a>
+<h3 id="BS4库"><a href="#BS4库" class="headerlink" title="BS4库"></a>BS4库</h3><p>BS4库主要用于<strong>HTML页面的解析</strong>。是解析、遍历、维护“标签树”的功能库。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">demo = requests.get(url).text</span><br><span class="line">soup = BeautifulSoup(demo, <span class="string">"html.parser"</span>)</span><br></pre></td></tr></table></figure>
+<p><code>soup</code>便承载了解析后的<code>标签树</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="center">基本元素</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Tag</td>
+<td align="center">标签，最基本的信息组织单元，分别用&lt;&gt;和&lt;/&gt;标明开头和结尾</td>
+</tr>
+<tr>
+<td align="center">Name</td>
+<td align="center">标签的名字，格式：<code>&lt;tag&gt;.name</code></td>
+</tr>
+<tr>
+<td align="center">Attributes</td>
+<td align="center">标签的属性，字典形式组织，格式：<code>&lt;tag&gt;.attrs</code></td>
+</tr>
+<tr>
+<td align="center">NavigableString</td>
+<td align="center">标签内非属性字符串，格式：<code>&lt;tag&gt;.string</code></td>
+</tr>
+<tr>
+<td align="center">Comment</td>
+<td align="center">标签内字符串的注释部分，一种特殊的Comment类型</td>
+</tr>
+</tbody></table>
+<h4 id="标签树的遍历"><a href="#标签树的遍历" class="headerlink" title="标签树的遍历"></a>标签树的遍历</h4><h5 id="下行遍历"><a href="#下行遍历" class="headerlink" title="下行遍历"></a>下行遍历</h5><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.contents</code></td>
+<td align="center">子节点的列表，将<code>&lt;tag&gt;</code>所有儿子节点存入列表</td>
+</tr>
+<tr>
+<td align="center"><code>.children</code></td>
+<td align="center">子节点的迭代类型，与<code>contents</code>类似，用于循环遍历儿子节点</td>
+</tr>
+<tr>
+<td align="center"><code>.descendants</code></td>
+<td align="center">子孙节点的迭代类型，包含所有子孙节点</td>
+</tr>
+</tbody></table>
+<p>迭代类型的下行遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> child <span class="keyword">in</span> demoSoup.body.children: <span class="comment"># descendants是子孙结点</span></span><br><span class="line">    print(child)</span><br></pre></td></tr></table></figure>
+
+<h5 id="上行遍历"><a href="#上行遍历" class="headerlink" title="上行遍历"></a>上行遍历</h5><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.parent</code></td>
+<td align="center">节点的父亲标签</td>
+</tr>
+<tr>
+<td align="center"><code>.parents</code></td>
+<td align="center">节点先辈标签的迭代类型，用于循环遍历先辈节点</td>
+</tr>
+</tbody></table>
+<p>迭代类型的上行遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> parent <span class="keyword">in</span> demoSoup.a.parents:</span><br><span class="line">    <span class="keyword">if</span> parent <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        print(parent)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(parent.name)</span><br></pre></td></tr></table></figure>
+
+<h5 id="平行遍历"><a href="#平行遍历" class="headerlink" title="平行遍历"></a>平行遍历</h5><table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.next_sibling</code></td>
+<td align="center">返回按照HTML文本顺序的下一个平行节点标签</td>
+</tr>
+<tr>
+<td align="center"><code>.previous_sibling</code></td>
+<td align="center">返回按照HTML文本顺序的上一个平行节点标签</td>
+</tr>
+<tr>
+<td align="center"><code>.next_siblings</code></td>
+<td align="center">迭代类型，返回按照HTML文本顺序的后续所有平行节点标签</td>
+</tr>
+<tr>
+<td align="center"><code>.previous_siblings</code></td>
+<td align="center">迭代类型，返回按照HTML文本顺序的前续所有平行节点标签</td>
+</tr>
+</tbody></table>
+<p>迭代类型的上行遍历：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> sibling <span class="keyword">in</span> demoSoup.a.next_siblings:  <span class="comment"># or previous_siblings</span></span><br><span class="line">    print(sibling)</span><br></pre></td></tr></table></figure>
+
+<h4 id="美化标签"><a href="#美化标签" class="headerlink" title="美化标签"></a>美化标签</h4><p><code>soup.prettify()</code></p>
+<h4 id="信息提取方法"><a href="#信息提取方法" class="headerlink" title="信息提取方法"></a>信息提取方法</h4><p>信息标记的三种形式XML,JSON和YAML<br><code>.find_all</code>方法，返回一个列表类型，存储查找的结果。</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>name</code></td>
+<td align="center">对标签名称的检索字符串</td>
+</tr>
+<tr>
+<td align="center"><code>attrs</code></td>
+<td align="center">对标签属性值的检索字符串，可标注属性检索</td>
+</tr>
+<tr>
+<td align="center"><code>recursive</code></td>
+<td align="center">是否对子孙全部检索，默认True</td>
+</tr>
+<tr>
+<td align="center"><code>string</code></td>
+<td align="center">&lt;&gt;…&lt;/&gt;中字符串区域的检索字符串</td>
+</tr>
+</tbody></table>
+<h3 id="实例：全球大学学术排名"><a href="#实例：全球大学学术排名" class="headerlink" title="实例：全球大学学术排名"></a>实例：全球大学学术排名</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> bs4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getHTMLText</span><span class="params">(url)</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        r = requests.get(url, timeout=<span class="number">30</span>)</span><br><span class="line">        r.raise_for_status()</span><br><span class="line">        r.encoding = r.apparent_encoding</span><br><span class="line">        <span class="keyword">return</span> r.text</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"爬取失败"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fillUnivList</span><span class="params">(ulist, html)</span>:</span></span><br><span class="line">    soup = BeautifulSoup(html, <span class="string">"html.parser"</span>)</span><br><span class="line">    <span class="keyword">for</span> tr <span class="keyword">in</span> soup.find(<span class="string">'tbody'</span>).children:</span><br><span class="line">        <span class="keyword">if</span> isinstance(tr, bs4.element.Tag):  <span class="comment"># Tag是bs4定义的标签类型</span></span><br><span class="line">            tds = tr(<span class="string">'td'</span>)</span><br><span class="line">            ulist.append([tds[<span class="number">0</span>].string, tds[<span class="number">1</span>].string, tds[<span class="number">4</span>].string])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">printUnivList</span><span class="params">(ulist, num)</span>:</span></span><br><span class="line">    tplt1 = <span class="string">"&#123;0:^10&#125;\t&#123;1:^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    tplt2 = <span class="string">"&#123;0:^10&#125;\t&#123;1:&#123;3&#125;^10&#125;\t&#123;2:^10&#125;"</span></span><br><span class="line">    print(<span class="string">"全球大学学术排名情况\n"</span>)</span><br><span class="line">    ls = [<span class="string">"排名"</span>,<span class="string">"学校名称"</span>,<span class="string">"得分"</span>]</span><br><span class="line">    print(tplt1.format(ls[<span class="number">0</span>], ls[<span class="number">1</span>], ls[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num):</span><br><span class="line">        u = ulist[i]</span><br><span class="line">        print(tplt2.format(u[<span class="number">0</span>], u[<span class="number">1</span>], u[<span class="number">2</span>], chr(<span class="number">12288</span>)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    uinfo = []</span><br><span class="line">    url = <span class="string">"http://www.zuihaodaxue.cn/ARWU2019.html"</span></span><br><span class="line">    html = getHTMLText(url)</span><br><span class="line">    fillUnivList(uinfo, html)</span><br><span class="line">    printUnivList(uinfo, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+<p>涉及知识点：</p>
+<ul>
+<li>下行遍历<ol>
+<li>遍历tsbody中的tr，并依次输出每个tr下的td</li>
+<li>遍历时不只有td这样的标签，还会有像<code>navigablestring</code>..所以要先check是否是bs4定义的标签类型</li>
+</ol>
+</li>
+<li>中文对齐–char(12288)来控制中文对齐</li>
+</ul>
+]]></content>
+      <categories>
+        <category>python笔记</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>动态规划</title>
+    <url>/2020/07/04/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</url>
+    <content><![CDATA[<p>20世纪50年代初美国数学家R.E.Bellman等人在研究多阶段决策过程的优化问题时，提出了著名的最优化原理(principle of optimality)，把多阶段过程转化为一系列单阶段问题，创立了解决这类过程优化问题的新方法——<strong>动态规划</strong>。</p>
+<a id="more"></a>
+<p><a href="https://www.bilibili.com/video/BV1xb411e7ww?from=search&seid=6405207412150244964" target="_blank" rel="noopener">动态规划入门链接</a></p>
+<h3 id="动态规划题目特点"><a href="#动态规划题目特点" class="headerlink" title="动态规划题目特点"></a>动态规划题目特点</h3><ol>
+<li>计数</li>
+<li>求最值</li>
+<li>求存在性</li>
+</ol>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><h4 id="实例1–求最值"><a href="#实例1–求最值" class="headerlink" title="实例1–求最值"></a>实例1–求最值</h4><p>结账时，需要交价值27元，要求用2元、5元、7元想出一种使得<strong>纸币数最少</strong>的交钱方法。</p>
+<h4 id="实例2–计数"><a href="#实例2–计数" class="headerlink" title="实例2–计数"></a>实例2–计数</h4><p>给定m行n列(m=4,n=8)的网络，有一个机器人从左上角(0,0)出发，每一步可以向下或者向右走一步。问有多少种不同的方式走到右下角？</p>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+<th align="center">6</th>
+<th align="center">7</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">起点</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">终点</td>
+</tr>
+</tbody></table>
+<h4 id="实例3–存在性"><a href="#实例3–存在性" class="headerlink" title="实例3–存在性"></a>实例3–存在性</h4><p>有n块石头分别在x轴的0,1,…,n-1位置，一只青蛙在石头0，想跳到石头n-1。如果青蛙在第i块石头上，它最多可以向右跳距离$a_i$，问青蛙能否跳到石头n-1?</p>
+<h4 id="实例4–求最值–多状态"><a href="#实例4–求最值–多状态" class="headerlink" title="实例4–求最值–多状态"></a>实例4–求最值–多状态</h4><p>出处：Leetcode309<br>给定一个整数数组，其中第 i 个元素代表了第 i 天的股票价格 。​<br>设计一个算法计算出最大利润。在满足以下约束条件下，你可以尽可能地完成更多的交易（多次买卖一支股票）:</p>
+<ul>
+<li>你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</li>
+<li>卖出股票后，你无法在第二天买入股票 (即冷冻期为 1 天)。</li>
+</ul>
+<h3 id="动态规划四组成"><a href="#动态规划四组成" class="headerlink" title="动态规划四组成"></a>动态规划四组成</h3><h4 id="动态规划组成部分一：确定状态"><a href="#动态规划组成部分一：确定状态" class="headerlink" title="动态规划组成部分一：确定状态"></a>动态规划组成部分一：确定状态</h4><h5 id="两个意识"><a href="#两个意识" class="headerlink" title="两个意识"></a>两个意识</h5><ul>
+<li>最后一步</li>
+<li>子问题</li>
+</ul>
+<p>状态由<br>$$ f(x)=最少用多少枚硬币拼出27 $$<br>转换为<br>$$f(x)=最少用多少枚硬币拼出27-a_{k}$$<br>归纳为<br>$$状态f(x)=最少用多少枚硬币拼出x$$</p>
+<p>根据最后一步分部考虑： </p>
+<p>$$f(27) = min{f(27-2)+1, f(27-5)+1, f(27-7)+1}$$</p>
+<p>我们根据这个公式可以写出一种递归算法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> x==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    res=np.inf  <span class="comment"># res初始化为极大值</span></span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">2</span>:</span><br><span class="line">        res=min(f(x<span class="number">-2</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">5</span>:</span><br><span class="line">        res=min(f(x<span class="number">-5</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">if</span> x&gt;=<span class="number">7</span>:</span><br><span class="line">        res=min(f(x<span class="number">-7</span>)+<span class="number">1</span>,res)</span><br><span class="line">    <span class="keyword">return</span> res  <span class="comment"># 当传入的x为1时，res返回的是inf，也就相当于不成立！！</span></span><br><span class="line">print(f(<span class="number">27</span>))</span><br></pre></td></tr></table></figure>
+
+<h4 id="动态规划组成部分二：转移方程"><a href="#动态规划组成部分二：转移方程" class="headerlink" title="动态规划组成部分二：转移方程"></a>动态规划组成部分二：转移方程</h4><p>$$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$$</p>
+<h4 id="动态规划组成部分三：初始条件和边界情况"><a href="#动态规划组成部分三：初始条件和边界情况" class="headerlink" title="动态规划组成部分三：初始条件和边界情况"></a>动态规划组成部分三：初始条件和边界情况</h4><p>初始条件：</p>
+<p>$$f[0] = 0$$</p>
+<p>边界情况：</p>
+<p align="center">数组不越界</p>
+
+<h4 id="动态规划组成部分四：计算顺序"><a href="#动态规划组成部分四：计算顺序" class="headerlink" title="动态规划组成部分四：计算顺序"></a>动态规划组成部分四：计算顺序</h4><ul>
+<li>正序</li>
+<li>逆序</li>
+<li>其他</li>
+</ul>
+<p>判断标准：当前的数据在已经算出后，前面（后面）的数据是否已经得出了。</p>
+<h4 id="实例1解答"><a href="#实例1解答" class="headerlink" title="实例1解答"></a>实例1解答</h4><p>个人解答</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">f = [<span class="number">0</span> <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">28</span>)]</span><br><span class="line">f[<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">f[<span class="number">1</span>] = np.inf</span><br><span class="line">n = <span class="number">27</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,n+<span class="number">1</span>): <span class="comment"># 时间复杂度O(n)</span></span><br><span class="line">    <span class="keyword">if</span>(i&gt;=<span class="number">7</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>,f[i<span class="number">-5</span>]+<span class="number">1</span>,f[i<span class="number">-7</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(<span class="number">7</span>&gt;i&gt;=<span class="number">5</span>):</span><br><span class="line">        f[i] = min(f[i<span class="number">-2</span>]+<span class="number">1</span>, f[i<span class="number">-5</span>]+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">5</span>):</span><br><span class="line">        f[i] = f[i<span class="number">-2</span>]+<span class="number">1</span></span><br><span class="line">print(f[<span class="number">27</span>])</span><br></pre></td></tr></table></figure>
+<p>完美改进</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">coinChange</span><span class="params">(<span class="keyword">int</span> *A, <span class="keyword">int</span> M)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> *fun;</span><br><span class="line">    fun = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(M+<span class="number">1</span>));</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(A)/<span class="keyword">sizeof</span>(A[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">    fun[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=M;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i &gt;= A[j] &amp;&amp; fun[i-A[j]] != INT_MAX)&#123; </span><br><span class="line">                <span class="comment">// 防止下标溢出；防止无穷大加法溢出！！</span></span><br><span class="line">                fun[i] = <span class="built_in">min</span>(fun[i-A[j]]+<span class="number">1</span>, fun[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(fun[M]==INT_MAX)&#123;</span><br><span class="line">        fun[M] = <span class="number">-1</span>; <span class="comment">// 题目要求</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> fun[M];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="动态规划组成部分概括"><a href="#动态规划组成部分概括" class="headerlink" title="动态规划组成部分概括"></a>动态规划组成部分概括</h4><ol>
+<li>确定状态<ul>
+<li>最后一步（最优策略中使用的最后一枚硬币$a_k$）</li>
+<li>化成子问题（最少的硬币拼出来更小的面值$27-a_k$）</li>
+</ul>
+</li>
+<li>转移方程<ul>
+<li>$f[X] = min{f[X-2]+1, f[X-5]+1, f[X-7]+1}$</li>
+</ul>
+</li>
+<li>初始条件和边界情况<ul>
+<li>f[0] = 0，如果不能拼出Y，f[Y]=inf</li>
+</ul>
+</li>
+<li>计算顺序<ul>
+<li>正序</li>
+</ul>
+</li>
+</ol>
+<h3 id="利用动态规划解实例2"><a href="#利用动态规划解实例2" class="headerlink" title="利用动态规划解实例2"></a>利用动态规划解实例2</h3><ol>
+<li>确定状态<ul>
+<li>最后一步：到达(m-1,n-1)前的方法是以M种方法到(m-2,n-1)加上以N种方法到(m-1,n-2)</li>
+<li>化成子问题：有多少种方法到达(m-2,n-1)或(m-1,n-2)</li>
+<li>状态：设$f[i][j]$为从左上角有多少种路径走到$(i,j)$</li>
+</ul>
+</li>
+<li>转移方程<ul>
+<li>$f[i][j] = f[i-1][j] + f[i][j-1]$</li>
+</ul>
+</li>
+<li>初始条件和边界情况<ul>
+<li>初始条件：$f[0][0]=1$</li>
+<li>边界情况：$i=j=0$时，$f[i][j]=1$</li>
+</ul>
+</li>
+<li>计算顺序<ul>
+<li>由左到右，逐行计算</li>
+</ul>
+</li>
+</ol>
+<p>代码解答：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">uniquePath</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f[m][n];</span><br><span class="line">    <span class="keyword">int</span> i,j;</span><br><span class="line">    <span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; m; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(j = <span class="number">0</span>; j &lt; n; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i = <span class="number">0</span> || j = <span class="number">0</span>)&#123;</span><br><span class="line">                f[i][j] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                f[i][j] = f[i<span class="number">-1</span>][j] + f[i][j<span class="number">-1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[m<span class="number">-1</span>][n<span class="number">-1</span>];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="利用动态规划解实例3"><a href="#利用动态规划解实例3" class="headerlink" title="利用动态规划解实例3"></a>利用动态规划解实例3</h3><ol>
+<li>确定状态<ul>
+<li>最后一步：到达n-1之前已经到达i</li>
+<li>化成子问题：跳到n-1 -&gt; 跳到i</li>
+<li>状态：设$f[j]$为青蛙能不能跳到石头j</li>
+</ul>
+</li>
+<li>转移方程<ul>
+<li>$f[j]=OR_{0&lt;=i&lt;j}(f[i] AND i +a[i]&gt;=j)$</li>
+</ul>
+</li>
+<li>初始条件和边界情况<ul>
+<li>初始条件：$f[0]=true$</li>
+</ul>
+</li>
+<li>计算顺序<ul>
+<li>从小到大</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">canJump</span><span class="params">(<span class="keyword">int</span> *A)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="keyword">sizeof</span>(A)/<span class="keyword">sizeof</span>(A[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">int</span> *f;</span><br><span class="line">    f = (<span class="keyword">int</span> *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*(n));</span><br><span class="line">    f[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        f[i] = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;i; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(f[j] &amp;&amp; j+A[j] &gt;= i)&#123;</span><br><span class="line">                <span class="comment">// 能到达目标点前的这个点，并且还能跳到目标点，则能到达目标点</span></span><br><span class="line">                f[i] = <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> f[n<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：$O(n^2)$<br>空间复杂度：$O(n)$</p>
+<h3 id="利用动态规划解实例4"><a href="#利用动态规划解实例4" class="headerlink" title="利用动态规划解实例4"></a>利用动态规划解实例4</h3><ol>
+<li><p>确定状态<br>用$f[i]$表示第i天结束后的累计最大收益，状态分为三种：</p>
+<ul>
+<li>持股状态：目前持有一种股票，累计最大收益为$f[i][0]$</li>
+<li>冷冻期状态：该天结束后处于冷冻期，对应的累计最大收益为$f[i][1]$</li>
+<li>双非状态：既不持有股票也不处于冷冻期状态，对应$f[i][2]$</li>
+</ul>
+</li>
+<li><p>转移方程<br> 状态转移：<br>$$f[i][0] = max{f[i-1][0], f[i-1][2]-prices[i]}$$<br>$$f[i][1] = f[i-1][0] + prices[i]$$<br>$$f[i][2] = max{f[i-1][2], f[i-1][1]}$$<br> 结果：<br>$$result = max{f[n-1][1],f[n-1][2]}$$</p>
+</li>
+<li><p>初始条件和边界情况<br>$$f[0][0] = -prices[0]$$<br>$$f[0][1] = 0$$<br>$$f[0][2] = 0$$</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>* prices, <span class="keyword">int</span> pricesSize)</span></span>&#123;</span><br><span class="line">    <span class="comment">// f[i][0]代表目前持有一支股票</span></span><br><span class="line">    <span class="comment">// f[i][1]代表第i天结束后，位于冷冻期</span></span><br><span class="line">    <span class="comment">// f[i][2]代表当前不持股，也不位于冷冻期</span></span><br><span class="line">    <span class="keyword">if</span>(pricesSize==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> f[pricesSize][<span class="number">3</span>];</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">0</span>] = -prices[<span class="number">0</span>];</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">    f[<span class="number">0</span>][<span class="number">2</span>] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i &lt; pricesSize; i++)&#123;</span><br><span class="line">        f[i][<span class="number">0</span>] = fmax(f[i<span class="number">-1</span>][<span class="number">0</span>], f[i<span class="number">-1</span>][<span class="number">2</span>]-prices[i]);</span><br><span class="line">        f[i][<span class="number">1</span>] = f[i<span class="number">-1</span>][<span class="number">0</span>] + prices[i];</span><br><span class="line">        f[i][<span class="number">2</span>] = fmax(f[i<span class="number">-1</span>][<span class="number">2</span>], f[i<span class="number">-1</span>][<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmax(f[pricesSize<span class="number">-1</span>][<span class="number">1</span>],f[pricesSize<span class="number">-1</span>][<span class="number">2</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>算法题目</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>数据结构之查找</title>
+    <url>/2020/07/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%9F%A5%E6%89%BE/</url>
+    <content><![CDATA[<p>查找这部分是跟着郭老师学的，临近期末，又要复习这部分涉及到的内容又多，掌握的几乎为0。</p>
+<a id="more"></a>
+<h3 id="hash表查找"><a href="#hash表查找" class="headerlink" title="hash表查找"></a>hash表查找</h3><h4 id="散列查找"><a href="#散列查找" class="headerlink" title="散列查找"></a>散列查找</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>目标：不需要把待查记录的关键字与查找表的某些记录进行逐个比较。而是<strong>根据待查记录的关键字值，直接找到该记录的存储地址</strong>。<br>思想：建立一个确定的函数关系H(称为散列函数，或哈希函数)：</p>
+<ul>
+<li>以结点关键字key作为自变量</li>
+<li>以函数值H(key)作为结点的存储地址</li>
+<li>通常散列表的存储空间是一个一维数组，散列地址是数组的下标。</li>
+</ul>
+<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h5><h6 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h6><p>题目：已知一长度为14的线性表关键字集合<code>S = { and,
+begin, do, end, for, go, if, repeat, then, until, while,
+else, array, when }</code>。设查找表中每个关键字表示为<br><code>key[8]</code>。</p>
+<p>设计：</p>
+<ul>
+<li>散列表表示为<code>char ht[26][8];</code></li>
+<li>散列函数H(key)的值取为关键字key中的第一个字母在字母表中的序号</li>
+</ul>
+<p>总结：显然a、e、w开头的单词均在其地址内有冲突。</p>
+<h6 id="例题改进"><a href="#例题改进" class="headerlink" title="例题改进"></a>例题改进</h6><p>在例1的基础上，修改散列函数H(key)：<strong>值为key中首尾字母在字母表中序号的平均值</strong>，此时地址不产生冲突。</p>
+<h4 id="hash表"><a href="#hash表" class="headerlink" title="hash表"></a>hash表</h4><h5 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h5><p><strong>散列函数H</strong>：<br>$$Address=H(key)$$<br><strong>装载因子</strong>：<br>$$a=n/m$$<br>其中，m为散列表的空间大小，n为散列表中的记录数。</p>
+<h5 id="hash函数的构造方法"><a href="#hash函数的构造方法" class="headerlink" title="hash函数的构造方法"></a>hash函数的构造方法</h5><h6 id="除留余数法"><a href="#除留余数法" class="headerlink" title="除留余数法"></a>除留余数法</h6><p>$$H(key)=key%p$$<br>其中p一般取&lt;=m的最大素数。</p>
+<h6 id="直接定址法"><a href="#直接定址法" class="headerlink" title="直接定址法"></a>直接定址法</h6><ul>
+<li>取关键字作为其hash地址</li>
+<li>取关键字的某个线性函数：$H(key)=a*key+b$<h6 id="数字分析法"><a href="#数字分析法" class="headerlink" title="数字分析法"></a>数字分析法</h6>根据散列表的大小，选取其中各种符号分布均匀的若干位作为散列地址。<h6 id="平方取中法"><a href="#平方取中法" class="headerlink" title="平方取中法"></a>平方取中法</h6>先通过求关键字的平方值来扩大差别，<br>再取其中的几位或其组合作为散列地址。<br>具体取几位，由hash表的表长决定。<h6 id="分段叠加法"><a href="#分段叠加法" class="headerlink" title="分段叠加法"></a>分段叠加法</h6></li>
+<li>将关键字分割成位数相同的几部分（最后一部分位数可不同）</li>
+<li>然后取这几部分的叠加和舍去进位作为散列地址。</li>
+</ul>
+<h4 id="冲突解决方法"><a href="#冲突解决方法" class="headerlink" title="冲突解决方法"></a>冲突解决方法</h4><h5 id="开放地址法–找下一个空位"><a href="#开放地址法–找下一个空位" class="headerlink" title="开放地址法–找下一个空位"></a>开放地址法–找下一个空位</h5><p>当冲突发生时，使用某种方法为R的关键字key生成一个散列地址序列，其中第i次冲突散列地址：<br>$$d_i = (d_{i-1}+D)%m$$</p>
+<h6 id="线性探测再散列"><a href="#线性探测再散列" class="headerlink" title="线性探测再散列"></a>线性探测再散列</h6><p>$D=i$，i表示探测次数</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">D</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="二次探测再散列"><a href="#二次探测再散列" class="headerlink" title="二次探测再散列"></a>二次探测再散列</h6><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">D</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(i%<span class="number">2</span>==<span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> -(i*i/<span class="number">4</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (i+<span class="number">1</span>)*(i+<span class="number">1</span>)/<span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="伪随机探测再散列"><a href="#伪随机探测再散列" class="headerlink" title="伪随机探测再散列"></a>伪随机探测再散列</h6>]]></content>
+      <categories>
+        <category>数据结构笔记</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
