@@ -28,7 +28,7 @@
 <meta property="og:description" content="链表的内容非常非常的基础，快速回顾~">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-04T03:37:40.000Z">
-<meta property="article:modified_time" content="2020-07-09T15:19:47.868Z">
+<meta property="article:modified_time" content="2020-07-13T16:44:06.072Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="C">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-09 23:19:47" itemprop="dateModified" datetime="2020-07-09T23:19:47+08:00">2020-07-09</time>
+                <time title="修改时间：2020-07-14 00:44:06" itemprop="dateModified" datetime="2020-07-14T00:44:06+08:00">2020-07-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,7 +289,20 @@
 
 <h4 id="尾插法建表（正向）"><a href="#尾插法建表（正向）" class="headerlink" title="尾插法建表（正向）"></a>尾插法建表（正向）</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">SLNode * <span class="title">createlist2</span><span class="params">()</span></span>&#123; </span><br><span class="line">    <span class="keyword">char</span> ch; </span><br><span class="line">    SLNode * head,*s,*r;</span><br><span class="line">    <span class="keyword">if</span> ((head=(SLNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SLNode)))==<span class="literal">NULL</span>)</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    (head)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    r=head;</span><br><span class="line">    <span class="keyword">while</span>((ch=getchar( ))!=‘\n’)&#123;</span><br><span class="line">        <span class="keyword">if</span> ((s=(SLNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(SLNode)))==<span class="literal">NULL</span>)</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        s–&gt;data=ch;</span><br><span class="line">        r–&gt;next=s;</span><br><span class="line">        r=s;</span><br><span class="line">    &#125;</span><br><span class="line">    r–&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="双向链表操作"><a href="#双向链表操作" class="headerlink" title="双向链表操作"></a>双向链表操作</h3>
+<h3 id="双向链表操作"><a href="#双向链表操作" class="headerlink" title="双向链表操作"></a>双向链表操作</h3><p>略</p>
+<h3 id="实例：多项式加法-amp-多项式乘法"><a href="#实例：多项式加法-amp-多项式乘法" class="headerlink" title="实例：多项式加法&amp;多项式乘法"></a>实例：多项式加法&amp;多项式乘法</h3><p>具体思想：</p>
+<ul>
+<li>设<code>p</code>和<code>q</code>分别指示多项式A和B中某一结点，</li>
+<li>当<code>p</code>和<code>q</code>均非空时，比较<code>p-&gt;exp</code>与<code>q-&gt;exp</code>：<ul>
+<li>若<code>p-&gt;exp</code> &lt; <code>q-&gt;exp</code>，则<code>p</code>所指结点是“和多项式”中的一项，令指针<code>p</code>后移；</li>
+<li>若<code>p-&gt;exp</code> &gt; <code>q-&gt;exp</code>，则q所指结点是“和多项式”中的一项，将结点<code>q</code>插入在结点<code>p</code>之前，且令指针<code>q</code>在原来的链表上后移；</li>
+<li>若<code>p-&gt;exp</code> == <code>q-&gt;exp</code>，则将两个结点中的系数相加，当和不为零时修改结点<code>p</code>的系数域，释放<code>q</code>结点；若和为零，则和多项式中无此项，从A中删去<code>p</code>结点，同时释放<code>p</code>和<code>q</code>结点。</li>
+</ul>
+</li>
+<li>if (<code>q</code> == null) A即为“和多项式”结果</li>
+<li>if (<code>p</code> == null) 将剩余的<code>q</code>表全部链接至原A最后一个结点的后继</li>
+</ul>
+
     </div>
 
     
@@ -372,7 +385,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#绕不开的malloc和free"><span class="nav-number">1.</span> <span class="nav-text">绕不开的malloc和free</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc"><span class="nav-number">1.1.</span> <span class="nav-text">malloc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明"><span class="nav-number">1.1.1.</span> <span class="nav-text">函数声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc函数标准用法"><span class="nav-number">1.1.2.</span> <span class="nav-text">malloc函数标准用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">1.2.</span> <span class="nav-text">free</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">函数声明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表数据结构"><span class="nav-number">2.</span> <span class="nav-text">链表数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表vs顺序表"><span class="nav-number">2.1.</span> <span class="nav-text">链表vs顺序表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单链表操作"><span class="nav-number">2.2.</span> <span class="nav-text">单链表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计元素个数-核心思想"><span class="nav-number">2.2.2.</span> <span class="nav-text">统计元素个数(核心思想)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找算法-略"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找算法(略)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">添加算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除算法"><span class="nav-number">2.2.5.</span> <span class="nav-text">删除算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#头插法建表（反向）"><span class="nav-number">2.2.6.</span> <span class="nav-text">头插法建表（反向）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾插法建表（正向）"><span class="nav-number">2.2.7.</span> <span class="nav-text">尾插法建表（正向）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向链表操作"><span class="nav-number">2.3.</span> <span class="nav-text">双向链表操作</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#绕不开的malloc和free"><span class="nav-number">1.</span> <span class="nav-text">绕不开的malloc和free</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#malloc"><span class="nav-number">1.1.</span> <span class="nav-text">malloc</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明"><span class="nav-number">1.1.1.</span> <span class="nav-text">函数声明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#malloc函数标准用法"><span class="nav-number">1.1.2.</span> <span class="nav-text">malloc函数标准用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">1.2.</span> <span class="nav-text">free</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#函数声明-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">函数声明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链表数据结构"><span class="nav-number">2.</span> <span class="nav-text">链表数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#链表vs顺序表"><span class="nav-number">2.1.</span> <span class="nav-text">链表vs顺序表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单链表操作"><span class="nav-number">2.2.</span> <span class="nav-text">单链表操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计元素个数-核心思想"><span class="nav-number">2.2.2.</span> <span class="nav-text">统计元素个数(核心思想)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找算法-略"><span class="nav-number">2.2.3.</span> <span class="nav-text">查找算法(略)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加算法"><span class="nav-number">2.2.4.</span> <span class="nav-text">添加算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除算法"><span class="nav-number">2.2.5.</span> <span class="nav-text">删除算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#头插法建表（反向）"><span class="nav-number">2.2.6.</span> <span class="nav-text">头插法建表（反向）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#尾插法建表（正向）"><span class="nav-number">2.2.7.</span> <span class="nav-text">尾插法建表（正向）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向链表操作"><span class="nav-number">2.3.</span> <span class="nav-text">双向链表操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例：多项式加法-amp-多项式乘法"><span class="nav-number">2.4.</span> <span class="nav-text">实例：多项式加法&amp;多项式乘法</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -388,14 +401,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
