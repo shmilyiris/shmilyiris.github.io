@@ -20,17 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="小白的个人网站">
-<meta property="og:type" content="website">
-<meta property="og:title" content="今天你Coding了吗?">
-<meta property="og:url" content="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/index.html">
+  <meta name="description" content="主要介绍模块库scrapy。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python爬虫笔记-4">
+<meta property="og:url" content="http://yoursite.com/2020/07/20/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-4/index.html">
 <meta property="og:site_name" content="今天你Coding了吗?">
-<meta property="og:description" content="小白的个人网站">
+<meta property="og:description" content="主要介绍模块库scrapy。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.runoob.com/wp-content/uploads/2018/10/8c591d54457bb033812a2b0364011e9c_articlex.png">
+<meta property="article:published_time" content="2020-07-19T16:29:46.000Z">
+<meta property="article:modified_time" content="2020-07-20T11:48:00.589Z">
 <meta property="article:author" content="Michael Johnson">
+<meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.runoob.com/wp-content/uploads/2018/10/8c591d54457bb033812a2b0364011e9c_articlex.png">
 
-<link rel="canonical" href="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/">
+<link rel="canonical" href="http://yoursite.com/2020/07/20/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-4/">
 
 
 <script id="page-configurations">
@@ -38,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 前端笔记 | 今天你Coding了吗?</title>
+  <title>python爬虫笔记-4 | 今天你Coding了吗?</title>
   
 
 
@@ -179,91 +184,145 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
-  
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">前端笔记
-          <small>分类</small>
-        </h2>
-      </div>
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E7%A8%8B%E5%BA%8F%E7%8C%BF.jpg">
+      <meta itemprop="name" content="Michael Johnson">
+      <meta itemprop="description" content="小白的个人网站">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你Coding了吗?">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          python爬虫笔记-4
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-20 00:29:46 / 修改时间：19:48:00" itemprop="dateCreated datePublished" datetime="2020-07-20T00:29:46+08:00">2020-07-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">python笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/07/20/python%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B0-4/" class="post-meta-item leancloud_visitors" data-flag-title="python爬虫笔记-4" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-11T21:13:40+08:00"
-              content="2020-07-11">
-          07-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/11/30%E4%B8%AAJS%E5%B0%8F%E9%A1%B9%E7%9B%AE/" itemprop="url">
-            <span itemprop="name">30个JS小项目</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-07-01T18:06:35+08:00"
-              content="2020-07-01">
-          07-01
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/07/01/ES6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">ES6学习笔记</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2020-06-30T21:31:58+08:00"
-              content="2020-06-30">
-          06-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/06/30/Javascript%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url">
-            <span itemprop="name">Basic Javascript学习笔记</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+        <p>主要介绍模块库scrapy。</p>
+<a id="more"></a>
+<h3 id="scrapy库"><a href="#scrapy库" class="headerlink" title="scrapy库"></a>scrapy库</h3><h4 id="scrapy爬虫框架"><a href="#scrapy爬虫框架" class="headerlink" title="scrapy爬虫框架"></a>scrapy爬虫框架</h4><p><img src="https://www.runoob.com/wp-content/uploads/2018/10/8c591d54457bb033812a2b0364011e9c_articlex.png" alt="框架图"><br>Scrapy Engine(引擎): 负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等。</p>
+<ul>
+<li><strong>Scheduler(调度器)</strong>: 它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。</li>
+<li><strong>Downloader（下载器）</strong>：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理，</li>
+<li><strong>Spider（爬虫）</strong>：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器).</li>
+<li><strong>Item Pipeline(管道)</strong>：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方。</li>
+<li><strong>Downloader Middlewares（下载中间件）</strong>：你可以当作是一个可以自定义扩展下载功能的组件。</li>
+<li><strong>Spider Middlewares（Spider中间件）</strong>：你可以理解为是一个可以自定扩展和操作引擎和Spider中间通信的功能组件（比如进入Spider的Responses;和从Spider出去的Requests）</li>
+</ul>
+<h4 id="scrapy常用命令"><a href="#scrapy常用命令" class="headerlink" title="scrapy常用命令"></a>scrapy常用命令</h4><table>
+<thead>
+<tr>
+<th align="center">命令</th>
+<th align="center">说明</th>
+<th align="center">格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong><code>startproject</code></strong></td>
+<td align="center">创建一个工程</td>
+<td align="center"><code>scrapy startproject &lt;name&gt; [dir]</code></td>
+</tr>
+<tr>
+<td align="center"><strong><code>genspider</code></strong></td>
+<td align="center">创建一个爬虫</td>
+<td align="center"><code>scrapy genspider [options] &lt;name&gt; &lt;domain&gt;</code></td>
+</tr>
+<tr>
+<td align="center"><code>settings</code></td>
+<td align="center">获得爬虫配置信息</td>
+<td align="center"><code>scrapy settings [options]</code></td>
+</tr>
+<tr>
+<td align="center"><strong><code>crawl</code></strong></td>
+<td align="center">运行一个爬虫</td>
+<td align="center"><code>scrapy crawl &lt;spider&gt;</code></td>
+</tr>
+<tr>
+<td align="center"><code>list</code></td>
+<td align="center">列出工程中所有爬虫</td>
+<td align="center"><code>scrapy list</code></td>
+</tr>
+<tr>
+<td align="center"><code>shell</code></td>
+<td align="center">启用URL调试命令行</td>
+<td align="center"><code>scrapy shell [url]</code></td>
+</tr>
+</tbody></table>
 
     </div>
-  </div>
-  
-  
-  
 
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/19/Leetcode%E6%97%A5%E8%AE%B0II/" rel="prev" title="Leetcode日记II">
+      <i class="fa fa-chevron-left"></i> Leetcode日记II
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
@@ -316,6 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#scrapy库"><span class="nav-number">1.</span> <span class="nav-text">scrapy库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy爬虫框架"><span class="nav-number">1.1.</span> <span class="nav-text">scrapy爬虫框架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#scrapy常用命令"><span class="nav-number">1.2.</span> <span class="nav-text">scrapy常用命令</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
