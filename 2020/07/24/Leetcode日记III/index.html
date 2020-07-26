@@ -28,7 +28,7 @@
 <meta property="og:description" content="延续II的风格，进行题型分类。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-24T10:35:37.000Z">
-<meta property="article:modified_time" content="2020-07-24T17:46:36.239Z">
+<meta property="article:modified_time" content="2020-07-26T16:54:54.369Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="C">
@@ -220,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-25 01:46:36" itemprop="dateModified" datetime="2020-07-25T01:46:36+08:00">2020-07-25</time>
+                <time title="修改时间：2020-07-27 00:54:54" itemprop="dateModified" datetime="2020-07-27T00:54:54+08:00">2020-07-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -273,7 +273,11 @@
 <li>还是说当出现这种情况的时候，会触发最后的<code>checkMid</code>的<code>false</code>导致<code>left</code>更新然后修正了？</li>
 <li>还是说根本不会达到我的假设？</li>
 </ul>
+<hr>
+<h3 id="树和图"><a href="#树和图" class="headerlink" title="树和图"></a>树和图</h3><h4 id="路径总和"><a href="#路径总和" class="headerlink" title="路径总和"></a>路径总和</h4><p>给定一个树，给定一个sum。返回是否有从根节点到子节点的路径val总和==sum。</p>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (!root-&gt;left &amp;&amp; !root-&gt;right) <span class="keyword">return</span> sum == root-&gt;val;</span><br><span class="line">        <span class="keyword">return</span> hasPathSum(root-&gt;left, sum - root-&gt;val) || hasPathSum(root-&gt;right, sum - root-&gt;val);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<h5 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasPathSum</span><span class="params">(TreeNode* root, <span class="keyword">int</span> sum)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">queue</span>&lt; pair&lt; <span class="keyword">int</span>, TreeNode* &gt; &gt; q; <span class="comment">// 保存&lt;当前和，节点&gt;</span></span><br><span class="line">        <span class="keyword">if</span> (root == <span class="literal">NULL</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">        q.push(&#123;root-&gt;val, root&#125;);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">            <span class="keyword">auto</span> temp = q.front();</span><br><span class="line">            q.pop();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">auto</span> node = temp.second;</span><br><span class="line">            <span class="keyword">auto</span> curSum = temp.first;</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;left != <span class="literal">NULL</span>) q.push(&#123;curSum + node-&gt;left-&gt;val, node-&gt;left&#125;);</span><br><span class="line">            <span class="keyword">if</span> (node-&gt;right != <span class="literal">NULL</span>) q.push(&#123;curSum + node-&gt;right-&gt;val, node-&gt;right&#125;);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (!node-&gt;left &amp;&amp; !node-&gt;right) &#123;</span><br><span class="line">                <span class="keyword">if</span> (sum == curSum) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -295,7 +299,10 @@
     <a href="/2020/07/22/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C/" rel="prev" title="Linux命令行">
       <i class="fa fa-chevron-left"></i> Linux命令行
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/26/Leetcode%E5%91%A8%E8%B5%9B/" rel="next" title="Leetcode周赛">
+      Leetcode周赛 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -354,7 +361,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#二分"><span class="nav-number">1.</span> <span class="nav-text">二分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算右侧小于当前元素的个数"><span class="nav-number">1.1.</span> <span class="nav-text">计算右侧小于当前元素的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一次提交"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一次提交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二次提交"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二次提交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三次提交"><span class="nav-number">1.1.3.</span> <span class="nav-text">第三次提交</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割数组的最大和"><span class="nav-number">1.2.</span> <span class="nav-text">分割数组的最大和</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#二分法"><span class="nav-number">1.2.1.</span> <span class="nav-text">二分法</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#二分"><span class="nav-number">1.</span> <span class="nav-text">二分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#计算右侧小于当前元素的个数"><span class="nav-number">1.1.</span> <span class="nav-text">计算右侧小于当前元素的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一次提交"><span class="nav-number">1.1.1.</span> <span class="nav-text">第一次提交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二次提交"><span class="nav-number">1.1.2.</span> <span class="nav-text">第二次提交</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三次提交"><span class="nav-number">1.1.3.</span> <span class="nav-text">第三次提交</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分割数组的最大和"><span class="nav-number">1.2.</span> <span class="nav-text">分割数组的最大和</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#二分法"><span class="nav-number">1.2.1.</span> <span class="nav-text">二分法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树和图"><span class="nav-number">2.</span> <span class="nav-text">树和图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路径总和"><span class="nav-number">2.1.</span> <span class="nav-text">路径总和</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#递归"><span class="nav-number">2.1.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#BFS"><span class="nav-number">2.1.2.</span> <span class="nav-text">BFS</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -370,7 +377,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
