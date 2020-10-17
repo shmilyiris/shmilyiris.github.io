@@ -28,7 +28,7 @@
 <meta property="og:description" content="参考github项目地址 这是一个入门级的教程~">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-08T11:43:20.000Z">
-<meta property="article:modified_time" content="2020-10-11T16:09:47.473Z">
+<meta property="article:modified_time" content="2020-10-15T14:47:45.213Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 00:09:47" itemprop="dateModified" datetime="2020-10-12T00:09:47+08:00">2020-10-12</time>
+                <time title="修改时间：2020-10-15 22:47:45" itemprop="dateModified" datetime="2020-10-15T22:47:45+08:00">2020-10-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -350,10 +350,141 @@
 <li><code>.histc()</code> 计算input的直方图</li>
 <li><code>.bincount()</code> 返回每个值的频数</li>
 </ul>
-<h3 id="分布函数"><a href="#分布函数" class="headerlink" title="分布函数"></a>分布函数</h3><h3 id="随机抽样函数"><a href="#随机抽样函数" class="headerlink" title="随机抽样函数"></a>随机抽样函数</h3><h2 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h2><p>Autograd(automatic defferentiation)</p>
+<h3 id="分布函数"><a href="#分布函数" class="headerlink" title="分布函数"></a>分布函数</h3><p><code>torch.distributions</code>包含可参数化的概率分布和采样函数</p>
+<h3 id="随机抽样函数"><a href="#随机抽样函数" class="headerlink" title="随机抽样函数"></a>随机抽样函数</h3><ul>
+<li>定义随机种子<ul>
+<li><code>torch.manual_seed(seed)</code></li>
+</ul>
+</li>
+<li>定义随机数满足的分布<ul>
+<li><code>torch.normal()</code>正态分布</li>
+</ul>
+</li>
+</ul>
+<h3 id="线性代数运算"><a href="#线性代数运算" class="headerlink" title="线性代数运算"></a>线性代数运算</h3><h4 id="范数"><a href="#范数" class="headerlink" title="范数"></a>范数</h4><p>常被用来度量某个向量空间（或矩阵）中的每个向量的长度或大小。</p>
+<p>0/1/2/p/核范数……</p>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><ul>
+<li><p><code>torch.dist(input, other, p = 2)</code> 计算p范数</p>
+</li>
+<li><p><code>torch.norm()</code>计算2范数</p>
+<ul>
+<li>矩阵范数：矩阵A的2范数就是 A的转置乘以A矩阵特征根最大值的开根号</li>
+<li>向量范数：向量x的2范数就是x中各个元素平方之和再开根号</li>
+</ul>
+</li>
+<li><p>核范数（针对<strong>低秩问题</strong>的求解 $\rarr$ 图像）</p>
+<ul>
+<li><code>p = &#39;fro&#39;</code></li>
+</ul>
+</li>
+</ul>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><ol>
+<li>用来定义<code>loss</code></li>
+<li>进行参数约束（0范数、1范数）<ul>
+<li>参数少或参数中0的个数多</li>
+</ul>
+</li>
+</ol>
+<h4 id="矩阵分解"><a href="#矩阵分解" class="headerlink" title="矩阵分解"></a>矩阵分解</h4><ol>
+<li>LU分解<ul>
+<li>$A = L * U$，其中$L$是下三角矩阵，$U$是上三角矩阵</li>
+</ul>
+</li>
+<li>QR分解<ul>
+<li>$A = Q * R$，其中$Q$是正交矩阵，$R$是上三角矩阵</li>
+</ul>
+</li>
+<li>EVD分解 PCA（无监督）<ul>
+<li>特征值分解 $A = Q \Sigma Q^{-1}$</li>
+<li>PCA降维：将n维特征映射到k维上（提取主成分）$(k \times n) \times (n \times m) = k \times m$<ul>
+<li>期望降维后同一维度的方差最大（丰富特征，降低噪声）</li>
+<li>不同维度的相关性为0（降低信息冗余度）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SVD分解 LDA（有监督） <ul>
+<li>奇异值分解 $A = U \Sigma V^{T}$</li>
+<li>LDA降维：<ul>
+<li>向$y = \omega^{T} x$投影后同类样本间距尽量小，不同类样本间距尽量大，确定直线斜率<ul>
+<li>优化函数$J(\omega)$</li>
+<li>新空间中的特征：$y$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>torch.svd()</code></li>
+</ul>
+</li>
+</ol>
+<h5 id="相关知识补充"><a href="#相关知识补充" class="headerlink" title="相关知识补充"></a>相关知识补充</h5><h5 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h5><p>是各个向量元素之间的协方差。描述了<strong>方差和特征性</strong>。</p>
+<p><strong>特征值分解（PCA）</strong></p>
+<ul>
+<li>$A$应该是一个满秩矩阵，而且应该是一个方阵（若不是应用SVD）</li>
+<li>$Q$和$Q^{-1}$是两个特征向量，而$\Sigma$是一个对角线矩阵</li>
+<li>特征向量相互正交</li>
+</ul>
+<p><strong>奇异值分解（LDA）</strong></p>
+<ul>
+<li>$m \times n = (m \times m) \times (m \times n) \times (n \times n)$</li>
+</ul>
+<h2 id="张量操作"><a href="#张量操作" class="headerlink" title="张量操作"></a>张量操作</h2><h3 id="裁剪运算"><a href="#裁剪运算" class="headerlink" title="裁剪运算"></a>裁剪运算</h3><ul>
+<li>对tensor中的元素进行范围过滤</li>
+<li>常用于梯度剪裁</li>
+</ul>
+<p><code>a.clamp(m, n)</code>将数据保持在$[m, n]$之间。</p>
+<h3 id="索引和数据筛选"><a href="#索引和数据筛选" class="headerlink" title="索引和数据筛选"></a>索引和数据筛选</h3><ul>
+<li><code>torch.where()</code></li>
+<li><code>torch.gather()</code></li>
+<li><code>torch.index_select()</code></li>
+<li><code>torch.masked_select()</code></li>
+<li><code>torch.take()</code></li>
+<li><code>torch.nonzero()</code></li>
+</ul>
+<h3 id="组合和拼接"><a href="#组合和拼接" class="headerlink" title="组合和拼接"></a>组合和拼接</h3><ul>
+<li><p><code>torch.cat()</code></p>
+</li>
+<li><p><code>torch.stack()</code></p>
+</li>
+<li><p><code>torch.gather()</code></p>
+</li>
+</ul>
+<h3 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h3><ul>
+<li><code>torch.chunk()</code></li>
+<li><code>torch.split()</code></li>
+</ul>
+<h3 id="变形"><a href="#变形" class="headerlink" title="变形"></a>变形</h3><ul>
+<li><code>torch.reshape()</code></li>
+<li><code>torch.t()</code>只针对2维tensor</li>
+<li><code>torch.transpose()</code></li>
+<li><code>torch.squeeze()</code></li>
+<li><code>torch.unbind()</code></li>
+<li><code>torch.unsqueeze()</code></li>
+<li><code>torch.flip()</code></li>
+<li><code>torch.rot90</code></li>
+</ul>
+<h3 id="填充"><a href="#填充" class="headerlink" title="填充"></a>填充</h3><ul>
+<li><code>torch.fill((2, 3), 3.14)</code></li>
+</ul>
+<h3 id="编程技巧"><a href="#编程技巧" class="headerlink" title="编程技巧"></a>编程技巧</h3><h4 id="模型保存和加载"><a href="#模型保存和加载" class="headerlink" title="模型保存和加载"></a>模型保存和加载</h4><ul>
+<li><code>torch.saves()</code></li>
+<li><code>torch.load()</code></li>
+</ul>
+<h4 id="并行化"><a href="#并行化" class="headerlink" title="并行化"></a>并行化</h4><ul>
+<li><p><code>torch.get_num_threads()</code> 获得线程数</p>
+</li>
+<li><p><code>torch.set_num_threads(int)</code> 设置线程数</p>
+</li>
+</ul>
+<h4 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h4><p>单机多卡</p>
+<h4 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> torch.cuda.is_available():</span><br><span class="line">    device = torch.device(<span class="string">"cuda"</span>)</span><br><span class="line">    y = torch.ones_like(x, device = device)</span><br><span class="line">    x = x.to(device)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="autograd"><a href="#autograd" class="headerlink" title="autograd"></a>autograd</h2><h2 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h2><p>Autograd(automatic defferentiation)</p>
 <h3 id="张量-1"><a href="#张量-1" class="headerlink" title="张量"></a>张量</h3><p><code>torch.Tensor</code>是包的核心类。</p>
 <p>如果将其属性<code>.requires_grad</code>设置为True，<strong>会开始跟踪其上的所有操作</strong>。完成计算后，可以调用<code>.backward()</code>并<strong>自动计算所有梯度</strong>。此张量的梯度将累积到<code>.grad</code>属性中。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">x = torch.ones(<span class="number">2</span>, <span class="number">2</span>, requires_grad = <span class="literal">True</span>) <span class="comment"># 在这里设置为True以跟踪其计算</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">x = torch.ones(<span class="number">2</span>, <span class="number">2</span>, requires_grad = <span class="literal">True</span>) </span><br><span class="line"><span class="comment"># 在这里设置为True以跟踪其计算</span></span><br></pre></td></tr></table></figure>
 
 <p>要阻止张量跟踪历史记录，可以调用<code>.detach()</code>将其从计算历史记录中分离出来，并防止将来的计算被跟踪。</p>
 <p>要防止张量跟踪历史记录（和使用内存），可以使用<code>torch.no_grad()</code>包装代码块；在<strong>评估模型时</strong>，这会很有用，因为模型可能会具有<code>requires_grad = True</code>的可训练参数，但我们实际上不需要梯度。</p>
@@ -383,15 +514,15 @@
 
 
 
-<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>现在我们来执行反向传播</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">out.backward() <span class="comment"># out.backward()相当于执行out.backward(torch.tensor(1.))</span></span><br><span class="line">print(x.grad) <span class="comment"># 输出out对x的梯度</span></span><br></pre></td></tr></table></figure>
-
-<p><code>out</code>对<code>x</code>的梯度：$\frac{d(out)}{dx}$</p>
-<p>输出的结果推导如下(由于hexo不支持正则，请将以下文字拖入markdown中看效果)：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">你应该得到一个值全为4.5的矩阵,我们把张量out称为&quot;$o$&quot;. 则：$o &#x3D; \frac&#123;1&#125;&#123;4&#125;\sum_i z_i$,$&#123;&#123;z&#125;_&#123;i&#125;&#125;&#x3D;3&#123;&#123;(x+2)&#125;^&#123;2&#125;&#125;$ ，并且 $z\left| _&#123;&#123;&#123;x&#125;_&#123;i&#125;&#125;&#x3D;1&#125; \right.&#x3D;27$  ，所以，$\frac&#123;\partial o&#125;&#123;\partial x_i&#125; &#x3D; \frac&#123;3&#125;&#123;2&#125;(x_i+2)$, 因此$\frac&#123;\partial o&#125;&#123;\partial x_i&#125;\bigr\rvert_&#123;x_i&#x3D;1&#125; &#x3D; \frac&#123;9&#125;&#123;2&#125; &#x3D; 4.5$</span><br><span class="line">在数学上，如果你有一个向量值函数$\vec&#123;y&#125;&#x3D;f(\vec&#123;x&#125;)$ ，则$\vec&#123;y&#125;$相对于$\vec&#123;x&#125;$的梯度是雅可比矩阵：</span><br><span class="line"></span><br><span class="line">$J&#x3D;\left( \begin&#123;matrix&#125;</span><br><span class="line">   \frac&#123;\partial &#123;&#123;y&#125;_&#123;1&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;1&#125;&#125;&#125; &amp; \ldots  &amp; \frac&#123;\partial &#123;&#123;y&#125;_&#123;m&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;1&#125;&#125;&#125;  \\</span><br><span class="line">   \vdots  &amp; \ddots  &amp; \vdots   \\</span><br><span class="line">   \frac&#123;\partial &#123;&#123;y&#125;_&#123;1&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;n&#125;&#125;&#125; &amp; \cdots  &amp; \frac&#123;\partial &#123;&#123;y&#125;_&#123;m&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;n&#125;&#125;&#125;  \\</span><br><span class="line">\end&#123;matrix&#125; \right)$</span><br><span class="line"></span><br><span class="line">一般来说，torch.autograd是一个计算雅可比向量积的引擎。 也就是说，给定任何向量$v &#x3D;(v_1 v_2 ...v_m)^T$，计算乘积$J\cdot v$。 如果$v$恰好是标量函数的梯度$l&#x3D;g(\vec&#123;y&#125;)$，即$v&#x3D;&#123;&#123;(\frac&#123;\partial l&#125;&#123;\partial &#123;&#123;y&#125;_&#123;1&#125;&#125;&#125;\cdots \frac&#123;\partial l&#125;&#123;\partial &#123;&#123;y&#125;_&#123;m&#125;&#125;&#125;)&#125;^&#123;T&#125;&#125;$ 然后根据链式法则，雅可比向量乘积将是$l$相对于$\vec&#123;x&#125;$的梯度</span><br><span class="line"></span><br><span class="line">$J\centerdot v&#x3D;\left( \begin&#123;matrix&#125;</span><br><span class="line">   \frac&#123;\partial &#123;&#123;y&#125;_&#123;1&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;1&#125;&#125;&#125; &amp; \ldots  &amp; \frac&#123;\partial &#123;&#123;y&#125;_&#123;m&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;1&#125;&#125;&#125;  \\</span><br><span class="line">   \vdots  &amp; \ddots  &amp; \vdots   \\</span><br><span class="line">   \frac&#123;\partial &#123;&#123;y&#125;_&#123;1&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;n&#125;&#125;&#125; &amp; \cdots  &amp; \frac&#123;\partial &#123;&#123;y&#125;_&#123;m&#125;&#125;&#125;&#123;\partial &#123;&#123;x&#125;_&#123;n&#125;&#125;&#125;  \\</span><br><span class="line">\end&#123;matrix&#125; \right)\left( \begin&#123;matrix&#125;</span><br><span class="line">   \frac&#123;\partial l&#125;&#123;\partial &#123;&#123;y&#125;_&#123;1&#125;&#125;&#125;  \\</span><br><span class="line">   \vdots   \\</span><br><span class="line">   \frac&#123;\partial l&#125;&#123;\partial &#123;&#123;y&#125;_&#123;m&#125;&#125;&#125;  \\</span><br><span class="line">\end&#123;matrix&#125; \right)&#x3D;\left( \begin&#123;matrix&#125;</span><br><span class="line">   \frac&#123;\partial l&#125;&#123;\partial &#123;&#123;x&#125;_&#123;1&#125;&#125;&#125;  \\</span><br><span class="line">   \vdots   \\</span><br><span class="line">   \frac&#123;\partial l&#125;&#123;\partial &#123;&#123;x&#125;_&#123;n&#125;&#125;&#125;  \\</span><br><span class="line">\end&#123;matrix&#125; \right)$</span><br><span class="line"></span><br><span class="line">雅可比向量积的这种特性使得将外部梯度馈送到具有非标量输出的模型中非常方便。</span><br></pre></td></tr></table></figure>
-
-<hr>
-
+<h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><h4 id="叶子张量"><a href="#叶子张量" class="headerlink" title="叶子张量"></a>叶子张量</h4><p>只能计算叶子张量的梯度</p>
+<h4 id="grad和grad-fn"><a href="#grad和grad-fn" class="headerlink" title="grad和grad_fn"></a>grad和grad_fn</h4><ul>
+<li>grad_fn：只在非叶子节点才有效，用于指示梯度函数是哪种类型</li>
+<li>grad：该Tensor的梯度值</li>
+</ul>
+<h4 id="backward-函数"><a href="#backward-函数" class="headerlink" title="backward()函数"></a><code>backward()</code>函数</h4><h4 id="grad-outputs-inputs"><a href="#grad-outputs-inputs" class="headerlink" title="grad(outputs, inputs)"></a><code>grad(outputs, inputs)</code></h4><h2 id="几个库"><a href="#几个库" class="headerlink" title="几个库"></a>几个库</h2><h3 id="torch-nn库"><a href="#torch-nn库" class="headerlink" title="torch.nn库"></a><code>torch.nn</code>库</h3><h4 id="nn-Parameter"><a href="#nn-Parameter" class="headerlink" title="nn.Parameter"></a>nn.Parameter</h4><ul>
+<li>定义可训练参数</li>
+</ul>
+<h4 id="nn-module"><a href="#nn-module" class="headerlink" title="nn.module"></a>nn.module</h4>
     </div>
 
     
@@ -471,7 +602,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch"><span class="nav-number">1.</span> <span class="nav-text">Pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#张量"><span class="nav-number">1.1.</span> <span class="nav-text">张量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.1.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算"><span class="nav-number">1.1.2.</span> <span class="nav-text">运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加法"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">加法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对应元素相乘除"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">对应元素相乘除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵乘法"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">矩阵乘法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取整取余运算"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">取整取余运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较运算"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">比较运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序运算"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">排序运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊数判断"><span class="nav-number">1.1.2.7.</span> <span class="nav-text">特殊数判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#广播机制-broadcasting"><span class="nav-number">1.1.2.8.</span> <span class="nav-text">广播机制(broadcasting)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种存储类型的张量"><span class="nav-number">1.1.3.</span> <span class="nav-text">两种存储类型的张量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏张量"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">稀疏张量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例"><span class="nav-number">1.1.3.1.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稠密张量"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">稠密张量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tensor和numpy的互换"><span class="nav-number">1.1.4.</span> <span class="nav-text">tensor和numpy的互换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tensor转换为numpy数组"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">tensor转换为numpy数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#numpy数组转换为tensor"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">numpy数组转换为tensor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA张量"><span class="nav-number">1.1.5.</span> <span class="nav-text">CUDA张量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pytorch与统计"><span class="nav-number">1.2.</span> <span class="nav-text">Pytorch与统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计学函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">统计学函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">分布函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机抽样函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">随机抽样函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动求导"><span class="nav-number">1.3.</span> <span class="nav-text">自动求导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#张量-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度"><span class="nav-number">1.3.2.</span> <span class="nav-text">梯度</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Pytorch"><span class="nav-number">1.</span> <span class="nav-text">Pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#张量"><span class="nav-number">1.1.</span> <span class="nav-text">张量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">1.1.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算"><span class="nav-number">1.1.2.</span> <span class="nav-text">运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加法"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">加法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对应元素相乘除"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">对应元素相乘除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵乘法"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">矩阵乘法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取整取余运算"><span class="nav-number">1.1.2.4.</span> <span class="nav-text">取整取余运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较运算"><span class="nav-number">1.1.2.5.</span> <span class="nav-text">比较运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排序运算"><span class="nav-number">1.1.2.6.</span> <span class="nav-text">排序运算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊数判断"><span class="nav-number">1.1.2.7.</span> <span class="nav-text">特殊数判断</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#广播机制-broadcasting"><span class="nav-number">1.1.2.8.</span> <span class="nav-text">广播机制(broadcasting)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种存储类型的张量"><span class="nav-number">1.1.3.</span> <span class="nav-text">两种存储类型的张量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#稀疏张量"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">稀疏张量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#概念"><span class="nav-number">1.1.3.1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实例"><span class="nav-number">1.1.3.1.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#稠密张量"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">稠密张量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tensor和numpy的互换"><span class="nav-number">1.1.4.</span> <span class="nav-text">tensor和numpy的互换</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tensor转换为numpy数组"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">tensor转换为numpy数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#numpy数组转换为tensor"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">numpy数组转换为tensor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CUDA张量"><span class="nav-number">1.1.5.</span> <span class="nav-text">CUDA张量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pytorch与统计"><span class="nav-number">1.2.</span> <span class="nav-text">Pytorch与统计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#统计学函数"><span class="nav-number">1.2.1.</span> <span class="nav-text">统计学函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">分布函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机抽样函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">随机抽样函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线性代数运算"><span class="nav-number">1.2.4.</span> <span class="nav-text">线性代数运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#范数"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">范数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用"><span class="nav-number">1.2.4.1.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#作用"><span class="nav-number">1.2.4.1.2.</span> <span class="nav-text">作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#矩阵分解"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">矩阵分解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#相关知识补充"><span class="nav-number">1.2.4.2.1.</span> <span class="nav-text">相关知识补充</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#协方差矩阵"><span class="nav-number">1.2.4.2.2.</span> <span class="nav-text">协方差矩阵</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#张量操作"><span class="nav-number">1.3.</span> <span class="nav-text">张量操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#裁剪运算"><span class="nav-number">1.3.1.</span> <span class="nav-text">裁剪运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引和数据筛选"><span class="nav-number">1.3.2.</span> <span class="nav-text">索引和数据筛选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合和拼接"><span class="nav-number">1.3.3.</span> <span class="nav-text">组合和拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切片"><span class="nav-number">1.3.4.</span> <span class="nav-text">切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变形"><span class="nav-number">1.3.5.</span> <span class="nav-text">变形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#填充"><span class="nav-number">1.3.6.</span> <span class="nav-text">填充</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编程技巧"><span class="nav-number">1.3.7.</span> <span class="nav-text">编程技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#模型保存和加载"><span class="nav-number">1.3.7.1.</span> <span class="nav-text">模型保存和加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#并行化"><span class="nav-number">1.3.7.2.</span> <span class="nav-text">并行化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分布式"><span class="nav-number">1.3.7.3.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GPU"><span class="nav-number">1.3.7.4.</span> <span class="nav-text">GPU</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#autograd"><span class="nav-number">1.4.</span> <span class="nav-text">autograd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动求导"><span class="nav-number">1.5.</span> <span class="nav-text">自动求导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#张量-1"><span class="nav-number">1.5.1.</span> <span class="nav-text">张量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度"><span class="nav-number">1.5.2.</span> <span class="nav-text">梯度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#叶子张量"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">叶子张量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grad和grad-fn"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">grad和grad_fn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#backward-函数"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">backward()函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grad-outputs-inputs"><span class="nav-number">1.5.2.4.</span> <span class="nav-text">grad(outputs, inputs)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几个库"><span class="nav-number">1.6.</span> <span class="nav-text">几个库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#torch-nn库"><span class="nav-number">1.6.1.</span> <span class="nav-text">torch.nn库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nn-Parameter"><span class="nav-number">1.6.1.1.</span> <span class="nav-text">nn.Parameter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nn-module"><span class="nav-number">1.6.1.2.</span> <span class="nav-text">nn.module</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
