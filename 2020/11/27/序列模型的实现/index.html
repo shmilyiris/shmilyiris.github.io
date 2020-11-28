@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="不借助框架，通过numpy实现两个基本模型RNN和LSTM。 参考资料">
+<meta property="og:type" content="article">
+<meta property="og:title" content="序列模型的实现">
+<meta property="og:url" content="http://yoursite.com/2020/11/27/%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="今天你Coding了吗?">
+<meta property="og:description" content="不借助框架，通过numpy实现两个基本模型RNN和LSTM。 参考资料">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-27T13:53:09.000Z">
+<meta property="article:modified_time" content="2020-11-28T02:29:01.166Z">
+<meta property="article:author" content="Michael Johnson">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/11/27/%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>序列模型的实现 | 今天你Coding了吗?</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">今天你Coding了吗?</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/11/27/%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E7%A8%8B%E5%BA%8F%E7%8C%BF.jpg">
+      <meta itemprop="name" content="Michael Johnson">
+      <meta itemprop="description" content="小白的个人网站">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你Coding了吗?">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          序列模型的实现
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-27 21:53:09" itemprop="dateCreated datePublished" datetime="2020-11-27T21:53:09+08:00">2020-11-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-28 10:29:01" itemprop="dateModified" datetime="2020-11-28T10:29:01+08:00">2020-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">python笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2020/11/27/%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/" class="post-meta-item leancloud_visitors" data-flag-title="序列模型的实现" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/27/%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/27/%E5%BA%8F%E5%88%97%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%AE%9E%E7%8E%B0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>不借助框架，通过numpy实现两个基本模型RNN和LSTM。</p>
+<p><a href="https://blog.csdn.net/u013733326/article/details/80890454" target="_blank" rel="noopener">参考资料</a></p>
+<a id="more"></a>
+
+<h1 id="RNN前向传播"><a href="#RNN前向传播" class="headerlink" title="RNN前向传播"></a>RNN前向传播</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(x)</span>:</span></span><br><span class="line">    e_x = np.exp(x - np.max(x))  <span class="comment"># 减去一个最大值防止溢出</span></span><br><span class="line">    <span class="keyword">return</span> e_x / np.sum(e_x)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + np.exp(-x))</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">input_x_size = 3</span></span><br><span class="line"><span class="string">input_y_size = 4</span></span><br><span class="line"><span class="string">hidden_x_size = 4</span></span><br><span class="line"><span class="string">hidden_y_size = 5</span></span><br><span class="line"><span class="string">output_x_size = 2</span></span><br><span class="line"><span class="string">output_y_size = 1</span></span><br><span class="line"><span class="string">T_x = 5</span></span><br><span class="line"><span class="string">x = np.random.randn(input_x_size, input_y_size, T_x)  # 输入</span></span><br><span class="line"><span class="string">a = np.random.randn(hidden_x_size, hidden_y_size)  # 激活值</span></span><br><span class="line"><span class="string">Waa = np.random.randn(hidden_x_size, hidden_x_size)  # 隐藏层间参数</span></span><br><span class="line"><span class="string">Wax = np.random.randn(hidden_x_size, input_x_size)  # 隐藏层和输入层间参数</span></span><br><span class="line"><span class="string">Wya = np.random.randn(output_x_size, hidden_x_size)  # 输出层和隐藏层间参数</span></span><br><span class="line"><span class="string">ba = np.random.randn(hidden_x_size, 1)</span></span><br><span class="line"><span class="string">by = np.random.randn(output_x_size, 1)</span></span><br><span class="line"><span class="string">parameters = &#123;"Waa": Waa, "Wax": Wax, "Wya": Wya, "ba": ba, "by": by&#125;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rnn_cell_forward</span><span class="params">(x_prev, a_prev, parameters)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    每一个RNN单元内的前向传播</span></span><br><span class="line"><span class="string">    :param x_prev: 上一个时间步的x</span></span><br><span class="line"><span class="string">    :param a_prev: 上一个时间步的a</span></span><br><span class="line"><span class="string">    :param parameters: 所有权值的字典集合</span></span><br><span class="line"><span class="string">    :return: 下一个时间步的输出</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    参数：</span></span><br><span class="line"><span class="string">        xt -- 时间步“t”输入的数据，维度为（n_x, m）</span></span><br><span class="line"><span class="string">        a_prev -- 时间步“t - 1”的隐藏隐藏状态，维度为（n_a, m）</span></span><br><span class="line"><span class="string">        parameters -- 字典，包含了以下内容:</span></span><br><span class="line"><span class="string">                        Wax -- 矩阵，输入乘以权重，维度为（n_a, n_x）</span></span><br><span class="line"><span class="string">                        Waa -- 矩阵，隐藏状态乘以权重，维度为（n_a, n_a）</span></span><br><span class="line"><span class="string">                        Wya -- 矩阵，隐藏状态与输出相关的权重矩阵，维度为（n_y, n_a）</span></span><br><span class="line"><span class="string">                        ba  -- 偏置，维度为（n_a, 1）</span></span><br><span class="line"><span class="string">                        by  -- 偏置，隐藏状态与输出相关的偏置，维度为（n_y, 1）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    返回：</span></span><br><span class="line"><span class="string">        a_next -- 下一个隐藏状态，维度为（n_a， m）</span></span><br><span class="line"><span class="string">        yt_pred -- 在时间步“t”的预测，维度为（n_y， m）</span></span><br><span class="line"><span class="string">        cache -- 反向传播需要的元组，包含了(a_next, a_prev, xt, parameters)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取共享权值</span></span><br><span class="line">    Wax = parameters[<span class="string">"Wax"</span>]</span><br><span class="line">    Waa = parameters[<span class="string">"Waa"</span>]</span><br><span class="line">    Wya = parameters[<span class="string">"Wya"</span>]</span><br><span class="line">    ba = parameters[<span class="string">"ba"</span>]</span><br><span class="line">    by = parameters[<span class="string">"by"</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 主要计算过程</span></span><br><span class="line">    a_next = np.tanh(np.dot(Wax, x_prev) + np.dot(Waa, a_prev) + ba)</span><br><span class="line">    y_hat = softmax(np.dot(Wya, a_next) + by)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># cache存储下一次前向传播用到的参数</span></span><br><span class="line">    cache = (a_next, a_prev, x_prev, parameters)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a_next, y_hat, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rnn_forward</span><span class="params">(x, a_0, parameters)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    循环神经网络中的前向传播</span></span><br><span class="line"><span class="string">    :param x: 整个循环网络的输入</span></span><br><span class="line"><span class="string">    :param a_0: 初始激活值</span></span><br><span class="line"><span class="string">    :param parameters: 共享权值的字典集合</span></span><br><span class="line"><span class="string">    :return: RNN网络的输出</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    参数：</span></span><br><span class="line"><span class="string">        x -- 输入的全部数据，维度为(n_x, m, T_x)</span></span><br><span class="line"><span class="string">        a0 -- 初始化隐藏状态，维度为 (n_a, m)</span></span><br><span class="line"><span class="string">        parameters -- 字典，包含了以下内容:</span></span><br><span class="line"><span class="string">                        Wax -- 矩阵，输入乘以权重，维度为（n_a, n_x）</span></span><br><span class="line"><span class="string">                        Waa -- 矩阵，隐藏状态乘以权重，维度为（n_a, n_a）</span></span><br><span class="line"><span class="string">                        Wya -- 矩阵，隐藏状态与输出相关的权重矩阵，维度为（n_y, n_a）</span></span><br><span class="line"><span class="string">                        ba  -- 偏置，维度为（n_a, 1）</span></span><br><span class="line"><span class="string">                        by  -- 偏置，隐藏状态与输出相关的偏置，维度为（n_y, 1）</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    返回：</span></span><br><span class="line"><span class="string">        a -- 所有时间步的隐藏状态，维度为(n_a, m, T_x)</span></span><br><span class="line"><span class="string">        y_pred -- 所有时间步的预测，维度为(n_y, m, T_x)</span></span><br><span class="line"><span class="string">        caches -- 为反向传播的保存的元组，维度为（【列表类型】cache, x)）</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    caches = [] <span class="comment"># 初始化caches集合</span></span><br><span class="line"></span><br><span class="line">    n_x, m, t_len = x.shape</span><br><span class="line">    n_y, n_a = parameters[<span class="string">"Wya"</span>].shape</span><br><span class="line"></span><br><span class="line">    a = np.zeros((n_a, n_x, t_len))  <span class="comment"># 激活值集合</span></span><br><span class="line">    y_hat = np.zeros((n_y, n_x, t_len))  <span class="comment"># 输出值集合</span></span><br><span class="line">    a_next = a_0</span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> range(t_len):</span><br><span class="line">        a_next, yt_hat, cache = rnn_cell_forward(x[:, :, t], a_next, parameters)</span><br><span class="line">        a[:, :, t] = a_next</span><br><span class="line">        y_hat[:, :, t] = yt_hat</span><br><span class="line">        caches.append(cache)</span><br><span class="line"></span><br><span class="line">    caches = (caches, x) <span class="comment"># 存储成元组以备后面的BPTT用到</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a, y_hat, caches</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    np.random.seed(<span class="number">1</span>)</span><br><span class="line">    x = np.random.randn(<span class="number">3</span>,<span class="number">10</span>,<span class="number">4</span>)</span><br><span class="line">    a0 = np.random.randn(<span class="number">5</span>,<span class="number">10</span>)</span><br><span class="line">    Waa = np.random.randn(<span class="number">5</span>,<span class="number">5</span>)</span><br><span class="line">    Wax = np.random.randn(<span class="number">5</span>,<span class="number">3</span>)</span><br><span class="line">    Wya = np.random.randn(<span class="number">2</span>,<span class="number">5</span>)</span><br><span class="line">    ba = np.random.randn(<span class="number">5</span>,<span class="number">1</span>)</span><br><span class="line">    by = np.random.randn(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">    parameters = &#123;<span class="string">"Waa"</span>: Waa, <span class="string">"Wax"</span>: Wax, <span class="string">"Wya"</span>: Wya, <span class="string">"ba"</span>: ba, <span class="string">"by"</span>: by&#125;</span><br><span class="line"></span><br><span class="line">    a, y_pred, caches = rnn_forward(x, a0, parameters)</span><br><span class="line">    print(<span class="string">"a[4][1] = "</span>, a[<span class="number">4</span>][<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">"a.shape = "</span>, a.shape)</span><br><span class="line">    print(<span class="string">"y_pred[1][3] ="</span>, y_pred[<span class="number">1</span>][<span class="number">3</span>])</span><br><span class="line">    print(<span class="string">"y_pred.shape = "</span>, y_pred.shape)</span><br><span class="line">    print(<span class="string">"caches[1][1][3] ="</span>, caches[<span class="number">1</span>][<span class="number">1</span>][<span class="number">3</span>])</span><br><span class="line">    print(<span class="string">"len(caches) = "</span>, len(caches))</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="LSTM前向传播"><a href="#LSTM前向传播" class="headerlink" title="LSTM前向传播"></a>LSTM前向传播</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> rnn_utils <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">np.random.seed(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_cell_forward</span><span class="params">(xt, a_prev, c_prev, parameters)</span>:</span></span><br><span class="line">    Wf = parameters[<span class="string">"Wf"</span>]</span><br><span class="line">    bf = parameters[<span class="string">"bf"</span>]</span><br><span class="line">    Wu = parameters[<span class="string">"Wu"</span>]</span><br><span class="line">    bu = parameters[<span class="string">"bu"</span>]</span><br><span class="line">    Wo = parameters[<span class="string">"Wo"</span>]</span><br><span class="line">    bo = parameters[<span class="string">"bo"</span>]</span><br><span class="line">    Wc = parameters[<span class="string">"Wc"</span>]</span><br><span class="line">    bc = parameters[<span class="string">"bc"</span>]</span><br><span class="line">    Wy = parameters[<span class="string">"Wy"</span>]</span><br><span class="line">    by = parameters[<span class="string">"by"</span>]</span><br><span class="line"></span><br><span class="line">    n_x, m = xt.shape</span><br><span class="line">    n_y, n_a = Wy.shape</span><br><span class="line"></span><br><span class="line">    cat = np.zeros([n_a + n_x, m])  <span class="comment"># 将a&lt;t-1&gt;和x&lt;t&gt;自然连接</span></span><br><span class="line">    cat[: n_a, :] = a_prev</span><br><span class="line">    cat[n_a:, :] = xt</span><br><span class="line"></span><br><span class="line">    <span class="comment"># forget gate</span></span><br><span class="line">    ft = sigmoid(np.dot(Wf, cat) + bf)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># update gate</span></span><br><span class="line">    it = sigmoid(np.dot(Wu, cat) + bu)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># tanh gate</span></span><br><span class="line">    cpt = np.tanh(np.dot(Wc, cat) + bc)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># output gate</span></span><br><span class="line">    ot = sigmoid(np.dot(Wo, cat) + bo)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># next output</span></span><br><span class="line">    ct = it * cpt + ft * c_prev</span><br><span class="line">    at = ot * np.tanh(ct)</span><br><span class="line">    yt_hat = softmax(np.dot(Wy, at) + by)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># cache</span></span><br><span class="line">    cache = (at, ct, a_prev, c_prev, ft, it, cpt, ot, xt, parameters)</span><br><span class="line">    <span class="keyword">return</span> at, ct, yt_hat, cache</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">lstm_forward</span><span class="params">(x, a0, parameters)</span>:</span></span><br><span class="line">    caches = []</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取维度信息</span></span><br><span class="line">    n_x, m, t_len = x.shape</span><br><span class="line">    n_y, n_a = parameters[<span class="string">"Wy"</span>].shape</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化</span></span><br><span class="line">    a = np.zeros([n_a, m, t_len])</span><br><span class="line">    c = np.zeros([n_a, m, t_len]) <span class="comment"># c与激活值a的维度相同</span></span><br><span class="line">    y = np.zeros([n_y, m, t_len])</span><br><span class="line"></span><br><span class="line">    a_next = a0</span><br><span class="line">    c_next = np.zeros([n_a, m])</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> t <span class="keyword">in</span> range(t_len):</span><br><span class="line">        a_next, c_next, yt_hat, cache = lstm_cell_forward(x[:, :, t], a_next, c_next, parameters)</span><br><span class="line">        a[:, :, t] = a_next</span><br><span class="line">        c[:, :, t] = c_next</span><br><span class="line">        y[:, :, t] = yt_hat</span><br><span class="line">        caches.append(cache)</span><br><span class="line"></span><br><span class="line">    caches = (caches, x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a, y, c, caches</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    np.random.seed(<span class="number">1</span>)</span><br><span class="line">    x = np.random.randn(<span class="number">3</span>, <span class="number">10</span>, <span class="number">7</span>)</span><br><span class="line">    a0 = np.random.randn(<span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">    Wf = np.random.randn(<span class="number">5</span>, <span class="number">5</span> + <span class="number">3</span>)</span><br><span class="line">    bf = np.random.randn(<span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line">    Wu = np.random.randn(<span class="number">5</span>, <span class="number">5</span> + <span class="number">3</span>)</span><br><span class="line">    bu = np.random.randn(<span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line">    Wo = np.random.randn(<span class="number">5</span>, <span class="number">5</span> + <span class="number">3</span>)</span><br><span class="line">    bo = np.random.randn(<span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line">    Wc = np.random.randn(<span class="number">5</span>, <span class="number">5</span> + <span class="number">3</span>)</span><br><span class="line">    bc = np.random.randn(<span class="number">5</span>, <span class="number">1</span>)</span><br><span class="line">    Wy = np.random.randn(<span class="number">2</span>, <span class="number">5</span>)</span><br><span class="line">    by = np.random.randn(<span class="number">2</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    parameters = &#123;<span class="string">"Wf"</span>: Wf, <span class="string">"Wu"</span>: Wu, <span class="string">"Wo"</span>: Wo, <span class="string">"Wc"</span>: Wc, <span class="string">"Wy"</span>: Wy, <span class="string">"bf"</span>: bf, <span class="string">"bu"</span>: bu, <span class="string">"bo"</span>: bo, <span class="string">"bc"</span>: bc, <span class="string">"by"</span>: by&#125;</span><br><span class="line"></span><br><span class="line">    a, y, c, caches = lstm_forward(x, a0, parameters)</span><br><span class="line">    print(<span class="string">"a[4][3][6] = "</span>, a[<span class="number">4</span>][<span class="number">3</span>][<span class="number">6</span>])</span><br><span class="line">    print(<span class="string">"a.shape = "</span>, a.shape)</span><br><span class="line">    print(<span class="string">"y[1][4][3] ="</span>, y[<span class="number">1</span>][<span class="number">4</span>][<span class="number">3</span>])</span><br><span class="line">    print(<span class="string">"y.shape = "</span>, y.shape)</span><br><span class="line">    print(<span class="string">"caches[1][1[1]] ="</span>, caches[<span class="number">1</span>][<span class="number">1</span>][<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">"c[1][2][1]"</span>, c[<span class="number">1</span>][<span class="number">2</span>][<span class="number">1</span>])</span><br><span class="line">    print(<span class="string">"len(caches) = "</span>, len(caches))</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"># Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/27/PAT%E6%97%A5%E8%AE%B0/" rel="prev" title="PAT日记">
+      <i class="fa fa-chevron-left"></i> PAT日记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RNN前向传播"><span class="nav-number">1.</span> <span class="nav-text">RNN前向传播</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LSTM前向传播"><span class="nav-number">2.</span> <span class="nav-text">LSTM前向传播</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Michael Johnson"
+      src="/images/%E7%A8%8B%E5%BA%8F%E7%8C%BF.jpg">
+  <p class="site-author-name" itemprop="name">Michael Johnson</p>
+  <div class="site-description" itemprop="description">小白的个人网站</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">42</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shmilyiris" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shmilyiris" rel="noopener" target="_blank"><i class="我的github主页 fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Michael Johnson</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="powered-by">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+        本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_pv">
+        本站访问量<span id="busuanzi_value_site_pv"></span>
+    </span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'llRolgqGW9Ba4yUFTcxq9h8k-gzGzoHsz',
+      appKey     : 'VmrmbmRVQov7ocjkzavv3vx2',
+      placeholder: "欢迎各位大佬批评指正！",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
