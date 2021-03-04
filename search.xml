@@ -8042,6 +8042,14 @@ else, array, when }</code>。设查找表中每个关键字表示为<br><code>ke
 <h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><ol>
 <li>如果当前节点的左孩子为空，则输出当前节点</li>
 </ol>
+<h1 id="dp"><a href="#dp" class="headerlink" title="dp"></a>dp</h1><h2 id="状压dp"><a href="#状压dp" class="headerlink" title="状压dp"></a>状压dp</h2><p><strong>将状态压缩成二进制进行保存。</strong></p>
+<h3 id="例1"><a href="#例1" class="headerlink" title="例1"></a>例1</h3><p>旅行商问题，acwing第91题</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">1</span> &lt;&lt; <span class="number">20</span>][<span class="number">20</span>];</span><br><span class="line"><span class="keyword">int</span> weight[<span class="number">20</span>][<span class="number">20</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) </span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; weight[i][j];</span><br><span class="line">            </span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0x3f</span>, <span class="keyword">sizeof</span> dp); <span class="comment">// 0x3f代表无穷大初始化</span></span><br><span class="line">    dp[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> sta = <span class="number">1</span>; sta &lt; (<span class="number">1</span> &lt;&lt; n); ++sta) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span> (sta &amp; (<span class="number">1</span> &lt;&lt; i)) &#123; <span class="comment">// 遍历到第i个点，第i点状态为1时，枚举j为上一个到达的点</span></span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (sta &amp; (<span class="number">1</span> &lt;&lt; j)) <span class="comment">// 第j个点状态为1</span></span><br><span class="line">                        dp[sta][i] = <span class="built_in">min</span>(dp[sta][i], dp[sta ^ (<span class="number">1</span> &lt;&lt; i)][j] + weight[j][i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; dp[(<span class="number">1</span> &lt;&lt; n) - <span class="number">1</span>][n - <span class="number">1</span>]; <span class="comment">// 终点为19且所有地方均走过一遍的最短距离</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><h2 id="前缀和思想"><a href="#前缀和思想" class="headerlink" title="前缀和思想"></a>前缀和思想</h2><h3 id="两要素"><a href="#两要素" class="headerlink" title="两要素"></a>两要素</h3><ol>
 <li>pre或pre[i]存储前缀和</li>
 <li>hash表保存 个数/前缀和出现下标 等信息。(hash表的初值很重要)</li>
@@ -8133,12 +8141,16 @@ else, array, when }</code>。设查找表中每个关键字表示为<br><code>ke
 <td><code>i ^ -1</code></td>
 </tr>
 <tr>
-<td>返回二进制数最低位1的权值(例如从右向左第3位，2 ^ 2 = 4)</td>
+<td>返回二进制数最低位1的权值(计算lowbit(i))</td>
 <td><code>i &amp; (-i)</code></td>
 </tr>
 <tr>
 <td>判断是否是2的幂</td>
 <td><code>i &amp; (i - 1) == 0 &amp;&amp; n &gt; 0</code></td>
+</tr>
+<tr>
+<td>不断删除最低位的1</td>
+<td><code>i &amp;= (i - 1)</code></td>
 </tr>
 </tbody></table>
 <h4 id="交换两数"><a href="#交换两数" class="headerlink" title="交换两数"></a>交换两数</h4><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> &amp;a, <span class="keyword">int</span> &amp;b)</span> </span>&#123;</span><br><span class="line">    a ^= b;</span><br><span class="line">    b ^= a;</span><br><span class="line">    a ^= b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -8265,6 +8277,21 @@ else, array, when }</code>。设查找表中每个关键字表示为<br><code>ke
 <h2 id="柳神解法-2"><a href="#柳神解法-2" class="headerlink" title="柳神解法"></a>柳神解法</h2><p>用递归（中序遍历）的思想解题。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> in[<span class="number">1010</span>], level[<span class="number">1010</span>], n, t = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrder</span><span class="params">(<span class="keyword">int</span> root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root &gt;= n) <span class="keyword">return</span> ;</span><br><span class="line">    inOrder(root * <span class="number">2</span> + <span class="number">1</span>);</span><br><span class="line">    level[root] = in[t++];</span><br><span class="line">    inOrder(root * <span class="number">2</span> + <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;in[i]);</span><br><span class="line">    sort(in, in + n);</span><br><span class="line">    inOrder(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d"</span>, level[<span class="number">0</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">" %d"</span>, level[i]);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
+
+<h1 id="1051-Pop-Sequence"><a href="#1051-Pop-Sequence" class="headerlink" title="1051 Pop Sequence"></a>1051 Pop Sequence</h1><p>题目大意：入栈顺序为1-n，出栈顺序随机。求序列是否可以由该规则出栈得到。</p>
+<h2 id="个人解法-4"><a href="#个人解法-4" class="headerlink" title="个人解法"></a>个人解法</h2><p>模拟堆栈，部分案例失败，不知道哪没想到</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n, m, k;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; arr;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">1</span>; <span class="comment">// 指向当前待加入堆栈的元素指针</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; stk;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (stk.empty()) &#123;</span><br><span class="line">            <span class="comment">// 如果当前栈为空，从当前p指针开始将小于当前元素的数依次进栈</span></span><br><span class="line">            <span class="keyword">while</span> (p &lt;= arr[i]) &#123;</span><br><span class="line">                stk.push(p++);</span><br><span class="line">                <span class="keyword">if</span> (stk.<span class="built_in">size</span>() &gt; m) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            stk.pop(); <span class="comment">// 将当前元素出栈</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (arr[i] == stk.top()) &#123;</span><br><span class="line">                stk.pop();</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[i] &gt; stk.top()) &#123;</span><br><span class="line">                <span class="comment">// 当前元素大于栈顶元素，操作为先入栈再出栈，序列指针前移一位</span></span><br><span class="line">                ++p;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 当前元素小于栈顶元素</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> stk.empty() &amp;&amp; p == n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;m, &amp;n, &amp;k);</span><br><span class="line">    arr.resize(n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> time = <span class="number">0</span>; time &lt; k; ++time) &#123;</span><br><span class="line">        arr.<span class="built_in">clear</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;arr[i]);</span><br><span class="line">        <span class="keyword">if</span> (check()) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"YES\n"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="其他解法"><a href="#其他解法" class="headerlink" title="其他解法"></a>其他解法</h2><p><a href="https://www.cnblogs.com/keep23456/p/12323317.html" target="_blank" rel="noopener">参考题解</a></p>
+<h3 id="法1"><a href="#法1" class="headerlink" title="法1"></a>法1</h3><p>抓住不变量：入栈顺序固定，使得逻辑简单。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; st;</span><br><span class="line"><span class="keyword">int</span> a[<span class="number">1010</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> m,n,k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;m,&amp;n,&amp;k);</span><br><span class="line">    <span class="keyword">while</span>(k--) &#123;<span class="comment">//k次查询</span></span><br><span class="line">        <span class="keyword">while</span>(!st.empty())<span class="comment">//栈非空，就清空栈</span></span><br><span class="line">            st.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;=n; ++i) <span class="comment">//读入数据</span></span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a[i]);</span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">int</span> current = <span class="number">1</span>; <span class="comment">//指向出栈序列中的待出栈元素</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n &amp;&amp; flag == <span class="literal">true</span>; ++i) &#123;</span><br><span class="line">            <span class="keyword">if</span>(st.<span class="built_in">size</span>() == m) &#123; <span class="comment">//栈满</span></span><br><span class="line">                flag = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            st.push(i);</span><br><span class="line">            <span class="comment">//栈顶元素与出栈序列当前位置的元素相同时 </span></span><br><span class="line">            <span class="keyword">while</span>(!st.empty() &amp;&amp;st.top() == a[current]) &#123;</span><br><span class="line">                st.pop();<span class="comment">//循环弹出并令current++ </span></span><br><span class="line">                current++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(flag == <span class="literal">true</span> &amp;&amp; st.<span class="built_in">size</span>() == <span class="number">0</span>)    <span class="built_in">printf</span>(<span class="string">"YES\n"</span>); <span class="comment">//栈空且入栈过程中始终不超出栈的容量</span></span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"NO\n"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="法2"><a href="#法2" class="headerlink" title="法2"></a>法2</h3><p>利用结论：<strong>出栈序列中每个元素的后面的所有比它小的元素，一定可以组成一个递减序列并且该序列中的元素个数一定小于栈的最大容量。</strong></p>
 ]]></content>
       <categories>
         <category>算法题目</category>
@@ -8282,7 +8309,7 @@ else, array, when }</code>。设查找表中每个关键字表示为<br><code>ke
 <h1 id="题目分类"><a href="#题目分类" class="headerlink" title="题目分类"></a>题目分类</h1><h2 id="1、数据结构"><a href="#1、数据结构" class="headerlink" title="1、数据结构"></a>1、数据结构</h2><p>可以用STL系列<br>栈：1051<br>堆：1098<br>队列：1014、1056<br>链表：1032、1052、1074、1097、1133<br>并查集：1107、1114、1118<br>树状数组：1057<br>树：1004、1053、1079、1090、1094、1102、1106<br>二叉树：1020、1043、1064、1066、1086、1099、1110、1115、1119、1127、1135、1147、1151、1155</p>
 <h2 id="2、基础算法"><a href="#2、基础算法" class="headerlink" title="2、基础算法"></a>2、基础算法</h2><p>复习一下基础系列<br>模拟：1002、1009、1017、1026、1042、1046、1065、1105、1153<br>排序：1012、1016、1025、1028、1055、1062、1075、1080、1083、1113、1125、1141<br>字符串处理：1001、1005、1023、1024、1035、1060、1061、1073、1077、1082、1108、1140、1150、1152<br>二分查找：1010、1044、1085<br>查找元素：1006、1011、1036<br>分数模拟：1081、1088<br>贪心：1033、1037、1038、1067、1070</p>
 <h2 id="3、图论相关"><a href="#3、图论相关" class="headerlink" title="3、图论相关"></a>3、图论相关</h2><p>多背一背模板系列<br>最短路径：1003、1018、1030、1072、1087、1111<br>深度优先搜索DFS：1013、1021、1034、1103、1130、1131、1134<br>广度优先搜索BFS：1076、1091<br>记忆化搜索：1007、1040、1045、1068、1101<br>其他的图论：1123、1126、1142<br>拓扑排序：1146</p>
-<h1 id="题目总结"><a href="#题目总结" class="headerlink" title="题目总结"></a>题目总结</h1><h2 id="1-二叉树变通题"><a href="#1-二叉树变通题" class="headerlink" title="1. 二叉树变通题"></a>1. 二叉树变通题</h2><h3 id="1-0-基础术语"><a href="#1-0-基础术语" class="headerlink" title="1.0 基础术语"></a>1.0 基础术语</h3><table>
+<h1 id="题目概述"><a href="#题目概述" class="headerlink" title="题目概述"></a>题目概述</h1><h1 id="题目总结"><a href="#题目总结" class="headerlink" title="题目总结"></a>题目总结</h1><h2 id="1-二叉树变通题"><a href="#1-二叉树变通题" class="headerlink" title="1. 二叉树变通题"></a>1. 二叉树变通题</h2><h3 id="1-0-基础术语"><a href="#1-0-基础术语" class="headerlink" title="1.0 基础术语"></a>1.0 基础术语</h3><table>
 <thead>
 <tr>
 <th>简称</th>
@@ -8482,9 +8509,200 @@ else, array, when }</code>。设查找表中每个关键字表示为<br><code>ke
 <li>买东西</li>
 <li>PAT总结</li>
 </ul>
+<h3 id="现实-1"><a href="#现实-1" class="headerlink" title="现实"></a>现实</h3><p>10:05-12:00，决策树算法，Leetcode每日一题。</p>
+<ul>
+<li>ID3</li>
+<li>C4.5</li>
+</ul>
+<p>14:00-16:00，PAT刷题。</p>
+<ul>
+<li>1050 hash</li>
+<li>1051 堆栈模拟</li>
+<li>1052 链表</li>
+</ul>
+<p>16:00-18:00，蓝桥杯绕弯。</p>
+<ul>
+<li>迷宫 <ul>
+<li>dfs要在每一个坐标维护一个当前到该坐标最短步数来剪枝</li>
+<li>bfs要将四方向提前按照字母序排好</li>
+</ul>
+</li>
+<li>外卖优先级 暴力模拟</li>
+<li>修改数组<ul>
+<li>顺序遍历 80%</li>
+</ul>
+</li>
+<li>糖果<ul>
+<li>DFS 10%</li>
+<li>状压dp ×</li>
+</ul>
+</li>
+</ul>
+<p>18:30-20:00，计算机组成原理。</p>
+<ul>
+<li>存储器的校验—海明码</li>
+</ul>
+<h2 id="3-3"><a href="#3-3" class="headerlink" title="3.3"></a>3.3</h2><h3 id="计划-2"><a href="#计划-2" class="headerlink" title="计划"></a>计划</h3><p>7:40-8:00，看书。</p>
+<p>8:00-9:35，量子力学。</p>
+<p>10:00-12:00，图书馆。</p>
+<ul>
+<li>状压dp</li>
+<li>树状数组</li>
+</ul>
+<p>12:00-13:00，黄焖鸡/鸡公煲。</p>
+<p>13:00-17:00，图书馆。</p>
+<ul>
+<li>第9届蓝桥杯题目</li>
+</ul>
+<p>17:00-17:30，三明治。</p>
+<p>18:00-19:30，PAT总结。</p>
+<p>19:30-20:30，PAT刷题。</p>
+<p>20:40-21:30，计算机组成原理。</p>
+<p>21:30-22:00，PAT刷题。</p>
+<p>22:30-23:10，数据库。</p>
+<h3 id="现实-2"><a href="#现实-2" class="headerlink" title="现实"></a>现实</h3><p>10:00-12:00，图书馆。</p>
+<ul>
+<li>状压dp<ul>
+<li>二进制整数刻画状态</li>
+</ul>
+</li>
+<li>树状数组<ul>
+<li>优化前缀和的更新和求解</li>
+</ul>
+</li>
+</ul>
+<p>14:00-17:00，蓝桥杯S9磨人。</p>
+<p>18:00-19:00，计算机组成原理。</p>
+<ul>
+<li>提高访存速度的措施</li>
+</ul>
+<p>20:00-21:00，PAT刷题。</p>
+<ul>
+<li>1053 dfs模板题</li>
+<li>1054</li>
+<li>1055 排序模板题</li>
+</ul>
+<p>ps：模板题做够了，明天开始把没做过的一个一个扫题解，不亲自做了。</p>
+<h2 id="3-4"><a href="#3-4" class="headerlink" title="3.4"></a>3.4</h2><h3 id="计划-3"><a href="#计划-3" class="headerlink" title="计划"></a>计划</h3><p>8:00-9:30，听讲。</p>
+<p>10:00-12:00，教一。</p>
+<ul>
+<li>PAT扫题</li>
+</ul>
+<p>12:00-13:00，吃馄饨。</p>
+<p>13:00-17:00，图书馆。</p>
+<ul>
+<li>蓝桥杯S9</li>
+<li>状压dp</li>
+<li>计算机组成原理。</li>
+</ul>
+<p>22:00-24:00，宿舍。</p>
+<ul>
+<li>数据库</li>
+<li>PAT扫题</li>
+</ul>
+<h3 id="现实-3"><a href="#现实-3" class="headerlink" title="现实"></a>现实</h3><p>10:00-12:00，宿舍。</p>
+<ul>
+<li>计网第一章网课</li>
+</ul>
+<p>14:30-19:00，自习室。</p>
+<ul>
+<li>蓝桥杯S11扫题<ul>
+<li>12345</li>
+<li>回文日期 年数加一 得到回文 判断是否合法</li>
+<li>子串分值和 dp！维护下一个出现的该字符最近位置</li>
+<li>荒岛探测 蒙特卡洛？</li>
+</ul>
+</li>
+<li>PAT扫题<ul>
+<li>1056 排序 后做</li>
+<li>1057 树状数组 跳过</li>
+<li>1058 新规则加法 跳过</li>
+<li>1059 分解质因数</li>
+<li>1060 浮点数转科学计数法 最恶心的一类题 我赌不考</li>
+<li>1061 翻译密文 简单 跳过</li>
+<li>1062 排序 规则一堆 先在读入时将等级分层再进行排序</li>
+<li>1063 题意坑爹，让人难以理解！不表</li>
+</ul>
+</li>
+</ul>
+<p>20:30-23:30，</p>
+<ul>
+<li>PAT扫题。<ul>
+<li>1065 判断A+B是否大于C，由于题目给的范围比较特殊，刚好在longlongint之内，不用担心溢出（ab为正相加为负，所以加和一定大于c）</li>
+<li>1066 AVL树的模板题</li>
+</ul>
+</li>
+<li>Leetcode每日一题<ul>
+<li>最长递增子序列 dp</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-5"><a href="#3-5" class="headerlink" title="3.5"></a>3.5</h2><h3 id="计划-4"><a href="#计划-4" class="headerlink" title="计划"></a>计划</h3><p>8:00-9:00，计算机网络学习。</p>
+<p>9:10-9:30，计算机组成原理。</p>
+<p>9:30-10:00，理论力学复习。</p>
+<p>10:00-11:40，听课。</p>
+<p>11:40-12:30，吃小火锅。</p>
+<p>12:30-13:30，决策树算法收尾。</p>
+<p>14:00-15:30，C栋。</p>
+<ul>
+<li>刷leetcode</li>
+<li>看蓝桥杯S8</li>
+</ul>
+<p>15:30-17:00，宿舍。</p>
+<ul>
+<li>PAT扫题</li>
+</ul>
+<p>17:00-18:00，吃饭。</p>
+<p>18:00-22:00，图书馆。</p>
+<ul>
+<li>蓝桥杯S8</li>
+<li>支持向量机算法</li>
+</ul>
+<p>22:30-24:00，宿舍。</p>
+<ul>
+<li>PAT扫题</li>
+</ul>
 ]]></content>
       <categories>
         <category>学习日志</category>
       </categories>
+  </entry>
+  <entry>
+    <title>蓝桥杯突击</title>
+    <url>/2021/03/03/%E8%93%9D%E6%A1%A5%E6%9D%AF%E7%AA%81%E5%87%BB/</url>
+    <content><![CDATA[<p>记蓝桥杯那些稀奇古怪的题。</p>
+<a id="more"></a>
+
+<h1 id="S11"><a href="#S11" class="headerlink" title="S11"></a>S11</h1><h2 id="子串分值和"><a href="#子串分值和" class="headerlink" title="子串分值和"></a>子串分值和</h2><p>维护$nex[i][j]$表示在$k &gt; i$空间下右侧字母$s[j] + ‘a’$第一次出现的位置$k$，每个字母的贡献就为$n - k + 1$。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> GCC optimize(2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; pii;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vi;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2e5</span> + <span class="number">10</span>, mod = <span class="number">1e9</span> + <span class="number">7</span>, inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[maxn]; <span class="keyword">int</span> n, nxt[maxn][<span class="number">30</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++)</span><br><span class="line">            nxt[i<span class="number">-1</span>][j] = nxt[i][j];</span><br><span class="line">        nxt[i<span class="number">-1</span>][s[i]-<span class="string">'a'</span>+<span class="number">1</span>] = i;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    ios::sync_with_stdio(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span>.tie(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; s + <span class="number">1</span>;</span><br><span class="line">    n = <span class="built_in">strlen</span>(s + <span class="number">1</span>);</span><br><span class="line">    init();</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">26</span>; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> p = nxt[i<span class="number">-1</span>][j];</span><br><span class="line">            <span class="keyword">if</span>(p == <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">            ans += (n - p + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; ans &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="S09"><a href="#S09" class="headerlink" title="S09"></a>S09</h1><p><a href="https://blog.csdn.net/krypton12138/article/details/79801924" target="_blank" rel="noopener">参考题解</a></p>
+<h2 id="第几个幸运数"><a href="#第几个幸运数" class="headerlink" title="第几个幸运数"></a>第几个幸运数</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">标题：第几个幸运数</span><br><span class="line"></span><br><span class="line">到x星球旅行的游客都被发给一个整数，作为游客编号。</span><br><span class="line">x星的国王有个怪癖，他只喜欢数字3,5和7。</span><br><span class="line">国王规定，游客的编号如果只含有因子：3,5,7,就可以获得一份奖品。</span><br><span class="line"></span><br><span class="line">我们来看前10个幸运数字是：</span><br><span class="line">3 5 7 9 15 21 25 27 35 45</span><br><span class="line">因而第11个幸运数字是：49</span><br><span class="line"></span><br><span class="line">小明领到了一个幸运数字 59084709587505，他去领奖的时候，人家要求他准确地说出这是第几个幸运数字，否则领不到奖品。</span><br><span class="line"></span><br><span class="line">请你帮小明计算一下，59084709587505是第几个幸运数字。</span><br><span class="line"></span><br><span class="line">需要提交的是一个整数，请不要填写任何多余内容。</span><br></pre></td></tr></table></figure>
+
+<p>set进行去重，优先队列进行排序，计算方法为尝试构造幸运数（以3，5，7为基数向上累乘），而不是证明幸运数</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> a[] = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">long</span> <span class="keyword">long</span> maxn = <span class="number">59084709587505</span>;</span><br><span class="line">priority_queue&lt;<span class="keyword">long</span> <span class="keyword">long</span>,<span class="built_in">vector</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt;,greater&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt; &gt;p;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">long</span> <span class="keyword">long</span>&gt;s;</span><br><span class="line"><span class="keyword">int</span> res;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> n,m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">3</span>;i++)p.push(a[i]);</span><br><span class="line">	<span class="keyword">while</span>((n = p.top())&lt;=maxn)&#123;</span><br><span class="line">		p.pop();</span><br><span class="line">		res++;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">3</span>;i++)&#123;</span><br><span class="line">			m = n*a[i];</span><br><span class="line">			<span class="keyword">if</span>(!s.count(m))&#123;</span><br><span class="line">				s.insert(m);</span><br><span class="line">				p.push(m);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; res;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="全球变暖"><a href="#全球变暖" class="headerlink" title="全球变暖"></a>全球变暖</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">标题：全球变暖</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">【题目描述】</span><br><span class="line">你有一张某海域NxN像素的照片，&quot;.&quot;表示海洋、&quot;#&quot;表示陆地，如下所示：</span><br><span class="line"></span><br><span class="line">.......</span><br><span class="line">.##....</span><br><span class="line">.##....</span><br><span class="line">....##.</span><br><span class="line">..####.</span><br><span class="line">...###.</span><br><span class="line">.......</span><br><span class="line"></span><br><span class="line">其中&quot;上下左右&quot;四个方向上连在一起的一片陆地组成一座岛屿。例如上图就有2座岛屿。  </span><br><span class="line"></span><br><span class="line">由于全球变暖导致了海面上升，科学家预测未来几十年，岛屿边缘一个像素的范围会被海水淹没。具体来说如果一块陆地像素与海洋相邻(上下左右四个相邻像素中有海洋)，它就会被淹没。  </span><br><span class="line"></span><br><span class="line">例如上图中的海域未来会变成如下样子：</span><br><span class="line"></span><br><span class="line">.......</span><br><span class="line">.......</span><br><span class="line">.......</span><br><span class="line">.......</span><br><span class="line">....#..</span><br><span class="line">.......</span><br><span class="line">.......</span><br><span class="line"></span><br><span class="line">请你计算：依照科学家的预测，照片中有多少岛屿会被完全淹没。  </span><br><span class="line"></span><br><span class="line">【输入格式】</span><br><span class="line">第一行包含一个整数N。  (1 &lt;&#x3D; N &lt;&#x3D; 1000)  </span><br><span class="line">以下N行N列代表一张海域照片。  </span><br><span class="line"></span><br><span class="line">照片保证第1行、第1列、第N行、第N列的像素都是海洋。  </span><br><span class="line"></span><br><span class="line">【输出格式】</span><br><span class="line">一个整数表示答案。</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">7 </span><br><span class="line">.......</span><br><span class="line">.##....</span><br><span class="line">.##....</span><br><span class="line">....##.</span><br><span class="line">..####.</span><br><span class="line">...###.</span><br><span class="line">.......  </span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">1  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">资源约定：</span><br><span class="line">峰值内存消耗（含虚拟机） &lt; 256M</span><br><span class="line">CPU消耗  &lt; 1000ms</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">请严格按要求输出，不要画蛇添足地打印类似：“请您输入...” 的多余内容。</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">main函数需要返回0;</span><br><span class="line">只使用ANSI C&#x2F;ANSI C++ 标准;</span><br><span class="line">不要调用依赖于编译环境或操作系统的特殊函数。</span><br><span class="line">所有依赖的函数必须明确地在源文件中 #include &lt;xxx&gt;</span><br><span class="line">不能通过工程设置而省略常用头文件。</span><br><span class="line"></span><br><span class="line">提交程序时，注意选择所期望的语言类型和编译器类型。</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>先dfs染色问题进行编号</li>
+<li>再逐一check，并标记消失的岛屿部分，更新每个标号的id对应的数组里岛屿的piece数量</li>
+<li>最后统计cnt数组看看哪些全部消失了</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="keyword">char</span> board[<span class="number">1005</span>][<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">1005</span>][<span class="number">1005</span>]; <span class="comment">// flag为-1证明该位置消失</span></span><br><span class="line"><span class="keyword">int</span> dx[<span class="number">4</span>] = &#123;<span class="number">-1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>&#125;, dy[<span class="number">4</span>] = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>, <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> numOfPart[<span class="number">1005</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; ++k) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = i + dx[k];</span><br><span class="line">        <span class="keyword">int</span> y = j + dy[k];</span><br><span class="line">        <span class="keyword">if</span> (x &lt; <span class="number">0</span> || x &gt;= n || y &lt; <span class="number">0</span> || y &gt;= n || board[x][y] == <span class="string">'.'</span>) &#123;</span><br><span class="line">                <span class="comment">// 边缘和临海的岛屿都将消失</span></span><br><span class="line">            flag[i][j] = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">floodFill</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> id)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    board[i][j] = id + <span class="string">'0'</span>; <span class="comment">// 岛屿标号</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; ++k) &#123;</span><br><span class="line">        <span class="keyword">int</span> x = i + dx[k];</span><br><span class="line">        <span class="keyword">int</span> y = j + dy[k];</span><br><span class="line">        <span class="keyword">if</span> (x &lt; <span class="number">0</span> || x &gt;= n || y &lt; <span class="number">0</span> || y &gt;= n) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (board[x][y] == <span class="string">'#'</span>) &#123;</span><br><span class="line">            floodFill(x, y, id);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">int</span> id = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; board[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[i][j] == <span class="string">'#'</span>) &#123;</span><br><span class="line">                <span class="comment">// 染色，岛屿的每个部分标号</span></span><br><span class="line">                floodFill(i, j, id++);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (board[i][j] != <span class="string">'.'</span>) &#123;</span><br><span class="line">                check(i, j);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; ++j) &#123;</span><br><span class="line">            <span class="keyword">if</span> (flag[i][j] == <span class="number">0</span> &amp;&amp; board[i][j] != <span class="string">'.'</span>) &#123;</span><br><span class="line">                    <span class="comment">// 如果编号有效的岛屿未消失，则该id对应的部分数量+1</span></span><br><span class="line">                numOfPart[board[i][j] - <span class="string">'0'</span>]++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt;board[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; id; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (numOfPart[i] == <span class="number">0</span>) cnt++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; cnt &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>]]></content>
+      <categories>
+        <category>应试</category>
+      </categories>
+      <tags>
+        <tag>C++</tag>
+      </tags>
   </entry>
 </search>
