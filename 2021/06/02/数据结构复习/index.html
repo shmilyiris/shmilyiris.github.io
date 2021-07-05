@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="保研相关的数据结构与算法复习文档。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构复习">
+<meta property="og:url" content="http://yoursite.com/2021/06/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/index.html">
+<meta property="og:site_name" content="今天你Coding了吗?">
+<meta property="og:description" content="保研相关的数据结构与算法复习文档。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-06-02T06:20:39.000Z">
+<meta property="article:modified_time" content="2021-06-11T15:05:21.069Z">
+<meta property="article:author" content="Michael Johnson">
+<meta property="article:tag" content="C++">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/06/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数据结构复习 | 今天你Coding了吗?</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">今天你Coding了吗?</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/06/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/%E7%A8%8B%E5%BA%8F%E7%8C%BF.jpg">
+      <meta itemprop="name" content="Michael Johnson">
+      <meta itemprop="description" content="小白的个人网站">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="今天你Coding了吗?">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构复习
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-06-02 14:20:39" itemprop="dateCreated datePublished" datetime="2021-06-02T14:20:39+08:00">2021-06-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-06-11 23:05:21" itemprop="dateModified" datetime="2021-06-11T23:05:21+08:00">2021-06-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">数据结构笔记</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/06/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/" class="post-meta-item leancloud_visitors" data-flag-title="数据结构复习" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>保研相关的数据结构与算法复习文档。</p>
+<a id="more"></a>
+
+<h1 id="串"><a href="#串" class="headerlink" title="串"></a>串</h1><h2 id="brute-force匹配算法"><a href="#brute-force匹配算法" class="headerlink" title="brute-force匹配算法"></a>brute-force匹配算法</h2><h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><h2 id="性质结论"><a href="#性质结论" class="headerlink" title="性质结论"></a>性质结论</h2><ol>
+<li>树中结点数为所有节点的出度+1</li>
+<li>度为m的树中第i层至多有$m^{i-1}$个结点</li>
+<li>高度为h的m叉树至多有..</li>
+</ol>
+<h2 id="线索二叉树"><a href="#线索二叉树" class="headerlink" title="线索二叉树"></a>线索二叉树</h2><p>目的：加快查找前驱和后继的速度。</p>
+<p>规定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数据结构：lchild | ltag&#x3D;0 | data | rtag&#x3D;0 | rchild</span><br><span class="line"></span><br><span class="line">若无左子树，令lchild指向其前驱结点，ltag置为1。</span><br><span class="line">若无右子树，令rchild指向其后继结点，rtag置为1。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="中序遍历对二叉树线索化"><a href="#中序遍历对二叉树线索化" class="headerlink" title="中序遍历对二叉树线索化"></a>中序遍历对二叉树线索化</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InTread</span><span class="params">(ThreadTree &amp;p, ThreadTree &amp;pre)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// pre为刚刚访问过的结点，pre指向p的前驱</span></span><br><span class="line">    <span class="keyword">if</span> (p != <span class="literal">NULL</span>) &#123;</span><br><span class="line">        InTread(p-&gt;lchild, pre); <span class="comment">// 递归操作，线索化左子树</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (p-&gt;lchild == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            p-&gt;lchild = pre;</span><br><span class="line">            p-&gt;ltag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (pre != <span class="literal">NULL</span> &amp;&amp; pre-&gt;child == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            pre-&gt;rchild = p;</span><br><span class="line">            pre-&gt;rtag = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        pre = p;</span><br><span class="line">        </span><br><span class="line">        InTread(p-&gt;rchild, pre); <span class="comment">// 递归操作，线索化右子树</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="双向链表扩展"><a href="#双向链表扩展" class="headerlink" title="双向链表扩展"></a>双向链表扩展</h3><p>添加一个哨兵结点，令其lchild指向二叉树根节点，rchild指向中序遍历访问的最后一个结点，且根节点和末结点均指向这个dummy。</p>
+<h2 id="huffman树和huffman编码"><a href="#huffman树和huffman编码" class="headerlink" title="huffman树和huffman编码"></a>huffman树和huffman编码</h2><p>带权路径长度：<br>$$<br>WPL = \sum _{i=1} ^n  w_i l_i<br>$$<br><strong>在含有n个带权叶结点的二叉树中，其中WPL最小的二叉树为huffman树</strong>。</p>
+<p>如何构造Huffman树：不断找出优先队列中当前WPL最小的一组形成左右子树。</p>
+<h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h2 id="拓扑排序"><a href="#拓扑排序" class="headerlink" title="拓扑排序"></a>拓扑排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Topological_sort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; edges)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 传入的是边集合</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; indegree;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt; <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; <span class="title">graph</span><span class="params">(n, v)</span></span>; <span class="comment">// graph是邻接表</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; edges.<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">        indegree[edges[i][<span class="number">0</span>]]++;</span><br><span class="line">        graph[edges[i][<span class="number">1</span>]].push_back(edges[i][<span class="number">0</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (! indegree[i]) q.push(i); <span class="comment">// 将入度为0的结点入队</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; ans; <span class="comment">// 拓扑排序的结果</span></span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = q.front();</span><br><span class="line">        ans.push_back(tmp):</span><br><span class="line">        q.pop();</span><br><span class="line">        cnt++; <span class="comment">// 当前拓扑排序的节点数量</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; graph[tmp].<span class="built_in">size</span>(); ++i) &#123;</span><br><span class="line">            <span class="comment">// 更新入度表</span></span><br><span class="line">            <span class="keyword">int</span> cur = graph[tmp][i];</span><br><span class="line">            indegree[cur]--;</span><br><span class="line">            <span class="keyword">if</span> (indegree[cur] == <span class="number">0</span>) q.push(cur);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="关键路径"><a href="#关键路径" class="headerlink" title="关键路径"></a>关键路径</h2><p>在带权有向图中，顶点表示事件，有向边表示活动。</p>
+<h1 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h1><h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>排序要求：从小到大</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">insertSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 第0个位置为哨兵结点</span></span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        <span class="comment">// [1, i]部分的元素已经局部有序，从第2位置开始依次将当前第i个元素尝试加入到前面已经局部有序的序列中去。</span></span><br><span class="line">        <span class="keyword">if</span> (arr[i] &lt; arr[i - <span class="number">1</span>]) &#123;</span><br><span class="line">            arr[<span class="number">0</span>] = arr[i]; <span class="comment">// 哨兵结点是一个待插入的数据</span></span><br><span class="line">            <span class="keyword">for</span> (j = i - <span class="number">1</span>; arr[<span class="number">0</span>] &lt; arr[j]; --j) &#123; <span class="comment">// 从后向前遍历寻找哨兵待插入的位置，并将元素依次往后移</span></span><br><span class="line">                arr[j + <span class="number">1</span>] = arr[j];</span><br><span class="line">            &#125;</span><br><span class="line">            arr[j + <span class="number">1</span>] = arr[<span class="number">0</span>]; <span class="comment">// 将哨兵结点替换到待插入的位置</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：</p>
+<p>最好情况下：表中元素有序，$O(n)$</p>
+<p>最坏情况下：表中元素反序，$\sum_{i = 2} ^n i$</p>
+<p>平均情况下：取最好和最坏的平均情况，时间复杂度为$O(n ^ 2)$</p>
+<p>稳定性：由于一直是从后向前移动再进行比较，所以相对顺序不会发生改变，因此是一个稳定的排序算法。</p>
+<h2 id="二分插入排序"><a href="#二分插入排序" class="headerlink" title="二分插入排序"></a>二分插入排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">insertSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j, l, r, m;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">2</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        arr[<span class="number">0</span>] = arr[i];</span><br><span class="line">        l = <span class="number">1</span>, h = i - <span class="number">1</span>; <span class="comment">// 设置二分查找的范围</span></span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">            m = (l + r) &gt;&gt; <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span> (arr[mid] &gt; arr[<span class="number">0</span>]) <span class="comment">// 判断条件</span></span><br><span class="line">                r = m - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> l = m + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回的r + 1即为待插入的位置</span></span><br><span class="line">        <span class="keyword">for</span> (j = i - <span class="number">1</span>; j &gt;= r + <span class="number">1</span>; --j) &#123;</span><br><span class="line">            arr[j + <span class="number">1</span>] = arr[j];</span><br><span class="line">        &#125;</span><br><span class="line">        arr[r + <span class="number">1</span>] = arr[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相较于直接插入排序，该算法减少了元素的比较次数，然而元素的移动次数并未完成优化，所以平均状态下该算法的复杂度依然是$O(n ^ 2)$。</p>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>—-<strong>直接插入排序的改进</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">一个希尔排序的例子</span><br><span class="line">索引：0 1 2 3 4 5 6 7</span><br><span class="line">数据：3 4 6 8 2 1 7 5</span><br><span class="line"></span><br><span class="line">dk&#x3D;8&#x2F;2&#x3D;4组情况下：</span><br><span class="line">(3,2),(4,1),(6,7),(8,5)		局部插入排序后(2,3),(1,4),(6,7),(5,8)，	序列为(2,1,6,5,3,4,7,8)</span><br><span class="line"></span><br><span class="line">dk&#x3D;4&#x2F;2&#x3D;2组情况下：</span><br><span class="line">(2,6,3,7),(1,5,4,8)			局部插入排序后(2,3,6,7),(1,4,5,8)，		序列为(2,1,3,4,6,5,7,8)</span><br><span class="line"></span><br><span class="line">dk&#x3D;2&#x2F;1&#x3D;1组情况下：</span><br><span class="line">(2,1,3,4,6,5,7,8)			局部插入排序后(1,2,3,4,5,6,7,8)，		排序完成</span><br></pre></td></tr></table></figure>
+
+<p>代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (dk = n / <span class="number">2</span>; dk &gt;= <span class="number">1</span>; dk = dk / <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">/* </span></span><br><span class="line"><span class="comment">        </span></span><br><span class="line"><span class="comment">        </span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>平均时间复杂度：$O(n^{1.5})$</p>
+<p>最坏情况复杂度：$O(n^2)$</p>
+<p>希尔排序不是一个稳定的排序算法，因为当<strong>相同关键字被划分到不同子表时可能会产生顺序变化</strong>。</p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">bubbleSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = n; j &gt; i; --j)</span><br><span class="line">            <span class="keyword">if</span> (arr[j - <span class="number">1</span>] &gt; arr[j]) &#123;</span><br><span class="line">                swap(arr[j - <span class="number">1</span>], arr[j]);</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span> (!flag) <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度：$O(n)$</p>
+<p>是稳定的排序算法。</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><h3 id="分割函数"><a href="#分割函数" class="headerlink" title="分割函数"></a>分割函数</h3> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; x, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot;</span><br><span class="line">    <span class="keyword">int</span> i = low, j = high;</span><br><span class="line">    pivot = x[i]; <span class="comment">// pivot存放pivot</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">        <span class="comment">/*两侧的数各自寻找两侧的"异类"，并进行互换*/</span></span><br><span class="line">        <span class="keyword">while</span> (x[j] &gt; pivot &amp;&amp; i &lt; j) &#123;</span><br><span class="line">            <span class="comment">/*右指针寻找一个小于等于pivot的元素*/</span></span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">            x[i] = x[j];</span><br><span class="line">            ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (x[i] &lt; pivot &amp;&amp; i &lt; j) &#123;</span><br><span class="line">            <span class="comment">/*左指针寻找一个大于等于pivot的元素*/</span></span><br><span class="line">            ++i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">            x[j] = x[i];</span><br><span class="line">            --j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    x[i] = pivot; <span class="comment">// 轴值赋给相遇点，形成闭环</span></span><br><span class="line">    <span class="keyword">return</span> i; <span class="comment">// 返回pivot下标</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">qs</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; x, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (high &lt;= low) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> pivot = partition(x, low, high);</span><br><span class="line">    qs(x, low, pivot - <span class="number">1</span>);</span><br><span class="line">    qs(x, pivot + <span class="number">1</span>, high);   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最坏情况下：</p>
+<p>时间：$O(n^2)$</p>
+<p>空间：$O(n)$</p>
+<p>平均情况下：</p>
+<p>时间：$O(nlogn)$</p>
+<p>空间：$O(nlogn)$</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><h3 id="合并函数"><a href="#合并函数" class="headerlink" title="合并函数"></a>合并函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> low, <span class="keyword">int</span> high, <span class="keyword">int</span> mid)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 合并[low, mid]与[mid + 1, high]部分</span></span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>, i = low, j = mid + <span class="number">1</span>;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="title">helper</span><span class="params">(high - low + <span class="number">1</span>, <span class="number">0</span>)</span></span>; <span class="comment">// 初始化一个辅助数组</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= high) &#123;</span><br><span class="line">        <span class="keyword">if</span> (x[i] &lt;= arr[j]) &#123;</span><br><span class="line">            helper[k++] = arr[i];</span><br><span class="line">            ++i;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            helper[k++] = arr[j];</span><br><span class="line">            ++j;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*处理残留元素*/</span></span><br><span class="line">    <span class="keyword">if</span> (i &gt; mid) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> p = j; p &lt;= high; ++p) &#123;</span><br><span class="line">            helper[k++] = arr[p];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> p = i; p &lt;= mid; ++p) &#123;</span><br><span class="line">            helper[k++] = arr[p];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*将辅助数组对原数组进行覆盖*/</span></span><br><span class="line">    <span class="keyword">int</span> q = <span class="number">0</span>; <span class="comment">// 新指针</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> p = low; p &lt;= high; ++p) &#123; </span><br><span class="line">        <span class="comment">// 注意这里arr的赋值范围为[low, high]</span></span><br><span class="line">        arr[p] = helper[q++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="归并排序函数"><a href="#归并排序函数" class="headerlink" title="归并排序函数"></a>归并排序函数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;arr, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (low &gt;= high) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = low + (high - low) / <span class="number">2</span>;</span><br><span class="line">    mergeSort(arr, low, mid); <span class="comment">// 进入左侧递归</span></span><br><span class="line">    mergeSort(arr, mid + <span class="number">1</span>, high); <span class="comment">// 进入右侧递归</span></span><br><span class="line">    merge(arr, low, mid, high);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>空间复杂度：$O(n)$</p>
+<p>时间复杂度：$O(nlogn)$</p>
+<p>是稳定的。</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>以下代码均以大顶堆为例：</p>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><h3 id="找下限"><a href="#找下限" class="headerlink" title="找下限"></a>找下限</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> tar)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>, <span class="built_in">end</span> = nums.<span class="built_in">size</span>() - <span class="number">1</span>, mid;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (start &lt; <span class="built_in">end</span>) &#123;</span><br><span class="line">        mid = start + ((<span class="built_in">end</span> - start) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] &gt;= target) <span class="built_in">end</span> = mid;</span><br><span class="line">        <span class="keyword">else</span> start = mid + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="找上限"><a href="#找上限" class="headerlink" title="找上限"></a>找上限</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">BS</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nums, <span class="keyword">int</span> tar)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> start = <span class="number">0</span>, <span class="built_in">end</span> = nums.<span class="built_in">size</span>() - <span class="number">1</span>, mid;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (start &lt; <span class="built_in">end</span>) &#123;</span><br><span class="line">        mid = start + ((<span class="built_in">end</span> - start + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (nums[mid] &lt;= target) start = mid;</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">end</span> = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="B树和B-树"><a href="#B树和B-树" class="headerlink" title="B树和B+树"></a>B树和B+树</h2><h3 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h3><p>B树引进目的：通过每个节点多个关键字的手段，来减少树的深度，从而减弱磁盘读写对性能的影响（将查找操作限制于访存中，减少磁盘读写次数）。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="B-树"><a href="#B-树" class="headerlink" title="B+树"></a>B+树</h3><p>B+树相对于B树的区别：叶节点包含全部关键字以及指向相应记录的指针，叶节点将关键字按大小顺序连接起来。</p>
+<h2 id="哈希查找"><a href="#哈希查找" class="headerlink" title="哈希查找"></a>哈希查找</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C++</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/16/Leetcode%E6%97%A5%E8%AE%B0IX/" rel="prev" title="Leetcode日记IX">
+      <i class="fa fa-chevron-left"></i> Leetcode日记IX
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/06/02/6%E6%9C%88%E5%AD%A6%E4%B9%A0/" rel="next" title="6月学习">
+      6月学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#串"><span class="nav-number">1.</span> <span class="nav-text">串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#brute-force匹配算法"><span class="nav-number">1.1.</span> <span class="nav-text">brute-force匹配算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">2.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#性质结论"><span class="nav-number">2.1.</span> <span class="nav-text">性质结论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线索二叉树"><span class="nav-number">2.2.</span> <span class="nav-text">线索二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中序遍历对二叉树线索化"><span class="nav-number">2.2.1.</span> <span class="nav-text">中序遍历对二叉树线索化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向链表扩展"><span class="nav-number">2.2.2.</span> <span class="nav-text">双向链表扩展</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#huffman树和huffman编码"><span class="nav-number">2.3.</span> <span class="nav-text">huffman树和huffman编码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图"><span class="nav-number">3.</span> <span class="nav-text">图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑排序"><span class="nav-number">3.1.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键路径"><span class="nav-number">3.2.</span> <span class="nav-text">关键路径</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排序"><span class="nav-number">4.</span> <span class="nav-text">排序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序"><span class="nav-number">4.1.</span> <span class="nav-text">插入排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分插入排序"><span class="nav-number">4.2.</span> <span class="nav-text">二分插入排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#希尔排序"><span class="nav-number">4.3.</span> <span class="nav-text">希尔排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冒泡排序"><span class="nav-number">4.4.</span> <span class="nav-text">冒泡排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速排序"><span class="nav-number">4.5.</span> <span class="nav-text">快速排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分割函数"><span class="nav-number">4.5.1.</span> <span class="nav-text">分割函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主函数"><span class="nav-number">4.5.2.</span> <span class="nav-text">主函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#归并排序"><span class="nav-number">4.6.</span> <span class="nav-text">归并排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#合并函数"><span class="nav-number">4.6.1.</span> <span class="nav-text">合并函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序函数"><span class="nav-number">4.6.2.</span> <span class="nav-text">归并排序函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆排序"><span class="nav-number">4.7.</span> <span class="nav-text">堆排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查找"><span class="nav-number">5.</span> <span class="nav-text">查找</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二分查找"><span class="nav-number">5.1.</span> <span class="nav-text">二分查找</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#找下限"><span class="nav-number">5.1.1.</span> <span class="nav-text">找下限</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找上限"><span class="nav-number">5.1.2.</span> <span class="nav-text">找上限</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#B树和B-树"><span class="nav-number">5.2.</span> <span class="nav-text">B树和B+树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B树"><span class="nav-number">5.2.1.</span> <span class="nav-text">B树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">5.2.2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树"><span class="nav-number">5.2.3.</span> <span class="nav-text">B+树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希查找"><span class="nav-number">5.3.</span> <span class="nav-text">哈希查找</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Michael Johnson"
+      src="/images/%E7%A8%8B%E5%BA%8F%E7%8C%BF.jpg">
+  <p class="site-author-name" itemprop="name">Michael Johnson</p>
+  <div class="site-description" itemprop="description">小白的个人网站</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/shmilyiris" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;shmilyiris" rel="noopener" target="_blank"><i class="我的github主页 fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Michael Johnson</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="powered-by">
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <i class="fa fa-user-md"></i>
+    <span id="busuanzi_container_site_uv">
+        本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_pv">
+        本站访问量<span id="busuanzi_value_site_pv"></span>
+    </span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : true,
+      notify     : true,
+      appId      : 'llRolgqGW9Ba4yUFTcxq9h8k-gzGzoHsz',
+      appKey     : 'VmrmbmRVQov7ocjkzavv3vx2',
+      placeholder: "欢迎各位大佬批评指正！",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
