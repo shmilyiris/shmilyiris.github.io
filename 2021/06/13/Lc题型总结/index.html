@@ -28,7 +28,7 @@
 <meta property="og:description" content="包括但不限于Leetcode(有一部分AcWing，PAT，CCF，蓝桥杯)相关算法&#x2F;题型对应的题号。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-12T16:56:24.000Z">
-<meta property="article:modified_time" content="2021-09-13T08:29:33.293Z">
+<meta property="article:modified_time" content="2021-12-01T10:00:31.406Z">
 <meta property="article:author" content="Michael Johnson">
 <meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-13 16:29:33" itemprop="dateModified" datetime="2021-09-13T16:29:33+08:00">2021-09-13</time>
+                <time title="修改时间：2021-12-01 18:00:31" itemprop="dateModified" datetime="2021-12-01T18:00:31+08:00">2021-12-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -267,12 +267,18 @@
 <a id="more"></a>
 
 <h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><p><a href="https://zhuanlan.zhihu.com/p/126546914" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/126546914</a></p>
-<h2 id="线性-序列-dp"><a href="#线性-序列-dp" class="headerlink" title="线性(序列)dp"></a>线性(序列)dp</h2><h3 id="基础问题"><a href="#基础问题" class="headerlink" title="基础问题"></a>基础问题</h3><p>LIS最长上升子序列问题</p>
+<h2 id="线性-序列-dp"><a href="#线性-序列-dp" class="headerlink" title="线性(序列)dp"></a>线性(序列)dp</h2><h3 id="基础问题"><a href="#基础问题" class="headerlink" title="基础问题"></a>基础问题</h3><ul>
+<li><p>LIS最长上升子序列问题</p>
 <ul>
 <li>dp：$O(n^2)$</li>
 <li>贪心+二分：$O(nlogn)$</li>
 </ul>
-<p>LCS最长公共子序列问题</p>
+</li>
+<li><p>LCS最长公共子序列问题</p>
+</li>
+<li><p><a href="https://www.acwing.com/problem/content/description/900/" target="_blank" rel="noopener">AcWing 898数字三角形</a>（自顶向下二维dp, 自底向上二维dp, 滚动优化）</p>
+</li>
+</ul>
 <h3 id="衍生问题"><a href="#衍生问题" class="headerlink" title="衍生问题"></a>衍生问题</h3><ul>
 <li><a href="https://leetcode-cn.com/problems/triangle/" target="_blank" rel="noopener">120. 三角形最小路径和</a></li>
 <li><a href="https://leetcode-cn.com/problems/maximum-subarray/" target="_blank" rel="noopener">53. 最大子序和</a></li>
@@ -280,14 +286,21 @@
 <li><a href="https://leetcode-cn.com/problems/maximum-length-of-repeated-subarray/" target="_blank" rel="noopener">718. 最长重复子数组</a>（最长公共子数组问题）</li>
 <li><a href="https://leetcode-cn.com/problems/arithmetic-slices-ii-subsequence/" target="_blank" rel="noopener">446. 等差数列划分 II - 子序列</a>（dp+哈希表）</li>
 <li><a href="https://leetcode-cn.com/problems/russian-doll-envelopes/" target="_blank" rel="noopener">354. 俄罗斯套娃信封问题</a>（将信封按“长”进行排序，原问题转换为”宽”的LIS问题）</li>
+<li><a href="https://leetcode-cn.com/problems/2-keys-keyboard/" target="_blank" rel="noopener">650. 只有两个键的键盘</a>（序列dfs / dp）</li>
+<li><a href="https://leetcode-cn.com/problems/longest-arithmetic-subsequence-of-given-difference/" target="_blank" rel="noopener">1218. 最长定差子序列</a></li>
+<li><a href="https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/" target="_blank" rel="noopener">剑指 Offer 46. 把数字翻译成字符串</a></li>
+<li><a href="https://www.acwing.com/problem/content/1029/" target="_blank" rel="noopener">AcWing方格取数</a>（四维优化成三维状态表示）</li>
+<li><a href="https://www.acwing.com/file_system/file/content/whole/index/content/3213545/" target="_blank" rel="noopener">AcWing怪盗基德的滑翔翼</a>（LIS+LDS取最大）</li>
+<li><a href="https://www.acwing.com/problem/content/1016/" target="_blank" rel="noopener">AcWing登山</a>（预处理正逆两次LIS，枚举求最大）</li>
+<li><a href="https://www.acwing.com/activity/content/code/content/2013757/" target="_blank" rel="noopener">AcWing拦截导弹</a>（贪心+dp / DilWorth定理转换为反链问题）</li>
 </ul>
-<h2 id="区间dp"><a href="#区间dp" class="headerlink" title="区间dp"></a>区间dp</h2><h2 id="基础问题-1"><a href="#基础问题-1" class="headerlink" title="基础问题"></a>基础问题</h2><p><a href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/submissions/" target="_blank" rel="noopener">LPS最长回文子序列问题</a></p>
+<h2 id="区间dp"><a href="#区间dp" class="headerlink" title="区间dp"></a>区间dp</h2><h3 id="基础问题-1"><a href="#基础问题-1" class="headerlink" title="基础问题"></a>基础问题</h3><p><a href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/submissions/" target="_blank" rel="noopener">LPS最长回文子序列问题</a></p>
 <ul>
 <li>法1：<a href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/solution/gong-shui-san-xie-qu-jian-dp-qiu-jie-zui-h2ya/" target="_blank" rel="noopener">枚举len的状态转移方式</a></li>
 <li>法2：<a href="https://leetcode-cn.com/problems/longest-palindromic-subsequence/solution/zui-chang-hui-wen-zi-xu-lie-by-leetcode-hcjqp/" target="_blank" rel="noopener">经典循环方式</a></li>
 <li>法3：将字符串反转，转换为LCS问题</li>
 </ul>
-<h2 id="衍生问题-1"><a href="#衍生问题-1" class="headerlink" title="衍生问题"></a>衍生问题</h2><ul>
+<h3 id="衍生问题-1"><a href="#衍生问题-1" class="headerlink" title="衍生问题"></a>衍生问题</h3><ul>
 <li><a href="https://leetcode-cn.com/problems/valid-parenthesis-string/" target="_blank" rel="noopener">678. 有效的括号字符串</a>（区间dp，堆栈模拟，双标志贪心）</li>
 </ul>
 <h2 id="背包dp"><a href="#背包dp" class="headerlink" title="背包dp"></a>背包dp</h2><ul>
@@ -324,10 +337,9 @@
 </li>
 </ul>
 <h2 id="树形dp"><a href="#树形dp" class="headerlink" title="树形dp"></a>树形dp</h2><h2 id="数位dp"><a href="#数位dp" class="headerlink" title="数位dp"></a>数位dp</h2><ul>
-<li><p><a href="https://leetcode-cn.com/problems/number-of-digit-one/" target="_blank" rel="noopener">233. 数字 1 的个数</a></p>
-</li>
-<li><p><a href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/" target="_blank" rel="noopener">600. 不含连续1的非负整数</a></p>
-</li>
+<li><a href="https://leetcode-cn.com/problems/number-of-digit-one/" target="_blank" rel="noopener">233. 数字 1 的个数</a></li>
+<li><a href="https://leetcode-cn.com/problems/non-negative-integers-without-consecutive-ones/" target="_blank" rel="noopener">600. 不含连续1的非负整数</a></li>
+<li><a href="https://leetcode-cn.com/problems/poor-pigs/" target="_blank" rel="noopener">458. 可怜的小猪</a></li>
 </ul>
 <hr>
 <h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><ul>
@@ -337,14 +349,26 @@
 <li><a href="https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/" target="_blank" rel="noopener">787. K 站中转内最便宜的航班</a></li>
 <li><a href="http://118.190.20.162/view.page?gpid=T13" target="_blank" rel="noopener">201409-4 最优配餐</a>（多源BFS）</li>
 <li><a href="https://blog.csdn.net/baidu_34884208/article/details/88787321" target="_blank" rel="noopener">201403-4 无线网络</a></li>
+<li><a href="https://leetcode-cn.com/problems/zuma-game/" target="_blank" rel="noopener">488. 祖玛游戏</a>（广搜，深搜皆可）</li>
 </ul>
 <hr>
-<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><ul>
-<li><p><a href="https://leetcode-cn.com/problemset/all/?search=%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C&page=1" target="_blank" rel="noopener">组合总和 I II III</a></p>
-</li>
-<li><p><a href="https://leetcode-cn.com/problemset/all/?search=%E5%85%A8%E6%8E%92%E5%88%97&page=1" target="_blank" rel="noopener">全排列 I II</a></p>
-</li>
-<li><p><a href="https://leetcode-cn.com/problemset/all/?search=%E5%AD%90%E9%9B%86&page=1" target="_blank" rel="noopener">子集 I II</a></p>
+<h1 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h1><h2 id="序列dfs"><a href="#序列dfs" class="headerlink" title="序列dfs"></a>序列dfs</h2><p>一般要遍历数组或字符串</p>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/remove-invalid-parentheses/" target="_blank" rel="noopener">301. 删除无效的括号</a>（<a href="https://leetcode-cn.com/problems/remove-invalid-parentheses/solution/dfs-bfs-by-zhi-gao-7b6f/" target="_blank" rel="noopener">序列dfs和bfs解法</a>）</li>
+</ul>
+<h2 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h2><h3 id="顺序回溯"><a href="#顺序回溯" class="headerlink" title="顺序回溯"></a>顺序回溯</h3><ul>
+<li><a href="https://leetcode-cn.com/problemset/all/?search=%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C&page=1" target="_blank" rel="noopener">组合总和 I II III</a></li>
+<li><a href="https://leetcode-cn.com/problemset/all/?search=%E5%AD%90%E9%9B%86&page=1" target="_blank" rel="noopener">子集 I II</a></li>
+<li><a href="https://leetcode-cn.com/problems/expression-add-operators/" target="_blank" rel="noopener">282. 给表达式添加运算符</a></li>
+</ul>
+<h3 id="非顺序回溯"><a href="#非顺序回溯" class="headerlink" title="非顺序回溯"></a>非顺序回溯</h3><ul>
+<li><a href="https://leetcode-cn.com/problems/permutations/" target="_blank" rel="noopener">46. 全排列</a></li>
+<li><a href="https://leetcode-cn.com/problems/permutations-ii/" target="_blank" rel="noopener">47. 全排列 II</a></li>
+<li><a href="https://leetcode-cn.com/problems/reordered-power-of-2/" target="_blank" rel="noopener">869. 重新排序得到 2 的幂</a><ul>
+<li>根据频数表生成所有排列数(离散数学知识)，可根据全排列I优化。</li>
+<li>回溯各个情况，复杂度同上</li>
+<li>将整数范围内的三十个二进制数的频数表预处理成哈希表，并对输入的num逐一进行比对。</li>
+</ul>
 </li>
 </ul>
 <h2 id="二维图问题"><a href="#二维图问题" class="headerlink" title="二维图问题"></a>二维图问题</h2><p>Leetcode上此类问题很多，给定一个网格，问计数，划分，分类，路径等各类问题。</p>
@@ -378,7 +402,14 @@
 <li><p><a href="https://leetcode-cn.com/problems/find-eventual-safe-states/" target="_blank" rel="noopener">802. 到最终的安全状态</a>(逆向图的拓扑排序)</p>
 </li>
 </ul>
-<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><p><a href="https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/" target="_blank" rel="noopener">787. K 站中转内最便宜的航班</a>（Bellman-Ford / dp / BFS）</p>
+<h2 id="最短路"><a href="#最短路" class="headerlink" title="最短路"></a>最短路</h2><ul>
+<li><a href="https://leetcode-cn.com/problems/cheapest-flights-within-k-stops/" target="_blank" rel="noopener">787. K 站中转内最便宜的航班</a>（Bellman-Ford / dp / BFS）</li>
+<li><a href="https://leetcode-cn.com/problems/second-minimum-time-to-reach-destination/" target="_blank" rel="noopener">5905. 到达目的地的第二短时间</a>（将问题的本质转换为求两点间的可回头次短路，BFS / Dijkstra）</li>
+<li><a href="https://leetcode-cn.com/problems/trapping-rain-water-ii/" target="_blank" rel="noopener">407. 接雨水 II</a><ul>
+<li>此题的本质是最短路(堆优化的Dijkstra，Bellman-Ford都能解)</li>
+</ul>
+</li>
+</ul>
 <h2 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h2><ul>
 <li><p><a href="https://leetcode-cn.com/problems/redundant-connection/" target="_blank" rel="noopener">684. 冗余连接</a></p>
 </li>
@@ -389,13 +420,33 @@
 </ul>
 <hr>
 <h1 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h1><ul>
-<li><p><a href="https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree/" target="_blank" rel="noopener">1104. 二叉树寻路</a></p>
-</li>
-<li><p><a href="https://leetcode-cn.com/problems/single-number-ii/" target="_blank" rel="noopener">137. 只出现一次的数字 II</a></p>
-</li>
-<li><p><a href="https://leetcode-cn.com/problems/find-longest-awesome-substring/" target="_blank" rel="noopener">1542.找出最长的超赞子字符串</a></p>
-</li>
+<li><a href="https://leetcode-cn.com/problems/sum-of-two-integers/" target="_blank" rel="noopener">371. 两整数之和</a></li>
+<li><a href="https://leetcode-cn.com/problems/integer-replacement/" target="_blank" rel="noopener">397. 整数替换</a>（递归枚举+记忆化 / 贪心位运算）</li>
+<li><a href="https://leetcode-cn.com/problems/path-in-zigzag-labelled-binary-tree/" target="_blank" rel="noopener">1104. 二叉树寻路</a></li>
+<li><a href="https://leetcode-cn.com/problems/single-number-ii/" target="_blank" rel="noopener">137. 只出现一次的数字 II</a></li>
+<li><a href="https://leetcode-cn.com/problems/repeated-dna-sequences/" target="_blank" rel="noopener">187. 重复的DNA序列</a>（将长为10的子串压缩成20位2进制）<ul>
+<li>滑窗+hash</li>
+<li>优化一：字符串hash（用整数表示字符串）</li>
+<li>优化二：位运算状态压缩</li>
 </ul>
+</li>
+<li><a href="https://leetcode-cn.com/problems/find-longest-awesome-substring/" target="_blank" rel="noopener">1542.找出最长的超赞子字符串</a></li>
+</ul>
+<hr>
+<h1 id="维护集合"><a href="#维护集合" class="headerlink" title="维护集合"></a>维护集合</h1><p>通过multiset, pq, dq等数据结构来维护满足某种关系的一个数据集合，在区间类滑窗问题中也有应用。</p>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/ipo/" target="_blank" rel="noopener">502. IPO</a>（贪心+维护最大堆）</li>
+<li><a href="https://leetcode-cn.com/problems/trapping-rain-water-ii/" target="_blank" rel="noopener">407. 接雨水 II</a>（维护最小堆）</li>
+<li><a href="https://leetcode-cn.com/problems/merge-k-sorted-lists/" target="_blank" rel="noopener">23. 合并K个升序链表</a></li>
+<li><a href="https://leetcode-cn.com/problems/k-th-smallest-prime-fraction/" target="_blank" rel="noopener">786. 第 K 个最小的素数分数</a>（暴力 / 维护优先队列23题的变体 / 二分+双指针）</li>
+<li><a href="https://leetcode-cn.com/problems/find-median-from-data-stream/" target="_blank" rel="noopener">295. 数据流的中位数</a>（维护一个最大堆一个最小堆）</li>
+</ul>
+<hr>
+<h1 id="数论"><a href="#数论" class="headerlink" title="数论"></a>数论</h1><h2 id="快速乘和快速幂"><a href="#快速乘和快速幂" class="headerlink" title="快速乘和快速幂"></a>快速乘和快速幂</h2><h3 id="快速乘"><a href="#快速乘" class="headerlink" title="快速乘"></a>快速乘</h3><p>通过加法加速$x \times y$</p>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/divide-two-integers/" target="_blank" rel="noopener">29. 两数相除</a></li>
+</ul>
+<h3 id="快速幂"><a href="#快速幂" class="headerlink" title="快速幂"></a>快速幂</h3><p>通过乘法加速$x^y$</p>
 <hr>
 <h1 id="区间类问题"><a href="#区间类问题" class="headerlink" title="区间类问题"></a>区间类问题</h1><p><a href="https://leetcode-cn.com/problems/corporate-flight-bookings/solution/gong-shui-san-xie-yi-ti-shuang-jie-chai-fm1ef/" target="_blank" rel="noopener">参考题解</a></p>
 <h2 id="前缀和"><a href="#前缀和" class="headerlink" title="前缀和"></a>前缀和</h2><h3 id="前缀和-哈希表"><a href="#前缀和-哈希表" class="headerlink" title="前缀和+哈希表"></a>前缀和+哈希表</h3><p>适用于[0, i]部分前缀和与[0, j]部分<strong>前缀和相等或满足某种特定关系</strong>的情况下的<strong>最优化，计数或条件判断问题</strong>。</p>
@@ -505,7 +556,7 @@
 <li><a href="https://leetcode-cn.com/problems/magnetic-force-between-two-balls/" target="_blank" rel="noopener">1552. 两球之间的磁力</a></li>
 <li><a href="https://leetcode-cn.com/problems/split-array-largest-sum/" target="_blank" rel="noopener">410. 分割数组的最大值</a></li>
 </ul>
-<h2 id="优化三指针"><a href="#优化三指针" class="headerlink" title="优化三指针"></a>优化三指针</h2><p><a href="https://leetcode-cn.com/problems/valid-triangle-number/" target="_blank" rel="noopener">611. 有效三角形的个数</a>(将三指针优化成双指针+二分，复杂度降到$O(n^2logn)$)</p>
+<h2 id="优化三指针"><a href="#优化三指针" class="headerlink" title="优化三指针"></a>优化三指针</h2><p><a href="https://leetcode-cn.com/problems/valid-triangle-number/" target="_blank" rel="noopener">611. 有效三角形的个数</a>（将三指针优化成双指针+二分，复杂度降到$O(n^2logn)$）</p>
 <hr>
 <h1 id="多指针"><a href="#多指针" class="headerlink" title="多指针"></a>多指针</h1><h2 id="快慢指针"><a href="#快慢指针" class="headerlink" title="快慢指针"></a>快慢指针</h2><p>快慢指针一般用于解决环问题。出发点不定的情况下需要剪枝，比如457题。</p>
 <ul>
@@ -529,7 +580,10 @@
 <li>戳气球</li>
 <li><a href="https://leetcode-cn.com/problems/string-compression/" target="_blank" rel="noopener">443. 压缩字符串</a></li>
 </ul>
-<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="串匹配"><a href="#串匹配" class="headerlink" title="串匹配"></a>串匹配</h2><h2 id="大模拟"><a href="#大模拟" class="headerlink" title="大模拟"></a>大模拟</h2><p>此类题目难点如下：</p>
+<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><h2 id="串匹配"><a href="#串匹配" class="headerlink" title="串匹配"></a>串匹配</h2><h3 id="Trie树"><a href="#Trie树" class="headerlink" title="Trie树"></a>Trie树</h3><ul>
+<li><a href="https://leetcode-cn.com/problems/design-add-and-search-words-data-structure/" target="_blank" rel="noopener">211. 添加与搜索单词 - 数据结构设计</a></li>
+</ul>
+<h2 id="大模拟"><a href="#大模拟" class="headerlink" title="大模拟"></a>大模拟</h2><p>此类题目难点如下：</p>
 <ol>
 <li>堆栈的灵活运用</li>
 <li>字符串数据类型多种多样，包括多位数，大小写字母，括号等..</li>
@@ -539,6 +593,8 @@
 <p>做好这种题的关键是细心，以及将字符串分析拆解成通用的模式，分而治之。苦于没有什么固定的做法，着实令人头疼。</p>
 <ul>
 <li><a href="https://blog.csdn.net/wingrez/article/details/103551680" target="_blank" rel="noopener">201912-3 化学方程式</a></li>
+<li><a href="https://leetcode-cn.com/problems/fraction-to-recurring-decimal/" target="_blank" rel="noopener">166. 分数到小数</a>（模拟竖式）</li>
+<li><a href="https://leetcode-cn.com/problems/license-key-formatting/" target="_blank" rel="noopener">482. 密钥格式化</a>（边界处理稍微有点复杂，容易绕进去）</li>
 </ul>
 
     </div>
@@ -624,7 +680,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性-序列-dp"><span class="nav-number">1.1.</span> <span class="nav-text">线性(序列)dp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">基础问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#衍生问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">衍生问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区间dp"><span class="nav-number">1.2.</span> <span class="nav-text">区间dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础问题-1"><span class="nav-number">1.3.</span> <span class="nav-text">基础问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#衍生问题-1"><span class="nav-number">1.4.</span> <span class="nav-text">衍生问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背包dp"><span class="nav-number">1.5.</span> <span class="nav-text">背包dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态机dp"><span class="nav-number">1.6.</span> <span class="nav-text">状态机dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状压dp"><span class="nav-number">1.7.</span> <span class="nav-text">状压dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树形dp"><span class="nav-number">1.8.</span> <span class="nav-text">树形dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数位dp"><span class="nav-number">1.9.</span> <span class="nav-text">数位dp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFS"><span class="nav-number">2.</span> <span class="nav-text">BFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DFS"><span class="nav-number">3.</span> <span class="nav-text">DFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯"><span class="nav-number">3.1.</span> <span class="nav-text">回溯</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维图问题"><span class="nav-number">3.2.</span> <span class="nav-text">二维图问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记忆化DFS"><span class="nav-number">3.3.</span> <span class="nav-text">记忆化DFS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树和图"><span class="nav-number">4.</span> <span class="nav-text">树和图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树类题目"><span class="nav-number">4.1.</span> <span class="nav-text">树类题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#树类DFS"><span class="nav-number">4.1.1.</span> <span class="nav-text">树类DFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树转图"><span class="nav-number">4.1.2.</span> <span class="nav-text">树转图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑排序"><span class="nav-number">4.2.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最短路"><span class="nav-number">4.3.</span> <span class="nav-text">最短路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集"><span class="nav-number">4.4.</span> <span class="nav-text">并查集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">5.</span> <span class="nav-text">位运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#区间类问题"><span class="nav-number">6.</span> <span class="nav-text">区间类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前缀和"><span class="nav-number">6.1.</span> <span class="nav-text">前缀和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前缀和-哈希表"><span class="nav-number">6.1.1.</span> <span class="nav-text">前缀和+哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#典型例题"><span class="nav-number">6.1.1.1.</span> <span class="nav-text">典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前缀和-二分"><span class="nav-number">6.1.2.</span> <span class="nav-text">前缀和+二分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维前缀和"><span class="nav-number">6.1.3.</span> <span class="nav-text">二维前缀和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他题目"><span class="nav-number">6.1.4.</span> <span class="nav-text">其他题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#差分"><span class="nav-number">6.2.</span> <span class="nav-text">差分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树状数组"><span class="nav-number">6.3.</span> <span class="nav-text">树状数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口"><span class="nav-number">6.4.</span> <span class="nav-text">滑动窗口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单调栈"><span class="nav-number">7.</span> <span class="nav-text">单调栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元素栈"><span class="nav-number">7.1.</span> <span class="nav-text">元素栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单调非升"><span class="nav-number">7.1.1.</span> <span class="nav-text">单调非升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单调非降"><span class="nav-number">7.1.2.</span> <span class="nav-text">单调非降</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下标栈"><span class="nav-number">7.2.</span> <span class="nav-text">下标栈</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分"><span class="nav-number">8.</span> <span class="nav-text">二分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准二分"><span class="nav-number">8.1.</span> <span class="nav-text">标准二分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#minmax和maxmin"><span class="nav-number">8.2.</span> <span class="nav-text">minmax和maxmin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#minmax"><span class="nav-number">8.2.1.</span> <span class="nav-text">minmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxmin"><span class="nav-number">8.2.2.</span> <span class="nav-text">maxmin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化三指针"><span class="nav-number">8.3.</span> <span class="nav-text">优化三指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多指针"><span class="nav-number">9.</span> <span class="nav-text">多指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快慢指针"><span class="nav-number">9.1.</span> <span class="nav-text">快慢指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#灵活双指针"><span class="nav-number">9.2.</span> <span class="nav-text">灵活双指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">10.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串匹配"><span class="nav-number">10.1.</span> <span class="nav-text">串匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大模拟"><span class="nav-number">10.2.</span> <span class="nav-text">大模拟</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#线性-序列-dp"><span class="nav-number">1.1.</span> <span class="nav-text">线性(序列)dp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">基础问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#衍生问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">衍生问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区间dp"><span class="nav-number">1.2.</span> <span class="nav-text">区间dp</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础问题-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">基础问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#衍生问题-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">衍生问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背包dp"><span class="nav-number">1.3.</span> <span class="nav-text">背包dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状态机dp"><span class="nav-number">1.4.</span> <span class="nav-text">状态机dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#状压dp"><span class="nav-number">1.5.</span> <span class="nav-text">状压dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树形dp"><span class="nav-number">1.6.</span> <span class="nav-text">树形dp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数位dp"><span class="nav-number">1.7.</span> <span class="nav-text">数位dp</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFS"><span class="nav-number">2.</span> <span class="nav-text">BFS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DFS"><span class="nav-number">3.</span> <span class="nav-text">DFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列dfs"><span class="nav-number">3.1.</span> <span class="nav-text">序列dfs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回溯"><span class="nav-number">3.2.</span> <span class="nav-text">回溯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#顺序回溯"><span class="nav-number">3.2.1.</span> <span class="nav-text">顺序回溯</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非顺序回溯"><span class="nav-number">3.2.2.</span> <span class="nav-text">非顺序回溯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维图问题"><span class="nav-number">3.3.</span> <span class="nav-text">二维图问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记忆化DFS"><span class="nav-number">3.4.</span> <span class="nav-text">记忆化DFS</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树和图"><span class="nav-number">4.</span> <span class="nav-text">树和图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#树类题目"><span class="nav-number">4.1.</span> <span class="nav-text">树类题目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#树类DFS"><span class="nav-number">4.1.1.</span> <span class="nav-text">树类DFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树转图"><span class="nav-number">4.1.2.</span> <span class="nav-text">树转图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑排序"><span class="nav-number">4.2.</span> <span class="nav-text">拓扑排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最短路"><span class="nav-number">4.3.</span> <span class="nav-text">最短路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并查集"><span class="nav-number">4.4.</span> <span class="nav-text">并查集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#位运算"><span class="nav-number">5.</span> <span class="nav-text">位运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#维护集合"><span class="nav-number">6.</span> <span class="nav-text">维护集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数论"><span class="nav-number">7.</span> <span class="nav-text">数论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速乘和快速幂"><span class="nav-number">7.1.</span> <span class="nav-text">快速乘和快速幂</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#快速乘"><span class="nav-number">7.1.1.</span> <span class="nav-text">快速乘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速幂"><span class="nav-number">7.1.2.</span> <span class="nav-text">快速幂</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#区间类问题"><span class="nav-number">8.</span> <span class="nav-text">区间类问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前缀和"><span class="nav-number">8.1.</span> <span class="nav-text">前缀和</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#前缀和-哈希表"><span class="nav-number">8.1.1.</span> <span class="nav-text">前缀和+哈希表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#典型例题"><span class="nav-number">8.1.1.1.</span> <span class="nav-text">典型例题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前缀和-二分"><span class="nav-number">8.1.2.</span> <span class="nav-text">前缀和+二分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二维前缀和"><span class="nav-number">8.1.3.</span> <span class="nav-text">二维前缀和</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他题目"><span class="nav-number">8.1.4.</span> <span class="nav-text">其他题目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#差分"><span class="nav-number">8.2.</span> <span class="nav-text">差分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#树状数组"><span class="nav-number">8.3.</span> <span class="nav-text">树状数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#滑动窗口"><span class="nav-number">8.4.</span> <span class="nav-text">滑动窗口</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单调栈"><span class="nav-number">9.</span> <span class="nav-text">单调栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#元素栈"><span class="nav-number">9.1.</span> <span class="nav-text">元素栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单调非升"><span class="nav-number">9.1.1.</span> <span class="nav-text">单调非升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单调非降"><span class="nav-number">9.1.2.</span> <span class="nav-text">单调非降</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下标栈"><span class="nav-number">9.2.</span> <span class="nav-text">下标栈</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二分"><span class="nav-number">10.</span> <span class="nav-text">二分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标准二分"><span class="nav-number">10.1.</span> <span class="nav-text">标准二分</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#minmax和maxmin"><span class="nav-number">10.2.</span> <span class="nav-text">minmax和maxmin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#minmax"><span class="nav-number">10.2.1.</span> <span class="nav-text">minmax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#maxmin"><span class="nav-number">10.2.2.</span> <span class="nav-text">maxmin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化三指针"><span class="nav-number">10.3.</span> <span class="nav-text">优化三指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多指针"><span class="nav-number">11.</span> <span class="nav-text">多指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#快慢指针"><span class="nav-number">11.1.</span> <span class="nav-text">快慢指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#灵活双指针"><span class="nav-number">11.2.</span> <span class="nav-text">灵活双指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串"><span class="nav-number">12.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串匹配"><span class="nav-number">12.1.</span> <span class="nav-text">串匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Trie树"><span class="nav-number">12.1.1.</span> <span class="nav-text">Trie树</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大模拟"><span class="nav-number">12.2.</span> <span class="nav-text">大模拟</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

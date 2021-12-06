@@ -20,17 +20,22 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="汇编GDB调试器和GCC编译器参考文档 操作系统ELF文件ELF（Executable Linkable Format）可执行可链接的格式  ELF文件的header 文件内容的分布 指令集体系结构(x86-64..) 入口地址（Entry Point Address） Application Binary Interface（ABI） …   ELF的program headers 决定EL">
+  <meta name="description" content="C++作用域和生存周期空间：作用域 时间：生存周期 程序在运行期间变量有效存在的时间间隔。 命名空间区分不同库中的相同函数名，类，变量名等.. 左值引用和右值引用左值引用在汇编层面和指针类似，传参&#x2F;等号右侧只能是变量名 1int &amp;b &#x3D; a; &#x2F;&#x2F; 常说的别名  左值引用传右值，const &amp;作为形参编译可以通过 1void push_back(const int &amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cs知识储备">
 <meta property="og:url" content="http://yoursite.com/2021/03/18/cs%E7%9F%A5%E8%AF%86%E5%82%A8%E5%A4%87/index.html">
 <meta property="og:site_name" content="今天你Coding了吗?">
-<meta property="og:description" content="汇编GDB调试器和GCC编译器参考文档 操作系统ELF文件ELF（Executable Linkable Format）可执行可链接的格式  ELF文件的header 文件内容的分布 指令集体系结构(x86-64..) 入口地址（Entry Point Address） Application Binary Interface（ABI） …   ELF的program headers 决定EL">
+<meta property="og:description" content="C++作用域和生存周期空间：作用域 时间：生存周期 程序在运行期间变量有效存在的时间间隔。 命名空间区分不同库中的相同函数名，类，变量名等.. 左值引用和右值引用左值引用在汇编层面和指针类似，传参&#x2F;等号右侧只能是变量名 1int &amp;b &#x3D; a; &#x2F;&#x2F; 常说的别名  左值引用传右值，const &amp;作为形参编译可以通过 1void push_back(const int &amp;">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-0e4e4ed63e4b4c6875f350081bd9d979_720w.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-654fef698e4e54928c425c91dfd652f3_720w.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gippgnh88tj31de0d0786.jpg">
+<meta property="og:image" content="https://tva1.sinaimg.cn/large/007S8ZIlgy1gippgxspy8j310k0sagqn.jpg">
 <meta property="article:published_time" content="2021-03-18T08:26:40.000Z">
-<meta property="article:modified_time" content="2021-05-26T17:42:57.248Z">
+<meta property="article:modified_time" content="2021-11-30T07:57:33.492Z">
 <meta property="article:author" content="Michael Johnson">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-0e4e4ed63e4b4c6875f350081bd9d979_720w.jpg">
 
 <link rel="canonical" href="http://yoursite.com/2021/03/18/cs%E7%9F%A5%E8%AF%86%E5%82%A8%E5%A4%87/">
 
@@ -218,7 +223,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-27 01:42:57" itemprop="dateModified" datetime="2021-05-27T01:42:57+08:00">2021-05-27</time>
+                <time title="修改时间：2021-11-30 15:57:33" itemprop="dateModified" datetime="2021-11-30T15:57:33+08:00">2021-11-30</time>
               </span>
 
           
@@ -255,6 +260,45 @@
       
         <a id="more"></a>
 
+<h1 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h1><h2 id="作用域和生存周期"><a href="#作用域和生存周期" class="headerlink" title="作用域和生存周期"></a>作用域和生存周期</h2><p>空间：作用域</p>
+<p>时间：生存周期</p>
+<p>程序在运行期间变量有效存在的时间间隔。</p>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><p>区分不同库中的相同函数名，类，变量名等..</p>
+<h2 id="左值引用和右值引用"><a href="#左值引用和右值引用" class="headerlink" title="左值引用和右值引用"></a>左值引用和右值引用</h2><h3 id="左值引用"><a href="#左值引用" class="headerlink" title="左值引用"></a>左值引用</h3><p>在汇编层面和指针类似，传参/等号右侧只能是变量名</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;b = a; <span class="comment">// 常说的别名</span></span><br></pre></td></tr></table></figure>
+
+<p>左值引用传右值，<code>const &amp;</code>作为形参编译可以通过</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push_back</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp; val)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> &amp;&amp;ref_a = <span class="number">5</span>;</span><br><span class="line">ref_a = <span class="number">6</span>; </span><br><span class="line"> </span><br><span class="line"><span class="comment">// 等同于以下代码：</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> temp = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;&amp;ref_a = <span class="built_in">std</span>::<span class="built_in">move</span>(temp);</span><br><span class="line">ref_a = <span class="number">6</span>;</span><br></pre></td></tr></table></figure>
+
+<p>右值引用是凭借<code>std::move()</code>函数来实现的，将一个左值强制转换成右值。</p>
+<p>右值引用在<code>move()</code>的帮助下，可以传左值和右值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">5</span>; <span class="comment">// a是个左值</span></span><br><span class="line"><span class="keyword">int</span> &amp;ref_a_left = a; <span class="comment">// ref_a_left是个左值引用</span></span><br><span class="line"><span class="keyword">int</span> &amp;&amp;ref_a_right = <span class="built_in">std</span>::<span class="built_in">move</span>(a); <span class="comment">// ref_a_right是个右值引用</span></span><br><span class="line"></span><br><span class="line">change(<span class="built_in">std</span>::<span class="built_in">move</span>(a)); <span class="comment">// 编译通过</span></span><br><span class="line">change(<span class="built_in">std</span>::<span class="built_in">move</span>(ref_a_right)); <span class="comment">// 编译通过</span></span><br><span class="line">change(<span class="built_in">std</span>::<span class="built_in">move</span>(ref_a_left)); <span class="comment">// 编译通过</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="左值表达式和右值表达式"><a href="#左值表达式和右值表达式" class="headerlink" title="左值表达式和右值表达式"></a>左值表达式和右值表达式</h2><p>左值表达式：用到内存的表达式</p>
+<h2 id="STL"><a href="#STL" class="headerlink" title="STL"></a>STL</h2><h3 id="组态"><a href="#组态" class="headerlink" title="组态"></a>组态</h3><p>组态(configurations)：当编译器无法处理或者不支持一些情况时（不同编译器对C++语言的支持程度不同），进行一些配置和预定义。</p>
+<p>所有STL头文件都会直接或间接包括该组态文件，并以条件式写法，让预处理器根据各个常量决定取舍哪段程序代码。</p>
+<h2 id="编译时类型推断：auto和decltype"><a href="#编译时类型推断：auto和decltype" class="headerlink" title="编译时类型推断：auto和decltype"></a>编译时类型推断：auto和decltype</h2><p><a href="https://article.itxueyuan.com/bwoJQe" target="_blank" rel="noopener">https://article.itxueyuan.com/bwoJQe</a></p>
+<h1 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h1><h2 id="访问网页的过程"><a href="#访问网页的过程" class="headerlink" title="访问网页的过程"></a>访问网页的过程</h2><h3 id="用户请求"><a href="#用户请求" class="headerlink" title="用户请求"></a>用户请求</h3><p>HTTP请求方式：<strong>GET, POST</strong>, PUT, DELETE, HEAD, OPTIONS, TRACE</p>
+<ul>
+<li><p>GET：<code>https://www.baidu.com/s?wd=我要搜索的内容</code>，访问网页</p>
+</li>
+<li><p>POST：注册登录等信息提交场景</p>
+</li>
+</ul>
+<p>请求头（Request Header）：说明一些HTTP请求的的头部信息。</p>
+<ul>
+<li>Accept、Host、cookie、User-Agent</li>
+</ul>
+<h3 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h3><p>响应码：</p>
+<ul>
+<li>200表示请求成功</li>
+<li>404表示文件不存在/链接丢失/文件被删除/链接被删除等</li>
+<li>502表示网关错误</li>
+</ul>
+<p>响应头：数据的呈现形式，cookie的设置</p>
+<p>响应体：服务器返回的数据（HTML，JSON等）</p>
 <h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><h2 id="GDB调试器和GCC编译器"><a href="#GDB调试器和GCC编译器" class="headerlink" title="GDB调试器和GCC编译器"></a>GDB调试器和GCC编译器</h2><p><a href="https://www.jianshu.com/p/ffbc358150b9" target="_blank" rel="noopener">参考文档</a></p>
 <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h1><h2 id="ELF文件"><a href="#ELF文件" class="headerlink" title="ELF文件"></a>ELF文件</h2><p>ELF（Executable Linkable Format）可执行可链接的格式</p>
 <ul>
@@ -278,6 +322,11 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ld hello.o</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> warning: undefined reference to <span class="string">'puts'</span></span></span><br></pre></td></tr></table></figure>
 
 <p>报undefined是因为编译器做的优化，，</p>
+<h2 id="动态链接库和静态链接库"><a href="#动态链接库和静态链接库" class="headerlink" title="动态链接库和静态链接库"></a>动态链接库和静态链接库</h2><p>动态链接库和静态链接库的区别主要来自于<strong>链接阶段如何处理库</strong>。</p>
+<p>静态库在链接阶段会将汇编生成的目标文件<code>.o</code>与引用到的库一起链接打包到可执行文件中。所以静态库可以看作是多个<code>.o</code>文件打包形成的集合，其后缀为<code>.a</code>或<code>.lib</code>。</p>
+<p>静态库对函数的链接是放在编译时期完成的，程序运行的过程与函数库是独立的，移植方便。但是比较浪费空间和资源，因为可执行文件中涉及到程序用到的所有目标文件和函数库。除此以外，如果静态库更新了，程序必须要重新编译再发布给用户，这造成了很大的开销。</p>
+<p>动态库在程序运行期间不会被链接到目标代码中，而是在程序运行时才被载入执行。即不同程序如果需要调用相同的库，在内存里只需要有一份该共享库的实例。</p>
+<p>​    </p>
 <h2 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h2><p><a href="https://www.huaweicloud.com/articles/ca6dec6fa353536208f42b852adbeace.html" target="_blank" rel="noopener">https://www.huaweicloud.com/articles/ca6dec6fa353536208f42b852adbeace.html</a></p>
 <h2 id="C-C-内存管理"><a href="#C-C-内存管理" class="headerlink" title="C/C++内存管理"></a>C/C++内存管理</h2><p>内存分成五个区，分别是堆、栈、自由存储区、静态存储区和常量存储区。</p>
 <h2 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h2><p>当进行并行的任务作业操作时，<strong>线程的建立与销毁的开销是阻碍性能进步的关键</strong>，因此线程池，由此产生。使用多个线程，无限制循环等待队列，进行计算和操作。帮助快速降低和减少性能损耗。</p>
@@ -296,7 +345,25 @@
 <h3 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h3><p>多线程允许CPU进行毫米级切换进程，但不是真正意义的并行进行。</p>
 <p>只有多核芯片（相当于多CPU）可以真正意义的并行进行。</p>
 <p>而GPU是成千上万个微核构成的处理器，擅长处理大量并行的简单运算。</p>
-<h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h2><h3 id="机械硬盘和固态硬盘"><a href="#机械硬盘和固态硬盘" class="headerlink" title="机械硬盘和固态硬盘"></a>机械硬盘和固态硬盘</h3><p><a href="https://www.bilibili.com/video/BV1dE411k7tU" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1dE411k7tU</a></p>
+<h3 id="虚拟内存，地址和虚拟地址空间"><a href="#虚拟内存，地址和虚拟地址空间" class="headerlink" title="虚拟内存，地址和虚拟地址空间"></a>虚拟内存，地址和虚拟地址空间</h3><ul>
+<li>机器级程序将内存视为一个非常大的<strong>字节数组</strong>，成为<em>虚拟内存</em>。</li>
+<li>内存中的每一个字节都由一个唯一的数字来标识，称为<em>地址</em>。</li>
+<li>所有可能的地址的集合就成为<em>虚拟地址空间</em>。</li>
+</ul>
+<h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="处理器"><a href="#处理器" class="headerlink" title="处理器"></a>处理器</h2><h3 id="多核处理器和超线程"><a href="#多核处理器和超线程" class="headerlink" title="多核处理器和超线程"></a>多核处理器和超线程</h3><p>参考链接：<a href="https://zhuanlan.zhihu.com/p/52112475" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/52112475</a></p>
+<ul>
+<li>Processing Unit（运算处理单元）：PU</li>
+<li>Architectual State（架构状态单元）：AS</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/80/v2-0e4e4ed63e4b4c6875f350081bd9d979_720w.jpg" alt="img"></p>
+<p>多核：多个芯片，多线程被不同的核分别处理，CPU的利用率并未提高。</p>
+<p>超线程：单芯片，多个AS(服务员)，PU的数量未改变。</p>
+<ul>
+<li>优点：CPU的利用率大大提高，并行能力增强。</li>
+<li>缺点：单核性能下降5%-15%，主要因为AS增多产生的开销变大。电费消耗大。老系统支持较差。</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-654fef698e4e54928c425c91dfd652f3_720w.jpg" alt="img"></p>
+<h2 id="硬盘"><a href="#硬盘" class="headerlink" title="硬盘"></a>硬盘</h2><h3 id="机械硬盘和固态硬盘"><a href="#机械硬盘和固态硬盘" class="headerlink" title="机械硬盘和固态硬盘"></a>机械硬盘和固态硬盘</h3><p><a href="https://www.bilibili.com/video/BV1dE411k7tU" target="_blank" rel="noopener">https://www.bilibili.com/video/BV1dE411k7tU</a></p>
 <p>机械硬盘组成：马达，磁头，磁头臂</p>
 <p>读操作：根据磁性</p>
 <p>写操作：改变磁性</p>
@@ -308,6 +375,48 @@
 <p>广播：我发给所有</p>
 <h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p>网关（Gateway）就是一个网络连接到另一个网络的“关口”。</p>
 <p>如果网络A中的主机发现数据包的目的主机不在本地网络中，就把数据包转发给它自己的网关，再由网关转发给网络B的网关，网络B的网关再转发给网络B的某个主机。网络B向网络A转发数据包的过程也是如此。</p>
+<h2 id="SDN-Software-defined-networking"><a href="#SDN-Software-defined-networking" class="headerlink" title="SDN(Software-defined networking)"></a>SDN(Software-defined networking)</h2><h3 id="SDN架构"><a href="#SDN架构" class="headerlink" title="SDN架构"></a>SDN架构</h3><ul>
+<li>数据平面+控制平面</li>
+<li>数据交换机+（SDN控制器+SDN控制应用）</li>
+</ul>
+<h3 id="流表"><a href="#流表" class="headerlink" title="流表"></a>流表</h3><p>参考链接：<a href="https://blog.csdn.net/weixin_41738417/article/details/90442035" target="_blank" rel="noopener">https://blog.csdn.net/weixin_41738417/article/details/90442035</a></p>
+<p>流表可以被视作OpenFlow对网络设备的数据转发功能的一种抽象。</p>
+<p>它的表项包括：包头域、计数器和动作。</p>
+<ul>
+<li>包头域(模式)：用于对交换机接受到的数据包的包头内容进行匹配。</li>
+<li>优先权：多模式匹配后，优先采用哪个，用于消除歧义。</li>
+<li>计数器：用于统计和维护相关信息。</li>
+<li>动作：指示交换机在收到匹配的数据包后该如何对其进行处理。</li>
+</ul>
+<h3 id="北向接口和南向接口"><a href="#北向接口和南向接口" class="headerlink" title="北向接口和南向接口"></a>北向接口和南向接口</h3><p>北向接口：提供给厂家或运营商进行接入和管理的接口，即向上给控制应用提供的接口。</p>
+<p>南向接口：管理其他厂家或设备的接口，即向下给路由设备提供的接口。</p>
+<p>SDN控制器对网络的控制主要是通过南向接口协议实现。</p>
+<h2 id="有了IBGP为什么还要IGP"><a href="#有了IBGP为什么还要IGP" class="headerlink" title="有了IBGP为什么还要IGP"></a>有了IBGP为什么还要IGP</h2><p><a href="https://www.zhihu.com/question/411029743" target="_blank" rel="noopener">https://www.zhihu.com/question/411029743</a></p>
+<h1 id="并行编程"><a href="#并行编程" class="headerlink" title="并行编程"></a>并行编程</h1><h2 id="生产者消费者模型"><a href="#生产者消费者模型" class="headerlink" title="生产者消费者模型"></a>生产者消费者模型</h2><p><a href="https://segmentfault.com/a/1190000024444906" target="_blank" rel="noopener">参考博客</a></p>
+<p>Producer-Consumer problem是一个非常经典的多线程并发协作模型。</p>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gippgnh88tj31de0d0786.jpg" alt="img"></p>
+<p>该模型实现了生产者和消费者之间的解耦和异步。</p>
+<p>生产者和消费者之间的行为是相对独立的，除了以下四种情况：</p>
+<ul>
+<li>队列里的产品满了，生产者不能继续生产。</li>
+<li>队列里的产品从无到有之后，生产者需要通知消费者可以来消费。</li>
+<li>队列里的产品没了，消费者将无法继续消费。</li>
+<li>队列里的产品从满到不满，消费者需要通知生产者继续生产。</li>
+</ul>
+<h3 id="wait-notify"><a href="#wait-notify" class="headerlink" title="wait() / notify()"></a>wait() / notify()</h3><ul>
+<li>wait()让当前线程等待，直到有别的线程调用notify()将它唤醒，或者在设置的时钟到时后自动苏醒。</li>
+<li>notify()只能通知一个线程。若多个线程正在等待，则唤醒任意一个。</li>
+<li>notify_all()唤醒所有正在等待的线程。</li>
+</ul>
+<p><img src="https://tva1.sinaimg.cn/large/007S8ZIlgy1gippgxspy8j310k0sagqn.jpg" alt="img"></p>
+<p>在上图中可以发现，从等待队列状态中无法直接进入Q2，而是要先重新加入同步队列中，再次等待拿到锁后，才能进Q2，出了Q2后，锁就释放了。也就是说Q2中只有一个线程正在执行。</p>
+<h2 id="条件变量-Condition-Variable"><a href="#条件变量-Condition-Variable" class="headerlink" title="条件变量(Condition Variable)"></a>条件变量(Condition Variable)</h2><p>条件变量一般用于线程唤醒上：例如上面说到的生产者消费者模型的notify中，线程A等待某个条件被挂起，直到线程B设置了这个条件，并通知条件变量，从而唤醒线程A。</p>
+<h2 id="std-unique-lock"><a href="#std-unique-lock" class="headerlink" title="std::unique_lock"></a>std::unique_lock</h2><p>该对象以独占所有权的方式管理mutex对对象的上锁和解锁操作。</p>
+<p>在unique_lock对象的生命周期内，它锁管理的锁对象会一直保持着上锁的状态。而当其生命周期结束后，它所管理的锁对象会被解锁。</p>
+<h1 id="其他概念"><a href="#其他概念" class="headerlink" title="其他概念"></a>其他概念</h1><ul>
+<li>边缘计算</li>
+<li>并行计算</li>
+</ul>
 
     </div>
 
@@ -389,7 +498,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编"><span class="nav-number">1.</span> <span class="nav-text">汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB调试器和GCC编译器"><span class="nav-number">1.1.</span> <span class="nav-text">GDB调试器和GCC编译器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">2.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF文件"><span class="nav-number">2.1.</span> <span class="nav-text">ELF文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译和链接"><span class="nav-number">2.2.</span> <span class="nav-text">编译和链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步和异步"><span class="nav-number">2.3.</span> <span class="nav-text">同步和异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-内存管理"><span class="nav-number">2.4.</span> <span class="nav-text">C&#x2F;C++内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">2.5.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU"><span class="nav-number">2.6.</span> <span class="nav-text">CPU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三个重要寄存器"><span class="nav-number">2.6.1.</span> <span class="nav-text">三个重要寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统的两种态"><span class="nav-number">2.6.2.</span> <span class="nav-text">操作系统的两种态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程"><span class="nav-number">2.6.3.</span> <span class="nav-text">多线程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机组成原理"><span class="nav-number">3.</span> <span class="nav-text">计算机组成原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#硬盘"><span class="nav-number">3.1.</span> <span class="nav-text">硬盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#机械硬盘和固态硬盘"><span class="nav-number">3.1.1.</span> <span class="nav-text">机械硬盘和固态硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何固态硬盘有助于缓解电脑的卡顿"><span class="nav-number">3.1.2.</span> <span class="nav-text">为何固态硬盘有助于缓解电脑的卡顿</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络"><span class="nav-number">4.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单播，主播，广播"><span class="nav-number">4.1.</span> <span class="nav-text">单播，主播，广播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网关"><span class="nav-number">4.2.</span> <span class="nav-text">网关</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">1.</span> <span class="nav-text">C++</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域和生存周期"><span class="nav-number">1.1.</span> <span class="nav-text">作用域和生存周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名空间"><span class="nav-number">1.2.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#左值引用和右值引用"><span class="nav-number">1.3.</span> <span class="nav-text">左值引用和右值引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#左值引用"><span class="nav-number">1.3.1.</span> <span class="nav-text">左值引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#右值引用"><span class="nav-number">1.3.2.</span> <span class="nav-text">右值引用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#左值表达式和右值表达式"><span class="nav-number">1.4.</span> <span class="nav-text">左值表达式和右值表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL"><span class="nav-number">1.5.</span> <span class="nav-text">STL</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组态"><span class="nav-number">1.5.1.</span> <span class="nav-text">组态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译时类型推断：auto和decltype"><span class="nav-number">1.6.</span> <span class="nav-text">编译时类型推断：auto和decltype</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#爬虫"><span class="nav-number">2.</span> <span class="nav-text">爬虫</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#访问网页的过程"><span class="nav-number">2.1.</span> <span class="nav-text">访问网页的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户请求"><span class="nav-number">2.1.1.</span> <span class="nav-text">用户请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器响应"><span class="nav-number">2.1.2.</span> <span class="nav-text">服务器响应</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编"><span class="nav-number">3.</span> <span class="nav-text">汇编</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#GDB调试器和GCC编译器"><span class="nav-number">3.1.</span> <span class="nav-text">GDB调试器和GCC编译器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">4.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ELF文件"><span class="nav-number">4.1.</span> <span class="nav-text">ELF文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译和链接"><span class="nav-number">4.2.</span> <span class="nav-text">编译和链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态链接库和静态链接库"><span class="nav-number">4.3.</span> <span class="nav-text">动态链接库和静态链接库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步和异步"><span class="nav-number">4.4.</span> <span class="nav-text">同步和异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-C-内存管理"><span class="nav-number">4.5.</span> <span class="nav-text">C&#x2F;C++内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程池"><span class="nav-number">4.6.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CPU"><span class="nav-number">4.7.</span> <span class="nav-text">CPU</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三个重要寄存器"><span class="nav-number">4.7.1.</span> <span class="nav-text">三个重要寄存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#操作系统的两种态"><span class="nav-number">4.7.2.</span> <span class="nav-text">操作系统的两种态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程"><span class="nav-number">4.7.3.</span> <span class="nav-text">多线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟内存，地址和虚拟地址空间"><span class="nav-number">4.7.4.</span> <span class="nav-text">虚拟内存，地址和虚拟地址空间</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机组成原理"><span class="nav-number">5.</span> <span class="nav-text">计算机组成原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#处理器"><span class="nav-number">5.1.</span> <span class="nav-text">处理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多核处理器和超线程"><span class="nav-number">5.1.1.</span> <span class="nav-text">多核处理器和超线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#硬盘"><span class="nav-number">5.2.</span> <span class="nav-text">硬盘</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#机械硬盘和固态硬盘"><span class="nav-number">5.2.1.</span> <span class="nav-text">机械硬盘和固态硬盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为何固态硬盘有助于缓解电脑的卡顿"><span class="nav-number">5.2.2.</span> <span class="nav-text">为何固态硬盘有助于缓解电脑的卡顿</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#计算机网络"><span class="nav-number">6.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单播，主播，广播"><span class="nav-number">6.1.</span> <span class="nav-text">单播，主播，广播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网关"><span class="nav-number">6.2.</span> <span class="nav-text">网关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SDN-Software-defined-networking"><span class="nav-number">6.3.</span> <span class="nav-text">SDN(Software-defined networking)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SDN架构"><span class="nav-number">6.3.1.</span> <span class="nav-text">SDN架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流表"><span class="nav-number">6.3.2.</span> <span class="nav-text">流表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#北向接口和南向接口"><span class="nav-number">6.3.3.</span> <span class="nav-text">北向接口和南向接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有了IBGP为什么还要IGP"><span class="nav-number">6.4.</span> <span class="nav-text">有了IBGP为什么还要IGP</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#并行编程"><span class="nav-number">7.</span> <span class="nav-text">并行编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生产者消费者模型"><span class="nav-number">7.1.</span> <span class="nav-text">生产者消费者模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wait-notify"><span class="nav-number">7.1.1.</span> <span class="nav-text">wait() &#x2F; notify()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件变量-Condition-Variable"><span class="nav-number">7.2.</span> <span class="nav-text">条件变量(Condition Variable)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-unique-lock"><span class="nav-number">7.3.</span> <span class="nav-text">std::unique_lock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他概念"><span class="nav-number">8.</span> <span class="nav-text">其他概念</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
