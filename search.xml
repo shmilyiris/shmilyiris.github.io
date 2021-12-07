@@ -7535,7 +7535,77 @@ m[5] = 1;</code><br>时间复杂度：$O(n)$<br>空间复杂度：$O(n)$</p>
 <h2 id="df"><a href="#df" class="headerlink" title="df"></a>df</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">df -h &#x2F;etc # 将&#x2F;etc下可用的磁盘容量以易读的容量格式显示。</span><br></pre></td></tr></table></figure>
 
 <h2 id="du"><a href="#du" class="headerlink" title="du"></a>du</h2><p>使用方法同df</p>
-<h2 id="磁盘挂载与卸载"><a href="#磁盘挂载与卸载" class="headerlink" title="磁盘挂载与卸载"></a>磁盘挂载与卸载</h2><h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1>]]></content>
+<h2 id="磁盘挂载与卸载"><a href="#磁盘挂载与卸载" class="headerlink" title="磁盘挂载与卸载"></a>磁盘挂载与卸载</h2><h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h1 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h1><p>learn from AcWing..</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+<th>应用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[Ctrl] + [a], [“]</td>
+<td>将pane分成上下两个</td>
+<td>tmux</td>
+</tr>
+<tr>
+<td>[Ctrl] + [a], [%]</td>
+<td>将pane分成左右两个</td>
+<td>tmux</td>
+</tr>
+<tr>
+<td>[Ctrl] + [a], [z]</td>
+<td>将当前pane全屏 / 取消全屏</td>
+<td>tmux</td>
+</tr>
+<tr>
+<td>/word</td>
+<td>从当前光标向下找word</td>
+<td>vim</td>
+</tr>
+<tr>
+<td>?word</td>
+<td>从当前光标向上找word</td>
+<td>vim</td>
+</tr>
+<tr>
+<td>n, [Enter]</td>
+<td>光标向下移动n行</td>
+<td>vim</td>
+</tr>
+<tr>
+<td>git reset –hard HEAD^</td>
+<td>代码库向上回滚一次</td>
+<td>git</td>
+</tr>
+<tr>
+<td>git restore –staged xxx</td>
+<td>将暂存区文件从暂存区撤出</td>
+<td>git</td>
+</tr>
+<tr>
+<td>scp source destination</td>
+<td>将source文件从源路径移动到dest</td>
+<td>scp</td>
+</tr>
+<tr>
+<td>ag xxx</td>
+<td>搜索当前目录下所有文件中包含xxx的内容并显示</td>
+<td></td>
+</tr>
+<tr>
+<td>xargs</td>
+<td>将stdin中的数据按照空格分割成参数</td>
+<td></td>
+</tr>
+<tr>
+<td>find [path] -name ‘*.py’</td>
+<td>找某个目录下的py文件</td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
       <categories>
         <category>Linux</category>
       </categories>
